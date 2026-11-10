@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>Your account | Codex</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header><h2 class="Codex">Codex</h2><nav class="navigation" aria-label="Main navigation"><a href="index.html">Home</a></nav></header>
+    <main class="wrapper"><div class="form-box">
+        <h1>Your account</h1>
+        <p id="message" role="status" aria-live="polite">Checking your session…</p>
+        <section id="account" hidden>
+            <p>Welcome, <strong id="user-email"></strong></p>
+            <p>You are signed in.</p>
+            <button type="button" class="btn" id="logout">Sign out</button>
+        </section>
+        <noscript>Enable JavaScript to access your account.</noscript>
+    </div></main>
+    <script src="config.js"></script>
+    <script type="module" src="protected.js"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(deer.avif) no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+}
+
+.Codex{
+    color: #fff;
+    font-size: 2em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.navigation a{
+    position: relative;
+    font-size: 1.1em;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+    border-radius: 5px;
+}
+
+.navigation a::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #fff;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+}
+
+.navigation a:hover::after{
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: 0.5s;
+}
+
+.navigation .btnlogin-popup{
+    width: 130px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 500;
+    margin-left: 40px;
+    transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.navigation .btnlogin-popup:hover{
+    background: #fff;
+    color: #113a5a;
+}
+
+.wrapper{
+    position: relative;
+    width: 400px;
+    height: 400px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper .form-box {
+    width: 100%;
+    padding: 40px;
+}
+
+.form-box h2 {
+    font-size: 2em;
+    color: #162938;
+    text-align: center;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid #162938;
+    margin: 30px 0;
+}
+
+.input-box label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color:  #162938;
+    font-weight: 500;
+    pointer-events: none;
+} 
+
+.input-box input {
+    width: 100%;
+    height:100%;
+}
+
+[hidden] { display: none !important; }
+body { padding: 120px 20px 40px; }
+.wrapper { height: auto; min-height: 400px; max-width: 100%; background: rgba(255,255,255,.32); }
+.form-box h1 { font-size: 2em; color: #162938; text-align: center; }
+.input-box input { background: transparent; border: 0; padding: 18px 5px 0; color: #162938; font-size: 1em; }
+.input-box input:focus + label,
+.input-box input:not(:placeholder-shown) + label { top: 0; font-size: .85em; }
+.input-box label { transition: top .15s; }
+.btn { width: 100%; margin-top: 20px; padding: 12px; background: #162938; color: white; border: 0; border-radius: 6px; font: inherit; cursor: pointer; }
+.btn:not(:disabled):hover { background: #244b65; }
+.btn:disabled { opacity: .65; cursor: wait; }
+.text-button { border: 0; background: transparent; color: #162938; font: inherit; text-decoration: underline; cursor: pointer; padding: 5px 0; }
+.login-register { margin-top: 15px; text-align: center; }
+#message { margin-top: 16px; color: #162938; overflow-wrap: anywhere; }
+#message.error { color: #760d1a; font-weight: 700; }
+#password-help { font-size: .85em; color: #162938; }
+#account p { margin-top: 20px; overflow-wrap: anywhere; color: #162938; }
+:focus-visible { outline: 3px solid #113a5a; outline-offset: 4px; }
+@media (max-width: 650px) {
+    header { padding: 20px; }
+    .navigation a { margin-left: 12px; font-size: .9em; }
+    .navigation .btnlogin-popup { width: 70px; margin-left: 12px; }
+    .wrapper .form-box { padding: 30px 24px; }
+    .Codex { font-size: 1.4em; }
+}
+
+/* Let the longer signup form scroll naturally on short screens. */
+body { background-color: #162938; background-attachment: fixed; }
+header { position: absolute; }
+.navigation { display: flex; align-items: center; }
+.input-box { margin: 22px 0; }
+#message:empty { margin: 0; }
+.login-register .text-button { display: block; margin-inline: auto; }
+
+@media (max-width: 360px) {
+    header { padding-inline: 12px; }
+    .navigation a, .navigation .btnlogin-popup { margin-left: 8px; }
+}

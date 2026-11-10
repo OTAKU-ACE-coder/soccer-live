@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>Sign up | Codex</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h2 class="Codex">Codex</h2>
+        <nav class="navigation" aria-label="Main navigation">
+            <a href="index.html">Home</a><a href="protected.html">Account</a>
+            <button type="button" class="btnlogin-popup" data-mode="login">Login</button>
+        </nav>
+    </header>
+    <main class="wrapper"><div class="form-box">
+        <h1 id="form-title">Create an account</h1>
+        <p id="message" role="status" aria-live="polite"></p>
+        <form id="auth-form" novalidate aria-labelledby="form-title">
+            <div class="input-box" id="name-field">
+                <input id="full-name" name="fullName" autocomplete="name" required maxlength="100" placeholder=" ">
+                <label for="full-name">Full name</label>
+            </div>
+            <div class="input-box" id="email-field">
+                <input id="email" name="email" type="email" autocomplete="email" required placeholder=" ">
+                <label for="email">Email</label>
+            </div>
+            <div class="input-box" id="password-field">
+                <input id="password" name="password" type="password" autocomplete="new-password" minlength="8" aria-describedby="password-help" required placeholder=" ">
+                <label for="password">Password</label>
+            </div>
+            <div class="input-box" id="confirm-field">
+                <input id="confirm-password" name="confirmPassword" required type="password" autocomplete="new-password" placeholder=" ">
+                <label for="confirm-password">Confirm password</label>
+            </div>
+            <p id="password-help">Use at least 8 characters.</p>
+            <button type="submit" class="btn" id="submit-button" disabled>Sign up</button>
+            <div class="login-register" id="mode-links">
+                <button type="button" class="text-button" data-mode="reset" data-show-in="login" hidden>Forgot password?</button>
+                <button type="button" class="text-button" data-mode="register" data-show-in="login" hidden>Create an account</button>
+                <button type="button" class="text-button" data-mode="login" data-show-in="register reset">Already have an account? Log in</button>
+            </div>
+        </form>
+        <noscript>Enable JavaScript to create an account.</noscript>
+    </div></main>
+    <script src="config.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
