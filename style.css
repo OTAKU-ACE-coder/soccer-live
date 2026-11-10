@@ -173,3 +173,7 @@ header { position: absolute; }
     header { padding-inline: 12px; }
     .navigation a, .navigation .btnlogin-popup { margin-left: 8px; }
 }
+
+.preview-page .form-box > p { margin-top: 12px; color: #162938; text-align: center; }
+.preview-links { display: grid; gap: 12px; margin-top: 24px; }
+.preview-links .btn { display: block; margin: 0; text-align: center; text-decoration: none; }

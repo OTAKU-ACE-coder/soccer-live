@@ -2,6 +2,19 @@
 
 A static HTML/CSS/JavaScript site using Supabase Auth. The deer background, glass panel, typography and colors are retained. No build step is required.
 
+## Live previews
+
+- [Preview directory](https://otaku-ace-coder.github.io/web-login-page/preview.html)
+- [Sign up](https://otaku-ace-coder.github.io/web-login-page/)
+- [Log in](https://otaku-ace-coder.github.io/web-login-page/index.html?view=login)
+- [Reset password](https://otaku-ace-coder.github.io/web-login-page/index.html?view=reset)
+
+The previews use the live forms. Sign-up and password reset can send emails. The account page opens after sign-in.
+
+## Run locally
+
+Serve the project folder over HTTP and open `http://localhost:8000/preview.html`. From the project folder, run `python -m http.server 8000`. For the local confirmation and reset links, allow `http://localhost:8000/index.html` in Supabase.
+
 ## Supabase setup
 
 1. Create a Supabase project. In its API settings, copy the project URL and **publishable** key (`sb_publishable_…`) into `config.js`. A legacy **anon** key also works. These values are public. Never paste a secret key (`sb_secret_…`), `service_role` key, database password, or SMTP credentials into this repository or frontend. Runtime key checks cannot make an already published secret safe; rotate any exposed secret immediately.

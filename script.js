@@ -89,7 +89,8 @@ form.addEventListener('submit', async event => {
         submit.disabled = false;
     }
 });
-setMode('register');
+const requestedMode = new URLSearchParams(location.search).get('view');
+setMode(['login', 'reset'].includes(requestedMode) ? requestedMode : 'register');
 try {
     const callback = new URLSearchParams(window.location.hash.slice(1));
     const callbackError = callback.get('error_description') || new URLSearchParams(location.search).get('error_description');
