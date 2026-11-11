@@ -1,10 +1,10 @@
-# Touchline
+# Final Whistle
 
-Touchline is a football hub with scores, fixtures, club follows, and a personalized news feed. The existing account pages use Supabase Auth.
+Final Whistle is a football hub with scores, fixtures, club follows, and a personalized news feed. The existing account pages use Supabase Auth.
 
 ## Football hub
 
-[Open Touchline](https://otaku-ace-coder.github.io/web-login-page/football.html)
+[Open Final Whistle](https://otaku-ace-coder.github.io/web-login-page/football.html)
 
 - Follow clubs and search for teams or topics. The For you feed ranks BBC Sport headlines based on your follows and recent searches, which are saved in this browser.
 - Bundesliga and 2. Bundesliga scores and fixtures come from [OpenLigaDB](https://www.openligadb.de/) and are checked once a minute. The in-progress filter uses kickoff time and the provider's completion flag. Results can be delayed.

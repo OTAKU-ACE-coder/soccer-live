@@ -1,3 +1,4 @@
+const crestIds = await fetch('club-crests.json').then(response => response.json()).catch(() => ({}));
 const byId = id => document.getElementById(id);
 const collator = new Intl.Collator();
 const kickoffFormat = new Intl.DateTimeFormat(undefined, { weekday: 'short', hour: 'numeric', minute: '2-digit' });
@@ -61,7 +62,14 @@ function renderClubs(focusName) {
     for (const club of visible) {
         const row = element('div', undefined, 'club');
         const initials = club.name.split(/\s+/).filter(word => /^[A-Za-z]/.test(word)).slice(0, 2).map(word => word[0]).join('');
-        const crest = element('span', initials, 'crest');
+        const crestUrl = crestIds[club.name] ? 'assets/clubs/' + crestIds[club.name] + '.png' : club.crest;
+        const crest = crestUrl ? element('img', undefined, 'crest') : element('span', initials, 'crest');
+        if (crestUrl) {
+            crest.src = crestUrl;
+            crest.alt = '';
+            crest.loading = 'lazy';
+            crest.addEventListener('error', () => crest.replaceWith(element('span', initials, 'crest')), {once:true});
+        }
         crest.setAttribute('aria-hidden', 'true');
         const followed = following.includes(club.name);
         const button = element('button', followed ? 'Following' : 'Follow');
@@ -132,9 +140,22 @@ function renderScores() {
             current(match) ? (score ? 'Kickoff passed · latest reported score' : 'Kickoff passed · result pending') :
             kickoffFormat.format(new Date(match.matchDateTimeUTC));
         const row = element('div', undefined, 'match');
-        row.append(element('span', match.team1.teamName),
+        const teamLabel = team => {
+            const label = element('span', undefined, 'match-team');
+            if (team.teamIconUrl) {
+                const image = element('img');
+                image.src = team.teamIconUrl;
+                image.alt = '';
+                image.loading = 'lazy';
+                image.addEventListener('error', () => image.remove(), {once:true});
+                label.append(image);
+            }
+            label.append(element('span', team.teamName));
+            return label;
+        };
+        row.append(teamLabel(match.team1),
             element('strong', score ? score.join(' – ') : '–', 'score'),
-            element('span', match.team2.teamName), element('span', status, 'match-time'));
+            teamLabel(match.team2), element('span', status, 'match-time'));
         list.append(row);
     }
     if (updated && !visible.length) list.append(element('p', 'No matches for this selection.', 'muted'));
@@ -158,7 +179,7 @@ async function refreshScores() {
         updated = new Date();
         for (const match of matches) {
             for (const team of [match.team1, match.team2]) {
-                if (!clubs.has(team.teamName)) clubs.set(team.teamName, {name:team.teamName, aliases:[team.shortName].filter(Boolean)});
+                if (!clubs.has(team.teamName)) clubs.set(team.teamName, {name:team.teamName, aliases:[team.shortName].filter(Boolean), crest:team.teamIconUrl});
             }
         }
         status.textContent = 'Checked at ' + updated.toLocaleTimeString([], {hour:'numeric', minute:'2-digit'}) + ' · Refreshes every minute';
