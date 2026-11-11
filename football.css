@@ -108,3 +108,15 @@ footer { border-top:1px solid var(--line); margin-top:28px; font-size:.85rem; }
 @media(max-width:1050px) { .top { width:180px; padding:24px 14px; } .brand { font-size:1.4rem; } main,footer { margin-left:200px; margin-right:20px; } .dashboard { grid-template-columns:1fr; } .club-list { grid-template-columns:repeat(2,minmax(0,1fr)); max-height:320px; } }
 @media(max-width:640px) { .top { inset:auto 0 0; width:100%; min-height:0; height:68px; padding:8px 14px; border-right:0; border-top:1px solid var(--line); flex-direction:row; align-items:center; } .top .brand { display:none; } .top nav { display:flex; margin:0; flex:1; justify-content:space-around; gap:4px; } .top nav a { background:none; padding:10px; font-size:.85rem; } .account { margin:0; font-size:.8rem; } main,footer { margin-inline:14px; width:auto; } main { padding-top:14px; } footer { padding-bottom:95px; } .hero { padding:24px; min-height:0; } .pitch { opacity:.3; width:80%; right:-20%; } h1 { font-size:3.9rem; } .club-list { grid-template-columns:1fr; } .dashboard section { padding:18px; } .match-team { flex-direction:column; text-align:center; font-size:.8rem; } .match-team:last-of-type { flex-direction:column; text-align:center; } .match .score { padding:6px 9px; } }
 @media(prefers-reduced-motion:reduce) { .story { transition:none; } }
+
+#standings { grid-column:1/-1; }
+.table-scroll { overflow-x:auto; }
+table { border-collapse:collapse; width:100%; font-size:.88rem; }
+th,td { padding:13px 12px; text-align:right; border-bottom:1px solid var(--line); white-space:nowrap; }
+th { color:var(--muted); font-weight:500; }
+th:nth-child(2),td:nth-child(2) { text-align:left; width:55%; }
+td:last-child { color:var(--lime); font-weight:800; }
+tbody tr:hover { background:#253027; }
+.match-detail { grid-column:1/-1; text-align:left; border-top:1px solid var(--line); padding-top:8px; font-size:.8rem; color:var(--muted); }
+.match-detail summary { cursor:pointer; color:var(--lime); }
+@media(max-width:640px) { .top nav a { padding:8px 6px; } th,td { padding:10px 8px; } }

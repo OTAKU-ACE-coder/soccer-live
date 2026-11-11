@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 *{
@@ -177,3 +178,25 @@ header { position: absolute; }
 .preview-page .form-box > p { margin-top: 12px; color: #162938; text-align: center; }
 .preview-links { display: grid; gap: 12px; margin-top: 24px; }
 .preview-links .btn { display: block; margin: 0; text-align: center; text-decoration: none; }
+
+/* Soccer Live account screens */
+
+* { font-family:'DM Sans',sans-serif; }
+body { background:radial-gradient(ellipse at 80% 25%,#294531 0,transparent 50%),#0c1017; color:#f3f6fc; padding-top:110px; }
+header { padding:24px max(24px,6vw); }
+.Codex { font-family:'Barlow Condensed',sans-serif; text-transform:none; letter-spacing:0; color:#99ee5f; }
+.navigation a,.navigation .btnlogin-popup { color:#cbd6e6; font-size:.9rem; }
+.navigation .btnlogin-popup { border:1px solid #34443a; border-radius:10px; }
+.wrapper { width:460px; background:#151b25; border:1px solid #34453b; box-shadow:0 24px 80px #0006; border-radius:20px; }
+.form-box h1 { font-family:'Barlow Condensed',sans-serif; color:#f3f6fc; font-size:2.7rem; text-align:left; }
+.input-box { border:1px solid #384355; border-radius:10px; height:58px; margin:26px 0; }
+.input-box input { color:#f3f6fc; padding:18px 12px 4px; border-radius:10px; }
+.input-box label { left:12px; color:#aebbd0; }
+.input-box input:focus + label,.input-box input:not(:placeholder-shown) + label { top:0; background:#151b25; padding:0 5px; }
+.btn { background:#99ee5f; color:#13200f; font-weight:700; border-radius:10px; }
+.btn:not(:disabled):hover { background:#b5fa86; }
+.text-button,#password-help,#message,#account p { color:#b9c7d7; }
+#message.error { color:#ffadb2; }
+:focus-visible { outline-color:#99ee5f; }
+@media(max-width:650px) { header { padding:20px; } .navigation .btnlogin-popup { width:64px; } .Codex { font-size:1.6rem; } .navigation a { margin-left:8px; } }
+@media(max-width:380px) { header { flex-wrap:wrap; gap:12px; } body { padding-top:140px; } }

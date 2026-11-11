@@ -156,6 +156,14 @@ function renderScores() {
         row.append(teamLabel(match.team1),
             element('strong', score ? score.join(' – ') : '–', 'score'),
             teamLabel(match.team2), element('span', status, 'match-time'));
+        const detail = element('details', undefined, 'match-detail');
+        const summary = element('summary', 'Match details');
+        detail.append(summary);
+        const goals = [...match.goals].sort((a,b) => a.matchMinute - b.matchMinute);
+        for (const goal of goals) detail.append(element('p', goal.matchMinute + '′ · ' + (goal.goalGetterName || 'Goal') + ' · ' + goal.scoreTeam1 + ' – ' + goal.scoreTeam2));
+        if (!goals.length) detail.append(element('p', 'No goal events reported.'));
+        if (match.location?.locationStadium) detail.append(element('p', match.location.locationStadium));
+        row.append(detail);
         list.append(row);
     }
     if (updated && !visible.length) list.append(element('p', 'No matches for this selection.', 'muted'));
@@ -221,6 +229,7 @@ byId('league').addEventListener('change', () => {
     matches = [];
     renderScores();
     refreshScores();
+    loadStandings();
 });
 byId('refresh').addEventListener('click', refreshScores);
 
@@ -240,3 +249,40 @@ renderClubs();
 loadNews();
 refreshScores();
 setInterval(() => { if (!document.hidden && !byId('refresh').disabled) refreshScores(); }, 60000);
+
+let standingsRequest;
+async function loadStandings() {
+    standingsRequest?.abort();
+    const request = new AbortController();
+    standingsRequest = request;
+    const league = byId('league').value;
+    const today = new Date();
+    const season = today.getMonth() < 6 ? today.getFullYear() - 1 : today.getFullYear();
+    byId('table-body').replaceChildren();
+    byId('table-status').textContent = 'Loading standings…';
+    try {
+        const response = await fetch('https://api.openligadb.de/getbltable/' + league + '/' + season, {
+            signal: AbortSignal.any([request.signal, AbortSignal.timeout(8000)])
+        });
+        if (!response.ok) throw new Error('Unavailable');
+        const teams = await response.json();
+        if (request.signal.aborted) return;
+        teams.forEach((team, index) => {
+            const row = element('tr');
+            for (const value of [index + 1, team.teamName, team.matches, team.won, team.draw, team.lost, team.goalDiff, team.points]) {
+                row.append(element('td', String(value)));
+            }
+            byId('table-body').append(row);
+        });
+        byId('table-status').textContent = teams.length ? byId('league').selectedOptions[0].textContent + ' · ' + season + '/' + (season + 1) : 'Standings are not available for this season.';
+    } catch {
+        if (!request.signal.aborted) byId('table-status').textContent = 'Standings unavailable. Use Refresh to try again.';
+    }
+}
+byId('refresh').addEventListener('click', loadStandings);
+byId('clear-search').addEventListener('click', () => {
+    byId('search').value = '';
+    byId('search-form').requestSubmit();
+    byId('search').focus();
+});
+loadStandings();

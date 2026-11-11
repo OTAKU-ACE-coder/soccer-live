@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#101914">
-    <title>Final Whistle | Football scores and news</title>
-    <link rel="stylesheet" href="football.css?v=3">
-    <script type="module" src="football.js?v=3"></script>
+    <title>Soccer Live | Football scores and news</title>
+    <link rel="stylesheet" href="football.css?v=4">
+    <script type="module" src="football.js?v=4"></script>
 </head>
 <body>
     <header class="top">
-        <a class="brand" href="football.html" aria-label="Final Whistle home"><span class="mark" aria-hidden="true">⚽</span> Final Whistle</a>
+        <a class="brand" href="football.html" aria-label="Soccer Live home"><span class="mark" aria-hidden="true">⚽</span> Soccer Live</a>
         <nav aria-label="Main navigation">
-            <a href="#matches">Scores</a><a href="#news">News</a><a href="#clubs">Clubs</a>
+            <a href="#matches">Scores</a><a href="#standings">Table</a><a href="#news">News</a><a href="#clubs">Clubs</a>
         </nav>
         <a class="account" href="index.html?view=login">Log in</a>
     </header>
@@ -25,7 +25,7 @@
                 <form id="search-form" role="search">
                     <label class="sr-only" for="search">Search clubs or football news</label>
                     <input type="search" id="search" maxlength="80" placeholder="Search clubs or football news">
-                    <button type="submit">Search</button>
+                    <button type="submit">Search</button><button type="button" id="clear-search" aria-label="Clear search">×</button>
                 </form>
                 <p id="search-status" role="status"></p>
             </div>
@@ -52,6 +52,11 @@
                 <p class="muted">Following a club gives its stories priority in your feed.</p>
                 <div id="club-list" class="club-list"></div>
             </section>
+            <section id="standings" aria-labelledby="table-title">
+                <div class="section-head"><div><p class="eyebrow">LEAGUE TABLE</p><h2 id="table-title">Standings</h2></div></div>
+                <p id="table-status" class="muted" role="status">Loading standings…</p>
+                <div class="table-scroll"><table><thead><tr><th scope="col">#</th><th scope="col">Club</th><th scope="col">P</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th><th scope="col">GD</th><th scope="col">Pts</th></tr></thead><tbody id="table-body"></tbody></table></div>
+            </section>
             <section id="news" aria-labelledby="news-title">
                 <div class="section-head">
                     <div><p class="eyebrow">THE FOOTBALL FEED</p><h2 id="news-title">Football news</h2></div>
@@ -63,6 +68,6 @@
             </section>
         </div>
     </main>
-    <footer><span>Final Whistle</span><a href="index.html">Create an account</a><a href="protected.html">My account</a></footer>
+    <footer><span>Soccer Live</span><a href="index.html">Create an account</a><a href="protected.html">My account</a></footer>
 </body>
 </html>
