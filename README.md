@@ -1,11 +1,19 @@
-# Codex authentication
+# Touchline
 
-A static HTML/CSS/JavaScript site using Supabase Auth. The deer background, glass panel, typography and colors are retained. No build step is required.
+Touchline is a football hub with scores, fixtures, club follows, and a personalized news feed. The existing account pages use Supabase Auth.
 
-## Live previews
+## Football hub
+
+[Open Touchline](https://otaku-ace-coder.github.io/web-login-page/football.html)
+
+- Follow clubs and search for teams or topics. The For you feed ranks BBC Sport headlines based on your follows and recent searches, which are saved in this browser.
+- Bundesliga and 2. Bundesliga scores and fixtures come from [OpenLigaDB](https://www.openligadb.de/) and are checked once a minute. The in-progress filter uses kickoff time and the provider's completion flag. Results can be delayed.
+- The news panel reads a snapshot of the [BBC Sport football RSS feed](https://www.bbc.co.uk/sport/articles/cqllxj2n4kyo). Open BBC Sport for breaking news.
+
+## Account previews
 
 - [Preview directory](https://otaku-ace-coder.github.io/web-login-page/preview.html)
-- [Sign up](https://otaku-ace-coder.github.io/web-login-page/)
+- [Sign up](https://otaku-ace-coder.github.io/web-login-page/index.html)
 - [Log in](https://otaku-ace-coder.github.io/web-login-page/index.html?view=login)
 - [Reset password](https://otaku-ace-coder.github.io/web-login-page/index.html?view=reset)
 

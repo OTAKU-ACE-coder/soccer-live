@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101914">
+    <title>Touchline | Football scores and news</title>
+    <link rel="stylesheet" href="football.css">
+    <script type="module" src="football.js"></script>
+</head>
+<body>
+    <header class="top">
+        <a class="brand" href="football.html" aria-label="Touchline home"><span class="mark" aria-hidden="true">◈</span> Touchline</a>
+        <nav aria-label="Main navigation">
+            <a href="#matches">Scores</a><a href="#news">News</a><a href="#clubs">Clubs</a>
+        </nav>
+        <a class="account" href="index.html?view=login">Log in</a>
+    </header>
+    <main>
+        <section class="hero" aria-labelledby="headline">
+            <div class="hero-content">
+                <p class="eyebrow"><span aria-hidden="true"></span> FOOTBALL HUB</p>
+                <h1 id="headline">Your football<br><em>matchday.</em></h1>
+                <p>Follow your clubs, check the scores, and catch up on the stories you care about.</p>
+                <form id="search-form" role="search">
+                    <label class="sr-only" for="search">Search clubs or football news</label>
+                    <input type="search" id="search" maxlength="80" placeholder="Search clubs or football news">
+                    <button type="submit">Search</button>
+                </form>
+                <p id="search-status" role="status"></p>
+            </div>
+            <div class="pitch" aria-hidden="true"><div class="pitch-lines"><i></i></div></div>
+        </section>
+        <div class="dashboard">
+            <section id="matches" aria-labelledby="matches-title">
+                <div class="section-head">
+                    <div><p class="eyebrow">MATCH CENTRE</p><h2 id="matches-title">Scores & fixtures</h2></div>
+                    <button type="button" class="quiet" id="refresh">Refresh</button>
+                </div>
+                <div class="controls">
+                    <label class="sr-only" for="league">Competition</label>
+                    <select id="league"><option value="bl1">Bundesliga</option><option value="bl2">2. Bundesliga</option></select>
+                    <label class="sr-only" for="period">Match filter</label>
+                    <select id="period"><option value="matchday">Current matchday</option><option value="today">Today</option><option value="progress">In progress</option><option value="following">Following</option></select>
+                </div>
+                <p class="muted" id="score-status" role="status">Loading scores…</p>
+                <div id="scores" class="scores"></div>
+                <a class="source" href="https://www.openligadb.de/">Scores by OpenLigaDB</a>
+            </section>
+            <section id="clubs" aria-labelledby="clubs-title">
+                <div class="section-head"><div><p class="eyebrow">YOUR TEAMS</p><h2 id="clubs-title">Follow clubs</h2></div><span class="count" id="follow-count"></span></div>
+                <p class="muted">Following a club gives its stories priority in your feed.</p>
+                <div id="club-list" class="club-list"></div>
+            </section>
+            <section id="news" aria-labelledby="news-title">
+                <div class="section-head">
+                    <div><p class="eyebrow">THE FOOTBALL FEED</p><h2 id="news-title">Football news</h2></div>
+                    <div class="tabs" aria-label="News sort"><button type="button" data-sort="personal" aria-pressed="true">For you</button><button type="button" data-sort="latest" aria-pressed="false">Latest</button></div>
+                </div>
+                <p id="news-status" class="muted" role="status"></p>
+                <div id="stories" class="stories"></div>
+                <a class="source" href="https://www.bbc.com/sport/football">More football news from BBC Sport ↗</a>
+            </section>
+        </div>
+    </main>
+    <footer><span>Touchline</span><a href="index.html">Create an account</a><a href="protected.html">My account</a></footer>
+</body>
+</html>

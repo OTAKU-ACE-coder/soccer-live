@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
+    <script>
+        if (location.pathname.endsWith('/') && !location.search && !location.hash) {
+            location.replace('football.html');
+        }
+    </script>
     <title>Sign up | Codex</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,7 +16,7 @@
     <header>
         <h2 class="Codex">Codex</h2>
         <nav class="navigation" aria-label="Main navigation">
-            <a href="index.html">Home</a><a href="protected.html">Account</a>
+            <a href="football.html">Football</a><a href="protected.html">Account</a>
             <button type="button" class="btnlogin-popup" data-mode="login">Login</button>
         </nav>
     </header>
