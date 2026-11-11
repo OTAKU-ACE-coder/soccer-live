@@ -92,7 +92,7 @@ function relevance(story) {
 function renderNews() {
     const list = byId('stories');
     const visible = news.filter(story => !search || includes(story.title, search) ||
-        [...clubs.values()].some(club => club.aliases.some(alias => includes(alias, search)) && clubMatches(club, story.title)));
+        [...clubs.values()].some(club => [club.name, ...club.aliases].some(name => includes(name, search)) && clubMatches(club, story.title)));
     visible.sort((a, b) => (sort === 'personal' ? relevance(b) - relevance(a) : 0) || Date.parse(b.published) - Date.parse(a.published));
     list.replaceChildren();
     for (const story of visible.slice(0, 18)) {
@@ -207,7 +207,8 @@ async function loadNews() {
     try {
         const response = await fetch('football-news.json');
         if (!response.ok) throw new Error('Headline snapshot unavailable');
-        news = await response.json();
+        const stories = await response.json();
+        news = [...new Map(stories.map(story => [story.url, story])).values()];
     } catch {
         news = [];
     }
