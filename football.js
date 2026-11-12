@@ -839,7 +839,7 @@ function setRoute() {
   $("page-title").textContent = titles[view] || "Soccer Live newsroom";
   $("welcome").hidden = view !== "home" || Boolean(query);
   $("right-rail").hidden = view !== "home" || Boolean(query);
-  for (const section of ["matches", "news", "standings", "clubs", "saved"]) {
+  for (const section of routes.filter(route => route !== "home")) {
     $(section).hidden = requestedStory ? true : query
       ? ["saved", "alerts"].includes(section) && view !== section
       : view === "home"
