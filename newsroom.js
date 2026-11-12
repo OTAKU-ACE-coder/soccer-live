@@ -38,7 +38,23 @@ const guides = [
   }
 ];
 
-export const editorialStories = guides;
+const awards = {
+  id: "ballon-dor-2026-kane-putellas",
+  title: "Harry Kane and Alexia Putellas win the 2026 Ballon d’Or",
+  category: "Ballon d’Or",
+  topic: "ballon-dor",
+  published: "2026-10-26T22:00:00Z",
+  summary: "The 70th edition crowned the England forward and the Spain midfielder at the London Palladium.",
+  teams: [],
+  paragraphs: [
+    "Harry Kane took the men’s award and Alexia Putellas took the women’s award at the London ceremony on 26 October.",
+    "Kane also collected the Gerd Müller Trophy for men’s Striker of the Year. Putellas won the domestic quadruple and the UEFA Women’s Champions League with Barcelona in 2025–26 before moving to London City Lionesses in July.",
+    "It was the first Ballon d’Or ceremony in London. The location marked 70 years since England’s Stanley Matthews won the inaugural award in 1956."
+  ],
+  credit: "Results and ceremony details confirmed by Ballon d’Or and UEFA."
+};
+
+export const editorialStories = [awards, ...guides];
 
 export function buildReports(events, league) {
   const reports = new Map();
@@ -85,7 +101,7 @@ export function buildReports(events, league) {
     }
     const team = competitor => ({ id: String(competitor.team.id), name: competitor.team.displayName, logo: competitor.team.logo, abbreviation: competitor.team.abbreviation });
     reports.set(id, {
-      id, title: homeName + " " + score + " " + awayName, category: league.name + " · Match report",
+      id, leagueId: league.id, title: homeName + " " + score + " " + awayName, category: league.name + " · Match report",
       published: event.date, score, summary: result, paragraphs, teams: [team(home), team(away)]
     });
   }

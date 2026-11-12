@@ -1,4 +1,6 @@
-import { buildReports, editorialStories } from "./newsroom.js?v=6";
+import { buildReports, editorialStories } from "./newsroom.js?v=7";
+
+import { collectAlerts, followsInterest, readAlertSettings } from "./news-alerts.js";
 
 const $ = (id) => document.getElementById(id);
 const API = "https://site.api.espn.com/apis/site/v2/sports/soccer/";
@@ -18,7 +20,7 @@ const names = {
   Internazionale: ["Inter Milan"],
   "Bayern Munich": ["FC Bayern München", "Bayern München"],
 };
-const routes = ["home", "matches", "news", "standings", "clubs", "saved"];
+const routes = ["home", "matches", "news", "standings", "clubs", "saved", "alerts"];
 const titles = {
   home: "Your football, all in one place.",
   matches: "Every match. Every moment.",
@@ -26,6 +28,7 @@ const titles = {
   standings: "The race for the top.",
   clubs: "Follow the badge.",
   saved: "Your football reading list.",
+  alerts: "Your football notifications.",
 };
 const preferences = readPreferences();
 let catalog = [],
@@ -43,6 +46,8 @@ let generation = 0,
   newsLimit = 8;
 let errors = {};
 let requestedStory = "";
+const reportFeeds = new Map();
+let checkingNews = false;
 
 function node(tag, text, className) {
   const result = document.createElement(tag);
@@ -77,10 +82,11 @@ function readPreferences() {
             .filter((v) => v && typeof v.title === "string" && typeof v.id === "string" && Array.isArray(v.paragraphs))
             .slice(0, 100)
         : [],
+      alerts: readAlertSettings(value.alerts),
       league: typeof value.league === "string" ? value.league : "eng.1",
     };
   } catch {
-    return { following: [], searches: [], saved: [], league: "eng.1" };
+    return { following: [], searches: [], saved: [], league: "eng.1", alerts: readAlertSettings() };
   }
 }
 function toast(message) {
@@ -376,7 +382,7 @@ function matchRow(event) {
     );
     teamList.append(label);
   }
-  row.append(teamList, node("span", "›", "match-arrow"));
+  row.append(teamList, materialIcon("arrow_forward"));
   row.addEventListener("click", () => openMatch(event));
   return row;
 }
@@ -551,7 +557,7 @@ function relevance(story) {
         teamMatches(team, story.title),
     ).length;
   return (
-    followed * 12 +
+    followed * 12 + (followsInterest(story, preferences.alerts.interests) ? 8 : 0) +
     preferences.searches.reduce(
       (score, term, index) =>
         score + (contains(story.title, term) ? Math.max(1, 5 - index) : 0),
@@ -593,7 +599,8 @@ function storyLink(story, text, className) {
 
 function saveButton(story) {
   const active = preferences.saved.some((item) => item.id === story.id);
-  const button = node("button", active ? "★ Saved" : "☆ Save", "save-button");
+  const button = node("button", undefined, "save-button");
+  button.append(materialIcon("bookmark"), node("span", active ? "Saved" : "Save"));
   button.type = "button";
   button.dataset.story = story.id;
   button.setAttribute("aria-pressed", String(active));
@@ -640,13 +647,13 @@ function storyCard(story, featured = false) {
 }
 
 function renderNews() {
-  const visible = stories.filter(storyMatches).sort((a, b) =>
+  const visible = stories.filter(storyMatches).filter(storyInScope).sort((a, b) =>
     (sort === "personal" ? relevance(b) - relevance(a) : 0) ||
     (Date.parse(b.published) || 0) - (Date.parse(a.published) || 0));
   const desk = $("stories");
   desk.replaceChildren();
   if (!visible.length) {
-    desk.append(empty("No articles found", "Clear your search to see all stories."));
+    desk.append(empty("No articles found", "Try another coverage filter or clear your search."));
   } else {
     const lead = storyCard(visible[0], true);
     const rail = node("aside", undefined, "news-latest");
@@ -670,7 +677,7 @@ function renderNews() {
 function renderArticle() {
   const article = $("article");
   article.replaceChildren();
-  const story = [...stories, ...editorialStories, ...preferences.saved].find(item => item.id === requestedStory);
+  const story = [...stories, ...editorialStories, ...preferences.saved, ...preferences.alerts.inbox.map(item => item.story)].find(item => item.id === requestedStory);
   const back = node("a", "← Back to newsroom", "article-back");
   back.href = "#news";
   article.append(back);
@@ -681,11 +688,12 @@ function renderArticle() {
   const heading = node("header", undefined, "article-heading");
   heading.append(storyMeta(story), node("h1", story.title), node("p", story.summary, "article-deck"));
   const byline = node("div", undefined, "article-byline");
-  byline.append(node("span", story.published ? "Soccer Live Match Desk" : "Soccer Live Explainers"), saveButton(story));
+  byline.append(node("span", story.leagueId ? "Soccer Live Match Desk" : "Soccer Live Editorial"), saveButton(story));
   heading.append(byline);
   const body = node("div", undefined, "article-body");
   for (const paragraph of story.paragraphs) body.append(node("p", paragraph));
-  if (story.published) body.append(node("p", "Match report generated from recorded scores and available match statistics.", "article-note"));
+  if (story.leagueId) body.append(node("p", "Match report generated from recorded scores and available match statistics.", "article-note"));
+  if (story.credit) body.append(node("p", story.credit, "article-note"));
   article.append(heading, storyImage(story), body);
 }
 function renderSaved() {
@@ -833,7 +841,7 @@ function setRoute() {
   $("right-rail").hidden = view !== "home" || Boolean(query);
   for (const section of ["matches", "news", "standings", "clubs", "saved"]) {
     $(section).hidden = requestedStory ? true : query
-      ? section === "saved" && view !== "saved"
+      ? ["saved", "alerts"].includes(section) && view !== section
       : view === "home"
         ? !["matches", "news"].includes(section)
         : section !== view;
@@ -846,6 +854,7 @@ function setRoute() {
     renderMatches();
     renderNews();
     renderSaved();
+    renderAlerts();
   }
 }
 async function loadData() {
@@ -883,7 +892,11 @@ async function loadData() {
   } else errors.table = true;
 
   const latestEvents = results[2].status === "fulfilled" ? results[2].value?.events : [];
-  stories = [...buildReports([...(latestEvents || []), ...events], league), ...editorialStories];
+  if (latestEvents?.length || (!date && !errors.scores)) {
+    reportFeeds.set(league.id, buildReports(latestEvents || events, league));
+  }
+  const matchReports = buildReports(events, league);
+  stories = combinedStories(matchReports);
   if (requestedStory && !stories.some(story => story.id === requestedStory)) {
     const report = /^(.*)~(\d{8})~(\d+)$/.exec(requestedStory);
     const reportLeague = report && catalog.find(item => item.id === report[1]);
@@ -932,6 +945,10 @@ async function refreshMatches() {
       }) +
       " · Match times are local";
     renderMatches();
+    if (!date) {
+      reportFeeds.set(league.id, buildReports(events, league));
+      updateNewsAlerts();
+    }
   } catch {
     if (token === generation)
       $("score-status").textContent =
@@ -1030,6 +1047,7 @@ $("close-dialog").addEventListener("click", () => $("detail-dialog").close());
 $("detail-dialog").addEventListener("close", () =>
   dialogOpener?.focus({ preventScroll: true }),
 );
+document.addEventListener("visibilitychange", () => { if (league && !document.hidden) checkNews(); });
 window.addEventListener("hashchange", () => {
   setRoute();
   if (requestedStory && league && ![...stories, ...preferences.saved, ...editorialStories].some(story => story.id === requestedStory)) loadData();
@@ -1044,8 +1062,140 @@ window.addEventListener("storage", (event) => {
     renderNews();
     renderSaved();
     renderMatches();
+    renderInterests();
+    renderAlerts();
   }
 });
+
+function materialIcon(name) {
+  const icon = node("span", name, "material-symbols-outlined");
+  icon.setAttribute("aria-hidden", "true");
+  return icon;
+}
+
+function storyFromFollowedClub(story) {
+  return allTeams.some(team => follows(team) && (story.teams || []).some(club => club.id === team.id));
+}
+
+function storyInScope(story) {
+  const scope = $("news-scope").value;
+  if (scope === "competition") return story.leagueId === league?.id;
+  if (scope === "ballon") return story.topic === "ballon-dor";
+  if (scope === "following") return storyFromFollowedClub(story) || followsInterest(story, preferences.alerts.interests);
+  return true;
+}
+
+function combinedStories(extra = []) {
+  const combined = [...reportFeeds.values()].flat().concat(editorialStories, extra);
+  return [...new Map(combined.map(story => [story.id, story])).values()];
+}
+
+function updateNewsAlerts() {
+  stories = combinedStories();
+  const alertState = preferences.alerts;
+  const wasInitialized = alertState.initialized;
+  const previousSeen = alertState.seen;
+  const added = collectAlerts(alertState, stories, storyFromFollowedClub);
+  if (!wasInitialized || added || previousSeen.length !== alertState.seen.length || previousSeen.at(-1) !== alertState.seen.at(-1)) savePreferences();
+  renderNews();
+  renderAlerts();
+  if (added && wasInitialized) toast(added === 1 ? "You have a new football update" : added + " new football updates");
+}
+
+async function checkNews() {
+  if (checkingNews || document.hidden) return;
+  checkingNews = true;
+  try {
+    const signal = new AbortController().signal;
+    const results = await Promise.allSettled(catalog.map(item => fetchJson(API + item.id + "/scoreboard", signal)));
+    results.forEach((result, index) => {
+      if (result.status !== "fulfilled") return;
+      const item = catalog[index];
+      reportFeeds.set(item.id, buildReports(result.value.events || [], item));
+    });
+    updateNewsAlerts();
+  } finally {
+    checkingNews = false;
+  }
+}
+
+function renderAlerts() {
+  const state = preferences.alerts;
+  const unread = state.inbox.filter(item => !item.read).length;
+  for (const id of ["nav-unread", "header-unread"]) {
+    $(id).textContent = unread;
+    $(id).hidden = !unread;
+  }
+  $("read-alerts").disabled = !unread;
+  $("alert-items").replaceChildren();
+  if (!state.inbox.length) {
+    $("alert-items").append(empty("You’re caught up", "New reports will appear here as they’re published."));
+  }
+  for (const item of state.inbox) {
+    const link = storyLink(item.story, undefined, "alert-item");
+    link.classList.toggle("is-unread", !item.read);
+    if (!item.read) link.setAttribute("aria-label", "Unread: " + item.story.title);
+    const label = node("span");
+    label.append(node("strong", item.story.title), node("small", item.reason + " · " + dateLabel(item.story.published)));
+    link.append(materialIcon("notifications"), label, materialIcon("arrow_forward"));
+    link.addEventListener("click", () => {
+      item.read = true;
+      savePreferences();
+      renderAlerts();
+    });
+    $("alert-items").append(link);
+  }
+  for (const input of document.querySelectorAll("[data-alert-setting]")) {
+    input.checked = state.settings[input.dataset.alertSetting];
+  }
+}
+
+function renderInterests() {
+  const state = preferences.alerts;
+  const topics = [...catalog.map(item => ({
+    ...item, name: item.id === "uefa.champions" ? "UEFA Champions League" : item.name,
+  })), { id: "ballon-dor", name: "Ballon d’Or" }];
+  $("interest-list").replaceChildren();
+  for (const topic of topics) {
+    const label = node("label", undefined, "interest-option");
+    const checkbox = node("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = state.interests.includes(topic.id);
+    checkbox.addEventListener("change", () => {
+      if (checkbox.checked) {
+        state.interests.push(topic.id);
+        const latest = [...stories, ...editorialStories].filter(story => followsInterest(story, [topic.id]) && story.published)
+          .sort((a, b) => Date.parse(b.published) - Date.parse(a.published))[0];
+        if (latest && state.settings.interests && !state.inbox.some(item => item.story.id === latest.id)) {
+          state.inbox.unshift({ story: latest, reason: "Latest from your new follow", read: false });
+          state.inbox = state.inbox.slice(0, 30);
+          state.seen = [...new Set([...state.seen, latest.id])].slice(-500);
+        }
+      } else {
+        state.interests = state.interests.filter(id => id !== topic.id);
+      }
+      savePreferences();
+      renderAlerts();
+      renderNews();
+    });
+    label.append(topic.logo ? crest(topic) : materialIcon("trophy"), node("span", topic.name), checkbox);
+    $("interest-list").append(label);
+  }
+}
+
+$("news-scope").addEventListener("change", () => { newsLimit = 8; renderNews(); });
+$("read-alerts").addEventListener("click", () => {
+  for (const item of preferences.alerts.inbox) item.read = true;
+  savePreferences();
+  renderAlerts();
+});
+for (const input of document.querySelectorAll("[data-alert-setting]")) {
+  input.addEventListener("change", () => {
+    preferences.alerts.settings[input.dataset.alertSetting] = input.checked;
+    savePreferences();
+  });
+}
+
 setRoute();
 try {
   const response = await fetch("football-catalog.json?v=5");
@@ -1063,8 +1213,12 @@ try {
   renderFollowing();
   renderClubs();
   renderSaved();
+  renderInterests();
+  renderAlerts();
   await loadData();
+  checkNews();
   setInterval(refreshMatches, 60000);
+  setInterval(checkNews, 180000);
 } catch {
   $("score-status").textContent =
     "Unable to load the app. Reload this page to try again.";
@@ -1081,7 +1235,7 @@ async function updateAccountLink() {
     const { data, error } = await client.auth.getUser();
     if (!error && data.user) {
       const link = document.querySelector(".signin-button");
-      link.textContent = "My account ↗";
+      link.replaceChildren(document.createTextNode("My account "), materialIcon("person"));
       link.href = "protected.html";
     }
   } catch {

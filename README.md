@@ -21,6 +21,10 @@ The app reads publicly accessible ESPN website feeds directly. These are unoffic
 
 Club and league badge sources are recorded in `football-catalog.json`. Match and standings data come from ESPN’s public website feeds. The stadium photograph is served from the bundled Unsplash asset.
 
+## News alerts
+
+Open the bell to follow competitions or Ballon d’Or and choose which updates appear in your inbox. The app checks all six competition score feeds every three minutes while the page is visible. Recent completed match reports and dated editorial stories can generate alerts. The inbox and unread counts are saved in the current browser. Ballon d’Or coverage comes from Soccer Live editorial articles added to the site.
+
 ## Local checks
 
 Run `node --check football.js` and `node --test auth.test.cjs`. Browser checks should cover a date change, league switch, match details, follow/unfollow, search, saved-story reload persistence, and mobile navigation.

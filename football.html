@@ -9,30 +9,32 @@
       content="Your football match centre. Scores, news, club follows and standings across Europe's major leagues."
     />
     <title>Soccer Live | Your football, all in one place</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,check,close,home,login,manage_search,monitoring,newspaper,notifications,person,refresh,search,sports_soccer,trophy&amp;display=block" />
     <link rel="stylesheet" href="brand.css" />
-    <link rel="stylesheet" href="football.css?v=7" />
+    <link rel="stylesheet" href="football.css?v=8" />
     <script src="config.js"></script>
-    <script type="module" src="football.js?v=6"></script>
+    <script type="module" src="football.js?v=7"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
       <a class="brand-logo" href="#home"><img src="assets/soccer-live-logo.png" width="1760" height="880" alt="Soccer Live home"></a>
       <p class="nav-label">YOUR FOOTBALL</p>
       <nav class="main-nav" aria-label="Main navigation">
-        <a href="#home"><span aria-hidden="true">⌂</span>Overview</a>
-        <a href="#matches"><span aria-hidden="true">◉</span>Match centre</a>
-        <a href="#news"><span aria-hidden="true">▤</span>Newsroom</a>
-        <a href="#standings"><span aria-hidden="true">▥</span>League tables</a>
-        <a href="#clubs"><span aria-hidden="true">⚑</span>Discover clubs</a>
+        <a href="#home"><span class="material-symbols-outlined" aria-hidden="true">home</span>Overview</a>
+        <a href="#matches"><span class="material-symbols-outlined" aria-hidden="true">sports_soccer</span>Match centre</a>
+        <a href="#news"><span class="material-symbols-outlined" aria-hidden="true">newspaper</span>Newsroom</a>
+        <a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span>League tables</a>
+        <a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span>Discover clubs</a>
+        <a href="#alerts"><span class="material-symbols-outlined" aria-hidden="true">notifications</span>Alerts <small id="nav-unread" hidden>0</small></a>
         <a href="#saved"
-          ><span aria-hidden="true">☆</span>Saved stories
+          ><span class="material-symbols-outlined" aria-hidden="true">bookmark</span>Saved stories
           <small id="saved-count">0</small></a
         >
       </nav>
       <div class="sidebar-following">
         <div class="sidebar-heading">
           <p class="nav-label">MY CLUBS</p>
-          <a href="#clubs" aria-label="Choose clubs">＋</a>
+          <a href="#clubs" aria-label="Choose clubs"><span class="material-symbols-outlined" aria-hidden="true">add</span></a>
         </div>
         <div id="sidebar-clubs"></div>
       </div>
@@ -41,9 +43,9 @@
         ><span>Explore fixtures ↗</span></a
       >
       <a class="sidebar-account" href="protected.html"
-        ><span class="avatar" aria-hidden="true">◉</span
+        ><span class="avatar"><span class="material-symbols-outlined" aria-hidden="true">person</span></span
         ><span>Your account<small>Manage your sign-in</small></span
-        ><span aria-hidden="true">↗</span></a
+        ><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a
       >
     </aside>
     <div class="app-shell">
@@ -62,18 +64,17 @@
             type="search"
             maxlength="80"
             placeholder="Search clubs, matches, news"
-          /><button type="submit" aria-label="Search">↵</button
+          /><button type="submit" aria-label="Search"><span class="material-symbols-outlined" aria-hidden="true">search</span></button
           ><button
             type="button"
             id="clear-search"
             aria-label="Clear search"
             hidden
-          >
-            ×
-          </button>
+          ><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
         </form>
+        <a class="alert-bell icon-button" href="#alerts" aria-label="Notifications"><span class="material-symbols-outlined" aria-hidden="true">notifications</span><span class="alert-badge" id="header-unread" hidden>0</span></a>
         <a class="signin-button" href="index.html?view=login"
-          >Sign in <span aria-hidden="true">↗</span></a
+          >Sign in <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a
         >
       </header>
       <main id="content">
@@ -90,7 +91,7 @@
             <h2 id="welcome-title">The game never<br />stands still.</h2>
             <p>Your clubs. Your scores. Your next big story.</p>
             <a href="#clubs" class="primary-button"
-              >Build your football feed <span aria-hidden="true">↗</span></a
+              >Build your football feed <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a
             >
           </div>
           <div class="welcome-bottom">
@@ -120,9 +121,7 @@
                 id="refresh"
                 class="icon-button"
                 aria-label="Refresh football data"
-              >
-                ↻
-              </button>
+              ><span class="material-symbols-outlined" aria-hidden="true">refresh</span></button>
             </div>
             <div class="match-toolbar">
               <div class="segmented" aria-label="Match status">
@@ -204,6 +203,7 @@
                 </button>
               </div>
             </div>
+            <label class="news-scope">Coverage <select id="news-scope"><option value="all">All football</option><option value="competition">Selected competition</option><option value="following">Following</option><option value="ballon">Ballon d’Or</option></select></label>
             <p id="news-status" class="data-status" role="status"></p>
             <div id="stories" class="news-desk"></div>
             <button type="button" id="more-news" class="load-more" hidden>
@@ -245,6 +245,20 @@
             <p id="club-status" class="data-status"></p>
             <div id="club-grid" class="club-grid"></div>
           </section>
+          <section class="panel alerts-panel" id="alerts" aria-labelledby="alerts-title" hidden>
+            <div class="section-heading"><div><span class="eyebrow">YOUR FOOTBALL</span><h2 id="alerts-title">Notifications</h2></div>
+              <button type="button" id="read-alerts" class="load-more">Mark all as read</button></div>
+            <div id="alert-items"></div>
+            <h3 class="alerts-subheading">What to notify me about</h3>
+            <div class="alert-settings">
+              <label><input type="checkbox" data-alert-setting="clubs"> Followed clubs</label>
+              <label><input type="checkbox" data-alert-setting="interests"> Followed competitions and topics</label>
+              <label><input type="checkbox" data-alert-setting="general"> General football news</label>
+            </div>
+            <h3 class="alerts-subheading">Competitions and topics to follow</h3>
+            <div id="interest-list" class="interest-list"></div>
+            <p class="data-status">Alerts refresh while Soccer Live is open. Your follows and read status are saved in this browser.</p>
+          </section>
           <section
             class="panel saved-panel"
             id="saved"
@@ -278,12 +292,12 @@
       </footer>
     </div>
     <nav class="mobile-nav" aria-label="Mobile navigation">
-      <a href="#home">⌂<span>Home</span></a
-      ><a href="#matches">◉<span>Matches</span></a
-      ><a href="#news">▤<span>News</span></a
-      ><a href="#standings">▥<span>Tables</span></a
-      ><a href="#clubs">⚑<span>Clubs</span></a
-      ><a href="#saved">☆<span>Saved</span></a>
+      <a href="#home"><span class="material-symbols-outlined" aria-hidden="true">home</span><span>Home</span></a
+      ><a href="#matches"><span class="material-symbols-outlined" aria-hidden="true">sports_soccer</span><span>Matches</span></a
+      ><a href="#news"><span class="material-symbols-outlined" aria-hidden="true">newspaper</span><span>News</span></a
+      ><a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span><span>Tables</span></a
+      ><a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span><span>Clubs</span></a
+      ><a href="#saved"><span class="material-symbols-outlined" aria-hidden="true">bookmark</span><span>Saved</span></a>
     </nav>
     <dialog id="detail-dialog" aria-labelledby="detail-title">
       <div class="dialog-top">
@@ -292,9 +306,7 @@
           id="close-dialog"
           class="icon-button"
           aria-label="Close details"
-        >
-          ×
-        </button>
+        ><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
       </div>
       <div id="detail-content"></div>
     </dialog>
