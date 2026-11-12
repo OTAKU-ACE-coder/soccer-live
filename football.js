@@ -4,6 +4,8 @@ import { collectAlerts, followsInterest, readAlertSettings } from "./news-alerts
 
 import { upcomingFixtures, recentResults } from "./match-data.js";
 
+import { getTheme, setTheme } from "./theme.js";
+
 const $ = (id) => document.getElementById(id);
 const API = "https://site.api.espn.com/apis/site/v2/sports/soccer/";
 const TABLE_API = "https://site.web.api.espn.com/apis/v2/sports/soccer/";
@@ -22,7 +24,7 @@ const names = {
   Internazionale: ["Inter Milan"],
   "Bayern Munich": ["FC Bayern München", "Bayern München"],
 };
-const routes = ["home", "matches", "news", "standings", "clubs", "saved", "alerts"];
+const routes = ["home", "matches", "news", "standings", "clubs", "saved", "alerts", "settings"];
 const titles = {
   home: "Your football, all in one place.",
   matches: "Every match. Every moment.",
@@ -31,6 +33,7 @@ const titles = {
   clubs: "Follow the badge.",
   saved: "Your football reading list.",
   alerts: "Your football notifications.",
+  settings: "Make Soccer Live yours.",
 };
 const preferences = readPreferences();
 let catalog = [],
@@ -204,6 +207,7 @@ function asTeam(competitor) {
 }
 function renderLeagues() {
   $("league-strip").replaceChildren();
+  $("competition-select").replaceChildren();
   for (const item of catalog) {
     const button = node("button", undefined, "league-chip");
     button.type = "button";
@@ -212,18 +216,26 @@ function renderLeagues() {
       crest({ name: item.name, logo: item.logo }),
       node("span", item.name),
     );
-    button.addEventListener("click", () => {
-      if (league.id === item.id) return;
-      league = item;
-      preferences.league = item.id;
-      savePreferences();
-      renderLeagues();
-      renderClubs();
-      loadData();
-    });
+    button.addEventListener("click", () => selectCompetition(item.id));
+    const option = node("option", item.name);
+    option.value = item.id;
+    option.selected = league.id === item.id;
+    $("competition-select").append(option);
     $("league-strip").append(button);
   }
 }
+function selectCompetition(id) {
+  const selected = catalog.find(item => item.id === id);
+  if (!selected || league.id === id) return;
+  league = selected;
+  preferences.league = selected.id;
+  savePreferences();
+  renderLeagues();
+  renderClubs();
+  loadData();
+}
+$("competition-select").addEventListener("change", event => selectCompetition(event.target.value));
+
 function toggleFollow(team) {
   const active = follows(team);
   preferences.following = preferences.following.filter(
@@ -450,6 +462,24 @@ function tableTeam(entry) {
 function renderTables() {
   $("tables").replaceChildren();
   $("mini-table").replaceChildren();
+  $("table-title").textContent = league.knockout ? league.name + " fixtures and results" : "League standings";
+  $("mini-title").textContent = league.knockout ? league.name : "Top of the table";
+  $("mini-table-link").textContent = league.knockout ? "Match centre →" : "Full table ↗";
+  $("mini-table-link").href = league.knockout ? "#matches" : "#standings";
+  if (league.knockout) {
+    $("form-status").textContent = "";
+    $("table-season").textContent = "";
+    $("table-status").textContent = "Knockout competition · Fixtures and results";
+    $("mini-table").append(node("p", "Follow fixtures and results for each round in the Match Centre.", "subtle"));
+    const cupMatches = events.filter(matchVisible);
+    for (const match of cupMatches) {
+      $("tables").append(node("p", dateLabel(match.date), "match-group-heading"), matchRow(match));
+    }
+    if (!cupMatches.length) {
+      $("tables").append(empty("No cup matches in this selection", "Open the Match Centre to choose another date or browse upcoming fixtures.", "Open Match Centre →", "#matches"));
+    }
+    return;
+  }
   for (const group of groups) {
     if (groups.length > 1)
       $("tables").append(node("h3", group.name, "group-title"));
@@ -831,7 +861,8 @@ function setRoute() {
   requestedStory = new URLSearchParams(requested).get("story") || "";
   view = requestedStory ? "article" : routes.includes(requested) ? requested : "home";
   $("article").hidden = !requestedStory;
-  $("league-strip").hidden = Boolean(requestedStory);
+  $("league-strip").hidden = Boolean(requestedStory) || view === "settings";
+  $("competition-picker").hidden = $("league-strip").hidden;
   if (requestedStory) renderArticle();
   document.body.dataset.view = view;
   $("page-title").textContent = titles[view] || "Soccer Live newsroom";
@@ -839,7 +870,7 @@ function setRoute() {
   $("right-rail").hidden = view !== "home" || Boolean(query);
   for (const section of routes.filter(route => route !== "home")) {
     $(section).hidden = requestedStory ? true : query
-      ? ["saved", "alerts"].includes(section) && view !== section
+      ? ["saved", "alerts", "settings"].includes(section) && view !== section
       : view === "home"
         ? !["matches", "news"].includes(section)
         : section !== view;
@@ -876,7 +907,7 @@ async function loadData() {
   const suffix = date ? "?dates=" + date.replaceAll("-", "") : "";
   const results = await Promise.allSettled([
     date === "upcoming" ? loadUpcoming(league.id, request.signal) : fetchJson(API + league.id + "/scoreboard" + suffix, request.signal),
-    fetchJson(TABLE_API + league.id + "/standings", request.signal),
+    league.knockout ? Promise.resolve(null) : fetchJson(TABLE_API + league.id + "/standings", request.signal),
     date ? fetchJson(API + league.id + "/scoreboard", request.signal) : Promise.resolve(null),
   ]);
   if (token !== generation) return;
@@ -886,10 +917,10 @@ async function loadData() {
       .sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
   else errors.scores = true;
   errors.partialFixtures = results[0].value?.partial;
-  if (results[1].status === "fulfilled") {
+  if (results[1].status === "fulfilled" && results[1].value) {
     groups = entriesOf(results[1].value);
     $("table-season").textContent = results[1].value.season?.displayName || "";
-  } else errors.table = true;
+  } else errors.table = !league.knockout;
 
   const latestEvents = results[2].status === "fulfilled" ? results[2].value?.events : [];
   if (latestEvents?.length || (!date && !errors.scores)) {
@@ -947,6 +978,7 @@ async function refreshMatches() {
       }) +
       " · Match times are local";
     renderMatches();
+    if (league.knockout && view === "standings") renderTables();
     if (!date) {
       reportFeeds.set(league.id, buildReports(events, league));
       updateNewsAlerts();
@@ -1274,7 +1306,7 @@ async function readPortraits(path) {
 function portraitIndex() {
   portraits ??= Promise.all([
     readPortraits("player-portraits.json"),
-    readPortraits("club-player-portraits.json"),
+    readPortraits("club-player-portraits.json?v=2"),
   ]).then(([league, clubs]) => ({ league, clubs }));
   return portraits;
 }
@@ -1283,8 +1315,10 @@ function playerCard(player, index, shirt = player.jersey, position = player.posi
   const name = player.displayName || player.fullName;
   const card = node("div", undefined, "player-card");
   const initials = name.split(/\s+/).filter(Boolean).map(word => word[0]).slice(0, 2).join("");
-  const portrait = node("span", initials, "player-portrait");
-  portrait.setAttribute("aria-hidden", "true");
+  const portrait = node("span", undefined, "player-portrait");
+  portrait.setAttribute("role", "img");
+  portrait.setAttribute("aria-label", "Illustrated avatar for " + name + " · photo unavailable");
+  portrait.append(materialIcon("person"), node("small", initials));
   const keys = [player.fullName, player.displayName, [player.firstName, player.lastName].filter(Boolean).join(" ")]
     .filter(Boolean).map(value => normalize(value).replace(/[^a-z0-9]/g, ""));
   const clubPhoto = keys.map(key => index.clubs[key]).find(safeUrl);
@@ -1420,9 +1454,21 @@ async function loadForms() {
   if (league.id === competitionId) renderForms();
 }
 
+const themeOptions = document.querySelectorAll('input[name="theme"]');
+function syncThemeOptions() {
+  for (const option of themeOptions) option.checked = option.value === getTheme();
+}
+for (const option of themeOptions) {
+  option.addEventListener("change", () => {
+    $("theme-status").textContent = setTheme(option.value)
+      ? "Appearance saved." : "Appearance applied for this visit.";
+  });
+}
+window.addEventListener("soccer-theme-change", syncThemeOptions);
+syncThemeOptions();
 setRoute();
 try {
-  const response = await fetch("football-catalog.json?v=5");
+  const response = await fetch("football-catalog.json?v=6");
   if (!response.ok) throw new Error("Club catalogue unavailable");
   catalog = await response.json();
   const teams = new Map();

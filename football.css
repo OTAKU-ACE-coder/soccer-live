@@ -1486,3 +1486,70 @@ body[data-view="home"] .news-latest { display: none; }
 .form-mark.loss { background: #fce2e5; color: #9d2335; }
 .table-scroll td.form-cell { background: transparent; color: var(--text); }
 .table-scroll td:nth-last-child(2) { font-weight: 700; color: var(--green); background: #f2f8f4; }
+
+.league-strip { flex-wrap: wrap; }
+.competition-picker { display: none; }
+.competition-picker select {
+  width: 100%; min-height: 44px; padding: 8px 12px;
+  border: 1px solid var(--line); border-radius: 9px;
+  background: var(--panel); color: var(--text); font: inherit;
+}
+.settings-panel { grid-column: 1 / -1; }
+.theme-options {
+  display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px; margin: 0; padding: 0; border: 0;
+}
+.theme-options legend { font-weight: 700; padding: 0; margin-bottom: 10px; }
+.theme-options label {
+  display: flex; align-items: center; gap: 8px; padding: 13px;
+  background: var(--page); border: 1px solid var(--line); border-radius: 10px; cursor: pointer;
+}
+.theme-options label:has(input:checked) { border-color: var(--green); }
+.theme-options input { accent-color: var(--green); flex-shrink: 0; }
+.theme-options strong, .theme-options small, .settings-links span { display: block; }
+.theme-options small, .settings-links span { color: var(--muted); }
+.settings-links { display: grid; gap: 8px; }
+.settings-links a { border: 1px solid var(--line); border-radius: 9px; padding: 12px; }
+.settings-links a:hover { border-color: var(--green); }
+.player-portrait { position: relative; align-content: center; }
+.player-portrait .material-symbols-outlined { font-size: 19px; }
+.player-portrait small { font-size: 8px; line-height: 1; color: inherit; }
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d151d;
+  --panel: #17232e;
+  --text: #ecf2f8;
+  --muted: #a7b6c6;
+  --line: #364554;
+  --green: #91e1b4;
+  --surface-raised: #21303c;
+  --surface-accent: #203c35;
+}
+[data-theme="dark"] :is(.app-header, .match-row, .story, .article-page, dialog, .league-chip, .date-label input, .date-shortcuts button, .news-scope select) {
+  background: var(--panel);
+  color: var(--text);
+}
+[data-theme="dark"] :is(#search-form, .icon-button, .segmented, .match-group-heading, .following-card, .mini-row, th, .load-more, .save-button, .alert-settings label, .interest-option, .match-extra, .player-card) {
+  background: var(--surface-raised);
+  color: var(--text);
+}
+[data-theme="dark"] :is(.club-card, .editorial-note) { background: var(--surface-raised); border-color: var(--line); }
+[data-theme="dark"] :is(.story-deck, .article-deck, .alert-item small, .news-scope, .player-card small, .editorial-note p, .editorial-note strong, .editorial-note a) {
+  color: var(--muted);
+}
+[data-theme="dark"] :is(.match-row:hover, .alert-item:hover, .alert-item.is-unread, .league-chip[aria-pressed="true"], .segmented button[aria-pressed="true"], .date-shortcuts button[aria-pressed="true"], .save-button[aria-pressed="true"], .table-scroll td:nth-last-child(2), td:last-child) {
+  background: var(--surface-accent);
+  color: var(--green);
+}
+[data-theme="dark"] .table-scroll td.form-cell { background: transparent; }
+[data-theme="dark"] .follow-button { background: var(--panel); color: var(--text); border-color: var(--line); }
+[data-theme="dark"] .follow-button[aria-pressed="true"] { background: var(--surface-accent); color: var(--green); }
+[data-theme="dark"] .article-byline, [data-theme="dark"] .news-latest { border-color: var(--line); }
+[data-theme="dark"] .search-status { background: var(--surface-accent); color: var(--green); }
+
+@media (max-width: 700px) {
+  .league-strip { display: none; }
+  .competition-picker { display: grid; gap: 5px; margin: 16px 0; font-size: 12px; font-weight: 700; }
+  .theme-options { grid-template-columns: 1fr; }
+}

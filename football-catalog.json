@@ -1096,5 +1096,1382 @@
         "url": "https://www.espn.com/soccer/club/_/id/102/villarreal"
       }
     ]
+  },
+  {
+    "id": "eng.fa",
+    "name": "FA Cup",
+    "knockout": true,
+    "logo": "https://a.espncdn.com/i/leaguelogos/soccer/500/40.png",
+    "teams": [
+      {
+        "id": "13884",
+        "name": "AFC Fylde",
+        "shortName": "AFC Fylde",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/13884.png",
+        "abbreviation": "FYL",
+        "url": "https://www.espn.com/soccer/club/_/id/13884/afc-fylde"
+      },
+      {
+        "id": "10167",
+        "name": "AFC Hornchurch",
+        "shortName": "Hornchurh",
+        "abbreviation": "HOR",
+        "url": "https://www.espn.com/soccer/club/_/id/10167/afc-hornchurch"
+      },
+      {
+        "id": "132415",
+        "name": "AFC Rushden & Diamonds",
+        "shortName": "AFC Rushden",
+        "abbreviation": "AFC",
+        "url": "https://www.espn.com/soccer/club/_/id/132415/afc-rushden-diamonds"
+      },
+      {
+        "id": "3802",
+        "name": "AFC Wimbledon",
+        "shortName": "Wimbledon",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3802.png",
+        "abbreviation": "WIM",
+        "url": "https://www.espn.com/soccer/club/_/id/3802/afc-wimbledon"
+      },
+      {
+        "id": "2731",
+        "name": "Accrington Stanley",
+        "shortName": "Accrington",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2731.png",
+        "abbreviation": "ACC",
+        "url": "https://www.espn.com/soccer/club/_/id/2731/accrington-stanley"
+      },
+      {
+        "id": "632",
+        "name": "Aldershot Town",
+        "shortName": "Aldershot",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/632.png",
+        "abbreviation": "ALD",
+        "url": "https://www.espn.com/soccer/club/_/id/632/aldershot-town"
+      },
+      {
+        "id": "633",
+        "name": "Altrincham",
+        "shortName": "Altrincham",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/633.png",
+        "abbreviation": "ALT",
+        "url": "https://www.espn.com/soccer/club/_/id/633/altrincham"
+      },
+      {
+        "id": "21711",
+        "name": "Alvechurch",
+        "shortName": "Alvechurch",
+        "abbreviation": "ALV",
+        "url": "https://www.espn.com/soccer/club/_/id/21711/alvechurch"
+      },
+      {
+        "id": "280",
+        "name": "Barnet",
+        "shortName": "Barnet",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/280.png",
+        "abbreviation": "BAR",
+        "url": "https://www.espn.com/soccer/club/_/id/280/barnet"
+      },
+      {
+        "id": "397",
+        "name": "Barnsley",
+        "shortName": "Barnsley",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/397.png",
+        "abbreviation": "BAR",
+        "url": "https://www.espn.com/soccer/club/_/id/397/barnsley"
+      },
+      {
+        "id": "642",
+        "name": "Barrow",
+        "shortName": "Barrow",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/642.png",
+        "abbreviation": "BRW",
+        "url": "https://www.espn.com/soccer/club/_/id/642/barrow"
+      },
+      {
+        "id": "132350",
+        "name": "Berkhamsted",
+        "shortName": "Berkhamsted",
+        "abbreviation": "BER",
+        "url": "https://www.espn.com/soccer/club/_/id/132350/berkhamsted"
+      },
+      {
+        "id": "346",
+        "name": "Blackpool",
+        "shortName": "Blackpool",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/346.png",
+        "abbreviation": "BLP",
+        "url": "https://www.espn.com/soccer/club/_/id/346/blackpool"
+      },
+      {
+        "id": "2595",
+        "name": "Boreham Wood",
+        "shortName": "Boreham Wood",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2595.png",
+        "abbreviation": "BOR",
+        "url": "https://www.espn.com/soccer/club/_/id/2595/boreham-wood"
+      },
+      {
+        "id": "387",
+        "name": "Bradford City",
+        "shortName": "Bradford",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/387.png",
+        "abbreviation": "BRD",
+        "url": "https://www.espn.com/soccer/club/_/id/387/bradford-city"
+      },
+      {
+        "id": "308",
+        "name": "Bristol Rovers",
+        "shortName": "Bristol Rovers",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/308.png",
+        "abbreviation": "BRI",
+        "url": "https://www.espn.com/soccer/club/_/id/308/bristol-rovers"
+      },
+      {
+        "id": "3129",
+        "name": "Bromley",
+        "shortName": "Bromley",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3129.png",
+        "abbreviation": "BRO",
+        "url": "https://www.espn.com/soccer/club/_/id/3129/bromley"
+      },
+      {
+        "id": "2567",
+        "name": "Burton Albion",
+        "shortName": "Burton Albion",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2567.png",
+        "abbreviation": "BRT",
+        "url": "https://www.espn.com/soccer/club/_/id/2567/burton-albion"
+      },
+      {
+        "id": "351",
+        "name": "Cambridge United",
+        "shortName": "Cambridge",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/351.png",
+        "abbreviation": "CAM",
+        "url": "https://www.espn.com/soccer/club/_/id/351/cambridge-united"
+      },
+      {
+        "id": "322",
+        "name": "Carlisle United",
+        "shortName": "Carlisle",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/322.png",
+        "abbreviation": "CAR",
+        "url": "https://www.espn.com/soccer/club/_/id/322/carlisle-united"
+      },
+      {
+        "id": "320",
+        "name": "Cheltenham Town",
+        "shortName": "Cheltenham",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/320.png",
+        "abbreviation": "CHL",
+        "url": "https://www.espn.com/soccer/club/_/id/320/cheltenham-town"
+      },
+      {
+        "id": "343",
+        "name": "Chesterfield",
+        "shortName": "Chesterfield",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/343.png",
+        "abbreviation": "CHES",
+        "url": "https://www.espn.com/soccer/club/_/id/343/chesterfield"
+      },
+      {
+        "id": "339",
+        "name": "Colchester United",
+        "shortName": "Colchester",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/339.png",
+        "abbreviation": "COL",
+        "url": "https://www.espn.com/soccer/club/_/id/339/colchester-united"
+      },
+      {
+        "id": "2594",
+        "name": "Crawley Town",
+        "shortName": "Crawley",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2594.png",
+        "abbreviation": "CRA",
+        "url": "https://www.espn.com/soccer/club/_/id/2594/crawley-town"
+      },
+      {
+        "id": "20770",
+        "name": "Cray Wanderers",
+        "shortName": "Cray",
+        "abbreviation": "CRWD",
+        "url": "https://www.espn.com/soccer/club/_/id/20770/cray-wanderers"
+      },
+      {
+        "id": "396",
+        "name": "Crewe Alexandra",
+        "shortName": "Crewe",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/396.png",
+        "abbreviation": "CAX",
+        "url": "https://www.espn.com/soccer/club/_/id/396/crewe-alexandra"
+      },
+      {
+        "id": "279",
+        "name": "Doncaster Rovers",
+        "shortName": "Doncaster",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/279.png",
+        "abbreviation": "DON",
+        "url": "https://www.espn.com/soccer/club/_/id/279/doncaster-rovers"
+      },
+      {
+        "id": "293",
+        "name": "Dover Athletic",
+        "shortName": "Dover",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/293.png",
+        "abbreviation": "DOV",
+        "url": "https://www.espn.com/soccer/club/_/id/293/dover-athletic"
+      },
+      {
+        "id": "3897",
+        "name": "Eastleigh",
+        "shortName": "Eastleigh",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3897.png",
+        "abbreviation": "ELH",
+        "url": "https://www.espn.com/soccer/club/_/id/3897/eastleigh"
+      },
+      {
+        "id": "324",
+        "name": "Exeter City",
+        "shortName": "Exeter",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/324.png",
+        "abbreviation": "EXE",
+        "url": "https://www.espn.com/soccer/club/_/id/324/exeter-city"
+      },
+      {
+        "id": "312",
+        "name": "FC Halifax Town",
+        "shortName": "Halifax",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/312.png",
+        "abbreviation": "HAL",
+        "url": "https://www.espn.com/soccer/club/_/id/312/fc-halifax-town"
+      },
+      {
+        "id": "3891",
+        "name": "Fleetwood Town",
+        "shortName": "Fleetwood Town",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3891.png",
+        "abbreviation": "FLE",
+        "url": "https://www.espn.com/soccer/club/_/id/3891/fleetwood-town"
+      },
+      {
+        "id": "282",
+        "name": "Forest Green Rovers",
+        "shortName": "Forest Green",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/282.png",
+        "abbreviation": "FGR",
+        "url": "https://www.espn.com/soccer/club/_/id/282/forest-green-rovers"
+      },
+      {
+        "id": "389",
+        "name": "Gillingham",
+        "shortName": "Gillingham",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/389.png",
+        "abbreviation": "GIL",
+        "url": "https://www.espn.com/soccer/club/_/id/389/gillingham"
+      },
+      {
+        "id": "386",
+        "name": "Grimsby Town",
+        "shortName": "Grimsby",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/386.png",
+        "abbreviation": "GRI",
+        "url": "https://www.espn.com/soccer/club/_/id/386/grimsby-town"
+      },
+      {
+        "id": "2588",
+        "name": "Guiseley",
+        "shortName": "Guiseley",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2588.png",
+        "abbreviation": "GUI",
+        "url": "https://www.espn.com/soccer/club/_/id/2588/guiseley"
+      },
+      {
+        "id": "22468",
+        "name": "Harborough Town",
+        "shortName": "Harborough",
+        "abbreviation": "HAR",
+        "url": "https://www.espn.com/soccer/club/_/id/22468/harborough-town"
+      },
+      {
+        "id": "19262",
+        "name": "Harrogate Town",
+        "shortName": "Harrogate",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/19262.png",
+        "abbreviation": "HAR",
+        "url": "https://www.espn.com/soccer/club/_/id/19262/harrogate-town"
+      },
+      {
+        "id": "335",
+        "name": "Huddersfield Town",
+        "shortName": "Huddersfield",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/335.png",
+        "abbreviation": "HUD",
+        "url": "https://www.espn.com/soccer/club/_/id/335/huddersfield-town"
+      },
+      {
+        "id": "319",
+        "name": "Kidderminster Harriers",
+        "shortName": "Kid'minster",
+        "abbreviation": "KID",
+        "url": "https://www.espn.com/soccer/club/_/id/319/kidderminster-harriers"
+      },
+      {
+        "id": "375",
+        "name": "Leicester City",
+        "shortName": "Leicester",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/375.png",
+        "abbreviation": "LEI",
+        "url": "https://www.espn.com/soccer/club/_/id/375/leicester-city"
+      },
+      {
+        "id": "309",
+        "name": "Leyton Orient",
+        "shortName": "Leyton Orient",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/309.png",
+        "abbreviation": "LEY",
+        "url": "https://www.espn.com/soccer/club/_/id/309/leyton-orient"
+      },
+      {
+        "id": "301",
+        "name": "Luton Town",
+        "shortName": "Luton",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/301.png",
+        "abbreviation": "LTN",
+        "url": "https://www.espn.com/soccer/club/_/id/301/luton-town"
+      },
+      {
+        "id": "131494",
+        "name": "Macclesfield FC",
+        "shortName": "Macclesfield",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/131494.png",
+        "abbreviation": "MFC",
+        "url": "https://www.espn.com/soccer/club/_/id/131494/macclesfield-fc"
+      },
+      {
+        "id": "304",
+        "name": "Mansfield Town",
+        "shortName": "Mansfield",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/304.png",
+        "abbreviation": "MNF",
+        "url": "https://www.espn.com/soccer/club/_/id/304/mansfield-town"
+      },
+      {
+        "id": "20771",
+        "name": "Marine",
+        "shortName": "Marine",
+        "abbreviation": "MAR",
+        "url": "https://www.espn.com/soccer/club/_/id/20771/marine"
+      },
+      {
+        "id": "390",
+        "name": "Milton Keynes Dons",
+        "shortName": "MK Dons",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/390.png",
+        "abbreviation": "MKD",
+        "url": "https://www.espn.com/soccer/club/_/id/390/milton-keynes-dons"
+      },
+      {
+        "id": "635",
+        "name": "Newport County",
+        "shortName": "Newport",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/635.png",
+        "abbreviation": "NEW",
+        "url": "https://www.espn.com/soccer/club/_/id/635/newport-county"
+      },
+      {
+        "id": "353",
+        "name": "Northampton Town",
+        "shortName": "Northampton",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/353.png",
+        "abbreviation": "NHT",
+        "url": "https://www.espn.com/soccer/club/_/id/353/northampton-town"
+      },
+      {
+        "id": "340",
+        "name": "Notts County",
+        "shortName": "Notts County",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/340.png",
+        "abbreviation": "NCO",
+        "url": "https://www.espn.com/soccer/club/_/id/340/notts-county"
+      },
+      {
+        "id": "332",
+        "name": "Oldham Athletic",
+        "shortName": "Oldham",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/332.png",
+        "abbreviation": "OLD",
+        "url": "https://www.espn.com/soccer/club/_/id/332/oldham-athletic"
+      },
+      {
+        "id": "4489",
+        "name": "Oxford City",
+        "shortName": "Oxford City",
+        "abbreviation": "OXC",
+        "url": "https://www.espn.com/soccer/club/_/id/4489/oxford-city"
+      },
+      {
+        "id": "311",
+        "name": "Oxford United",
+        "shortName": "Oxford Utd",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/311.png",
+        "abbreviation": "OXF",
+        "url": "https://www.espn.com/soccer/club/_/id/311/oxford-united"
+      },
+      {
+        "id": "342",
+        "name": "Peterborough United",
+        "shortName": "Peterborough",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/342.png",
+        "abbreviation": "PET",
+        "url": "https://www.espn.com/soccer/club/_/id/342/peterborough-united"
+      },
+      {
+        "id": "307",
+        "name": "Plymouth Argyle",
+        "shortName": "Plymouth",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/307.png",
+        "abbreviation": "PLY",
+        "url": "https://www.espn.com/soccer/club/_/id/307/plymouth-argyle"
+      },
+      {
+        "id": "132948",
+        "name": "Plymouth Parkway",
+        "shortName": "Plymouth",
+        "abbreviation": "PLY",
+        "url": "https://www.espn.com/soccer/club/_/id/132948/plymouth-parkway"
+      },
+      {
+        "id": "348",
+        "name": "Port Vale",
+        "shortName": "Port Vale",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/348.png",
+        "abbreviation": "PTV",
+        "url": "https://www.espn.com/soccer/club/_/id/348/port-vale"
+      },
+      {
+        "id": "338",
+        "name": "Reading",
+        "shortName": "Reading",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/338.png",
+        "abbreviation": "REA",
+        "url": "https://www.espn.com/soccer/club/_/id/338/reading"
+      },
+      {
+        "id": "303",
+        "name": "Rochdale",
+        "shortName": "Rochdale",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/303.png",
+        "abbreviation": "RCH",
+        "url": "https://www.espn.com/soccer/club/_/id/303/rochdale"
+      },
+      {
+        "id": "402",
+        "name": "Rotherham United",
+        "shortName": "Rotherham",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/402.png",
+        "abbreviation": "ROT",
+        "url": "https://www.espn.com/soccer/club/_/id/402/rotherham-united"
+      },
+      {
+        "id": "4703",
+        "name": "Salford City",
+        "shortName": "Salford City",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4703.png",
+        "abbreviation": "SAL",
+        "url": "https://www.espn.com/soccer/club/_/id/4703/salford-city"
+      },
+      {
+        "id": "132144",
+        "name": "Salisbury FC",
+        "shortName": "Salisbury",
+        "abbreviation": "SAL",
+        "url": "https://www.espn.com/soccer/club/_/id/132144/salisbury-fc"
+      },
+      {
+        "id": "313",
+        "name": "Scunthorpe United",
+        "shortName": "Scunthorpe",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/313.png",
+        "abbreviation": "SCU",
+        "url": "https://www.espn.com/soccer/club/_/id/313/scunthorpe-united"
+      },
+      {
+        "id": "399",
+        "name": "Sheffield Wednesday",
+        "shortName": "Sheffield Wed",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/399.png",
+        "abbreviation": "SHW",
+        "url": "https://www.espn.com/soccer/club/_/id/399/sheffield-wednesday"
+      },
+      {
+        "id": "133366",
+        "name": "Sholing",
+        "shortName": "Sholing",
+        "abbreviation": "SHO",
+        "url": "https://www.espn.com/soccer/club/_/id/133366/sholing"
+      },
+      {
+        "id": "302",
+        "name": "Shrewsbury Town",
+        "shortName": "Shrewsbury",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/302.png",
+        "abbreviation": "SHR",
+        "url": "https://www.espn.com/soccer/club/_/id/302/shrewsbury-town"
+      },
+      {
+        "id": "2589",
+        "name": "Stafford Rangers",
+        "shortName": "Stafford",
+        "abbreviation": "STF",
+        "url": "https://www.espn.com/soccer/club/_/id/2589/stafford-rangers"
+      },
+      {
+        "id": "285",
+        "name": "Stevenage",
+        "shortName": "Stevenage",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/285.png",
+        "abbreviation": "STE",
+        "url": "https://www.espn.com/soccer/club/_/id/285/stevenage"
+      },
+      {
+        "id": "400",
+        "name": "Stockport County",
+        "shortName": "Stockport",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/400.png",
+        "abbreviation": "STO",
+        "url": "https://www.espn.com/soccer/club/_/id/400/stockport-county"
+      },
+      {
+        "id": "3231",
+        "name": "Sutton United",
+        "shortName": "Sutton Utd",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3231.png",
+        "abbreviation": "SUT",
+        "url": "https://www.espn.com/soccer/club/_/id/3231/sutton-united"
+      },
+      {
+        "id": "341",
+        "name": "Swindon Town",
+        "shortName": "Swindon",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/341.png",
+        "abbreviation": "SWI",
+        "url": "https://www.espn.com/soccer/club/_/id/341/swindon-town"
+      },
+      {
+        "id": "345",
+        "name": "Tranmere Rovers",
+        "shortName": "Tranmere",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/345.png",
+        "abbreviation": "TRN",
+        "url": "https://www.espn.com/soccer/club/_/id/345/tranmere-rovers"
+      },
+      {
+        "id": "401",
+        "name": "Walsall",
+        "shortName": "Walsall",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/401.png",
+        "abbreviation": "WAL",
+        "url": "https://www.espn.com/soccer/club/_/id/401/walsall"
+      },
+      {
+        "id": "3887",
+        "name": "Wealdstone",
+        "shortName": "Wealdstone",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3887.png",
+        "abbreviation": "WEA",
+        "url": "https://www.espn.com/soccer/club/_/id/3887/wealdstone"
+      },
+      {
+        "id": "350",
+        "name": "Wigan Athletic",
+        "shortName": "Wigan",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/350.png",
+        "abbreviation": "WGA",
+        "url": "https://www.espn.com/soccer/club/_/id/350/wigan-athletic"
+      },
+      {
+        "id": "133370",
+        "name": "Wimborne Town",
+        "shortName": "Wimborne",
+        "abbreviation": "WIM",
+        "url": "https://www.espn.com/soccer/club/_/id/133370/wimborne-town"
+      },
+      {
+        "id": "649",
+        "name": "Worcester City",
+        "shortName": "Worcester Ci",
+        "abbreviation": "Worcester Ci",
+        "url": "https://www.espn.com/soccer/club/_/id/649/worcester-city"
+      },
+      {
+        "id": "344",
+        "name": "Wycombe Wanderers",
+        "shortName": "Wycombe",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/344.png",
+        "abbreviation": "WYC",
+        "url": "https://www.espn.com/soccer/club/_/id/344/wycombe-wanderers"
+      },
+      {
+        "id": "284",
+        "name": "Yeovil Town",
+        "shortName": "Yeovil",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/284.png",
+        "abbreviation": "YEO",
+        "url": "https://www.espn.com/soccer/club/_/id/284/yeovil-town"
+      },
+      {
+        "id": "315",
+        "name": "York City",
+        "shortName": "York City",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/315.png",
+        "abbreviation": "YORK",
+        "url": "https://www.espn.com/soccer/club/_/id/315/york-city"
+      }
+    ]
+  },
+  {
+    "id": "eng.league_cup",
+    "name": "Carabao Cup",
+    "knockout": true,
+    "logo": "https://a.espncdn.com/i/leaguelogos/soccer/500/41.png",
+    "teams": [
+      {
+        "id": "349",
+        "name": "AFC Bournemouth",
+        "shortName": "Bournemouth",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+        "abbreviation": "BOU",
+        "url": "https://www.espn.com/soccer/club/_/id/349/afc-bournemouth"
+      },
+      {
+        "id": "3802",
+        "name": "AFC Wimbledon",
+        "shortName": "Wimbledon",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3802.png",
+        "abbreviation": "WIM",
+        "url": "https://www.espn.com/soccer/club/_/id/3802/afc-wimbledon"
+      },
+      {
+        "id": "2731",
+        "name": "Accrington Stanley",
+        "shortName": "Accrington",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2731.png",
+        "abbreviation": "ACC",
+        "url": "https://www.espn.com/soccer/club/_/id/2731/accrington-stanley"
+      },
+      {
+        "id": "359",
+        "name": "Arsenal",
+        "shortName": "Arsenal",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+        "abbreviation": "ARS",
+        "url": "https://www.espn.com/soccer/club/_/id/359/arsenal"
+      },
+      {
+        "id": "362",
+        "name": "Aston Villa",
+        "shortName": "Aston Villa",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+        "abbreviation": "AVL",
+        "url": "https://www.espn.com/soccer/club/_/id/362/aston-villa"
+      },
+      {
+        "id": "280",
+        "name": "Barnet",
+        "shortName": "Barnet",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/280.png",
+        "abbreviation": "BAR",
+        "url": "https://www.espn.com/soccer/club/_/id/280/barnet"
+      },
+      {
+        "id": "397",
+        "name": "Barnsley",
+        "shortName": "Barnsley",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/397.png",
+        "abbreviation": "BAR",
+        "url": "https://www.espn.com/soccer/club/_/id/397/barnsley"
+      },
+      {
+        "id": "392",
+        "name": "Birmingham City",
+        "shortName": "Birmingham",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/392.png",
+        "abbreviation": "BIR",
+        "url": "https://www.espn.com/soccer/club/_/id/392/birmingham-city"
+      },
+      {
+        "id": "365",
+        "name": "Blackburn Rovers",
+        "shortName": "Blackburn",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/365.png",
+        "abbreviation": "BLK",
+        "url": "https://www.espn.com/soccer/club/_/id/365/blackburn-rovers"
+      },
+      {
+        "id": "346",
+        "name": "Blackpool",
+        "shortName": "Blackpool",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/346.png",
+        "abbreviation": "BLP",
+        "url": "https://www.espn.com/soccer/club/_/id/346/blackpool"
+      },
+      {
+        "id": "358",
+        "name": "Bolton Wanderers",
+        "shortName": "Bolton",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/358.png",
+        "abbreviation": "BOL",
+        "url": "https://www.espn.com/soccer/club/_/id/358/bolton-wanderers"
+      },
+      {
+        "id": "387",
+        "name": "Bradford City",
+        "shortName": "Bradford",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/387.png",
+        "abbreviation": "BRD",
+        "url": "https://www.espn.com/soccer/club/_/id/387/bradford-city"
+      },
+      {
+        "id": "337",
+        "name": "Brentford",
+        "shortName": "Brentford",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+        "abbreviation": "BRE",
+        "url": "https://www.espn.com/soccer/club/_/id/337/brentford"
+      },
+      {
+        "id": "331",
+        "name": "Brighton & Hove Albion",
+        "shortName": "Brighton",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+        "abbreviation": "BHA",
+        "url": "https://www.espn.com/soccer/club/_/id/331/brighton-hove-albion"
+      },
+      {
+        "id": "333",
+        "name": "Bristol City",
+        "shortName": "Bristol City",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/333.png",
+        "abbreviation": "BRC",
+        "url": "https://www.espn.com/soccer/club/_/id/333/bristol-city"
+      },
+      {
+        "id": "308",
+        "name": "Bristol Rovers",
+        "shortName": "Bristol Rovers",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/308.png",
+        "abbreviation": "BRI",
+        "url": "https://www.espn.com/soccer/club/_/id/308/bristol-rovers"
+      },
+      {
+        "id": "3129",
+        "name": "Bromley",
+        "shortName": "Bromley",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3129.png",
+        "abbreviation": "BRO",
+        "url": "https://www.espn.com/soccer/club/_/id/3129/bromley"
+      },
+      {
+        "id": "379",
+        "name": "Burnley",
+        "shortName": "Burnley",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/379.png",
+        "abbreviation": "BUR",
+        "url": "https://www.espn.com/soccer/club/_/id/379/burnley"
+      },
+      {
+        "id": "2567",
+        "name": "Burton Albion",
+        "shortName": "Burton Albion",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2567.png",
+        "abbreviation": "BRT",
+        "url": "https://www.espn.com/soccer/club/_/id/2567/burton-albion"
+      },
+      {
+        "id": "351",
+        "name": "Cambridge United",
+        "shortName": "Cambridge",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/351.png",
+        "abbreviation": "CAM",
+        "url": "https://www.espn.com/soccer/club/_/id/351/cambridge-united"
+      },
+      {
+        "id": "347",
+        "name": "Cardiff City",
+        "shortName": "Cardiff",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/347.png",
+        "abbreviation": "CAR",
+        "url": "https://www.espn.com/soccer/club/_/id/347/cardiff-city"
+      },
+      {
+        "id": "372",
+        "name": "Charlton Athletic",
+        "shortName": "Charlton",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/372.png",
+        "abbreviation": "CHA",
+        "url": "https://www.espn.com/soccer/club/_/id/372/charlton-athletic"
+      },
+      {
+        "id": "363",
+        "name": "Chelsea",
+        "shortName": "Chelsea",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+        "abbreviation": "CHE",
+        "url": "https://www.espn.com/soccer/club/_/id/363/chelsea"
+      },
+      {
+        "id": "320",
+        "name": "Cheltenham Town",
+        "shortName": "Cheltenham",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/320.png",
+        "abbreviation": "CHL",
+        "url": "https://www.espn.com/soccer/club/_/id/320/cheltenham-town"
+      },
+      {
+        "id": "343",
+        "name": "Chesterfield",
+        "shortName": "Chesterfield",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/343.png",
+        "abbreviation": "CHES",
+        "url": "https://www.espn.com/soccer/club/_/id/343/chesterfield"
+      },
+      {
+        "id": "339",
+        "name": "Colchester United",
+        "shortName": "Colchester",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/339.png",
+        "abbreviation": "COL",
+        "url": "https://www.espn.com/soccer/club/_/id/339/colchester-united"
+      },
+      {
+        "id": "388",
+        "name": "Coventry City",
+        "shortName": "Coventry",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png",
+        "abbreviation": "COV",
+        "url": "https://www.espn.com/soccer/club/_/id/388/coventry-city"
+      },
+      {
+        "id": "2594",
+        "name": "Crawley Town",
+        "shortName": "Crawley",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2594.png",
+        "abbreviation": "CRA",
+        "url": "https://www.espn.com/soccer/club/_/id/2594/crawley-town"
+      },
+      {
+        "id": "396",
+        "name": "Crewe Alexandra",
+        "shortName": "Crewe",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/396.png",
+        "abbreviation": "CAX",
+        "url": "https://www.espn.com/soccer/club/_/id/396/crewe-alexandra"
+      },
+      {
+        "id": "384",
+        "name": "Crystal Palace",
+        "shortName": "C Palace",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png",
+        "abbreviation": "CRY",
+        "url": "https://www.espn.com/soccer/club/_/id/384/crystal-palace"
+      },
+      {
+        "id": "374",
+        "name": "Derby County",
+        "shortName": "Derby",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/374.png",
+        "abbreviation": "DER",
+        "url": "https://www.espn.com/soccer/club/_/id/374/derby-county"
+      },
+      {
+        "id": "279",
+        "name": "Doncaster Rovers",
+        "shortName": "Doncaster",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/279.png",
+        "abbreviation": "DON",
+        "url": "https://www.espn.com/soccer/club/_/id/279/doncaster-rovers"
+      },
+      {
+        "id": "368",
+        "name": "Everton",
+        "shortName": "Everton",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
+        "abbreviation": "EVE",
+        "url": "https://www.espn.com/soccer/club/_/id/368/everton"
+      },
+      {
+        "id": "324",
+        "name": "Exeter City",
+        "shortName": "Exeter",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/324.png",
+        "abbreviation": "EXE",
+        "url": "https://www.espn.com/soccer/club/_/id/324/exeter-city"
+      },
+      {
+        "id": "3891",
+        "name": "Fleetwood Town",
+        "shortName": "Fleetwood Town",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3891.png",
+        "abbreviation": "FLE",
+        "url": "https://www.espn.com/soccer/club/_/id/3891/fleetwood-town"
+      },
+      {
+        "id": "370",
+        "name": "Fulham",
+        "shortName": "Fulham",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png",
+        "abbreviation": "FUL",
+        "url": "https://www.espn.com/soccer/club/_/id/370/fulham"
+      },
+      {
+        "id": "389",
+        "name": "Gillingham",
+        "shortName": "Gillingham",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/389.png",
+        "abbreviation": "GIL",
+        "url": "https://www.espn.com/soccer/club/_/id/389/gillingham"
+      },
+      {
+        "id": "386",
+        "name": "Grimsby Town",
+        "shortName": "Grimsby",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/386.png",
+        "abbreviation": "GRI",
+        "url": "https://www.espn.com/soccer/club/_/id/386/grimsby-town"
+      },
+      {
+        "id": "335",
+        "name": "Huddersfield Town",
+        "shortName": "Huddersfield",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/335.png",
+        "abbreviation": "HUD",
+        "url": "https://www.espn.com/soccer/club/_/id/335/huddersfield-town"
+      },
+      {
+        "id": "306",
+        "name": "Hull City",
+        "shortName": "Hull",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+        "abbreviation": "HUL",
+        "url": "https://www.espn.com/soccer/club/_/id/306/hull-city"
+      },
+      {
+        "id": "373",
+        "name": "Ipswich Town",
+        "shortName": "Ipswich",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/373.png",
+        "abbreviation": "IPS",
+        "url": "https://www.espn.com/soccer/club/_/id/373/ipswich-town"
+      },
+      {
+        "id": "357",
+        "name": "Leeds United",
+        "shortName": "Leeds",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
+        "abbreviation": "LEE",
+        "url": "https://www.espn.com/soccer/club/_/id/357/leeds-united"
+      },
+      {
+        "id": "375",
+        "name": "Leicester City",
+        "shortName": "Leicester",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/375.png",
+        "abbreviation": "LEI",
+        "url": "https://www.espn.com/soccer/club/_/id/375/leicester-city"
+      },
+      {
+        "id": "309",
+        "name": "Leyton Orient",
+        "shortName": "Leyton Orient",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/309.png",
+        "abbreviation": "LEY",
+        "url": "https://www.espn.com/soccer/club/_/id/309/leyton-orient"
+      },
+      {
+        "id": "314",
+        "name": "Lincoln City",
+        "shortName": "Lincoln City",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/314.png",
+        "abbreviation": "LCN",
+        "url": "https://www.espn.com/soccer/club/_/id/314/lincoln-city"
+      },
+      {
+        "id": "364",
+        "name": "Liverpool",
+        "shortName": "Liverpool",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+        "abbreviation": "LIV",
+        "url": "https://www.espn.com/soccer/club/_/id/364/liverpool"
+      },
+      {
+        "id": "301",
+        "name": "Luton Town",
+        "shortName": "Luton",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/301.png",
+        "abbreviation": "LTN",
+        "url": "https://www.espn.com/soccer/club/_/id/301/luton-town"
+      },
+      {
+        "id": "382",
+        "name": "Manchester City",
+        "shortName": "Man City",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+        "abbreviation": "MNC",
+        "url": "https://www.espn.com/soccer/club/_/id/382/manchester-city"
+      },
+      {
+        "id": "360",
+        "name": "Manchester United",
+        "shortName": "Man Utd",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+        "abbreviation": "MAN",
+        "url": "https://www.espn.com/soccer/club/_/id/360/manchester-united"
+      },
+      {
+        "id": "304",
+        "name": "Mansfield Town",
+        "shortName": "Mansfield",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/304.png",
+        "abbreviation": "MNF",
+        "url": "https://www.espn.com/soccer/club/_/id/304/mansfield-town"
+      },
+      {
+        "id": "369",
+        "name": "Middlesbrough",
+        "shortName": "Boro",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/369.png",
+        "abbreviation": "MID",
+        "url": "https://www.espn.com/soccer/club/_/id/369/middlesbrough"
+      },
+      {
+        "id": "391",
+        "name": "Millwall",
+        "shortName": "Millwall",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/391.png",
+        "abbreviation": "MIL",
+        "url": "https://www.espn.com/soccer/club/_/id/391/millwall"
+      },
+      {
+        "id": "390",
+        "name": "Milton Keynes Dons",
+        "shortName": "MK Dons",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/390.png",
+        "abbreviation": "MKD",
+        "url": "https://www.espn.com/soccer/club/_/id/390/milton-keynes-dons"
+      },
+      {
+        "id": "361",
+        "name": "Newcastle United",
+        "shortName": "Newcastle",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png",
+        "abbreviation": "NEW",
+        "url": "https://www.espn.com/soccer/club/_/id/361/newcastle-united"
+      },
+      {
+        "id": "635",
+        "name": "Newport County",
+        "shortName": "Newport",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/635.png",
+        "abbreviation": "NEW",
+        "url": "https://www.espn.com/soccer/club/_/id/635/newport-county"
+      },
+      {
+        "id": "353",
+        "name": "Northampton Town",
+        "shortName": "Northampton",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/353.png",
+        "abbreviation": "NHT",
+        "url": "https://www.espn.com/soccer/club/_/id/353/northampton-town"
+      },
+      {
+        "id": "381",
+        "name": "Norwich City",
+        "shortName": "Norwich City",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/381.png",
+        "abbreviation": "NOR",
+        "url": "https://www.espn.com/soccer/club/_/id/381/norwich-city"
+      },
+      {
+        "id": "393",
+        "name": "Nottingham Forest",
+        "shortName": "Nottm Forest",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
+        "abbreviation": "NFO",
+        "url": "https://www.espn.com/soccer/club/_/id/393/nottingham-forest"
+      },
+      {
+        "id": "340",
+        "name": "Notts County",
+        "shortName": "Notts County",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/340.png",
+        "abbreviation": "NCO",
+        "url": "https://www.espn.com/soccer/club/_/id/340/notts-county"
+      },
+      {
+        "id": "332",
+        "name": "Oldham Athletic",
+        "shortName": "Oldham",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/332.png",
+        "abbreviation": "OLD",
+        "url": "https://www.espn.com/soccer/club/_/id/332/oldham-athletic"
+      },
+      {
+        "id": "311",
+        "name": "Oxford United",
+        "shortName": "Oxford Utd",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/311.png",
+        "abbreviation": "OXF",
+        "url": "https://www.espn.com/soccer/club/_/id/311/oxford-united"
+      },
+      {
+        "id": "342",
+        "name": "Peterborough United",
+        "shortName": "Peterborough",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/342.png",
+        "abbreviation": "PET",
+        "url": "https://www.espn.com/soccer/club/_/id/342/peterborough-united"
+      },
+      {
+        "id": "307",
+        "name": "Plymouth Argyle",
+        "shortName": "Plymouth",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/307.png",
+        "abbreviation": "PLY",
+        "url": "https://www.espn.com/soccer/club/_/id/307/plymouth-argyle"
+      },
+      {
+        "id": "348",
+        "name": "Port Vale",
+        "shortName": "Port Vale",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/348.png",
+        "abbreviation": "PTV",
+        "url": "https://www.espn.com/soccer/club/_/id/348/port-vale"
+      },
+      {
+        "id": "385",
+        "name": "Portsmouth",
+        "shortName": "Portsmouth",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/385.png",
+        "abbreviation": "POR",
+        "url": "https://www.espn.com/soccer/club/_/id/385/portsmouth"
+      },
+      {
+        "id": "394",
+        "name": "Preston North End",
+        "shortName": "Preston",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/394.png",
+        "abbreviation": "PNE",
+        "url": "https://www.espn.com/soccer/club/_/id/394/preston-north-end"
+      },
+      {
+        "id": "334",
+        "name": "Queens Park Rangers",
+        "shortName": "QPR",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/334.png",
+        "abbreviation": "QPR",
+        "url": "https://www.espn.com/soccer/club/_/id/334/queens-park-rangers"
+      },
+      {
+        "id": "338",
+        "name": "Reading",
+        "shortName": "Reading",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/338.png",
+        "abbreviation": "REA",
+        "url": "https://www.espn.com/soccer/club/_/id/338/reading"
+      },
+      {
+        "id": "303",
+        "name": "Rochdale",
+        "shortName": "Rochdale",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/303.png",
+        "abbreviation": "RCH",
+        "url": "https://www.espn.com/soccer/club/_/id/303/rochdale"
+      },
+      {
+        "id": "402",
+        "name": "Rotherham United",
+        "shortName": "Rotherham",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/402.png",
+        "abbreviation": "ROT",
+        "url": "https://www.espn.com/soccer/club/_/id/402/rotherham-united"
+      },
+      {
+        "id": "4703",
+        "name": "Salford City",
+        "shortName": "Salford City",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4703.png",
+        "abbreviation": "SAL",
+        "url": "https://www.espn.com/soccer/club/_/id/4703/salford-city"
+      },
+      {
+        "id": "398",
+        "name": "Sheffield United",
+        "shortName": "Sheffield Utd",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/398.png",
+        "abbreviation": "SHU",
+        "url": "https://www.espn.com/soccer/club/_/id/398/sheffield-united"
+      },
+      {
+        "id": "399",
+        "name": "Sheffield Wednesday",
+        "shortName": "Sheffield Wed",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/399.png",
+        "abbreviation": "SHW",
+        "url": "https://www.espn.com/soccer/club/_/id/399/sheffield-wednesday"
+      },
+      {
+        "id": "302",
+        "name": "Shrewsbury Town",
+        "shortName": "Shrewsbury",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/302.png",
+        "abbreviation": "SHR",
+        "url": "https://www.espn.com/soccer/club/_/id/302/shrewsbury-town"
+      },
+      {
+        "id": "376",
+        "name": "Southampton",
+        "shortName": "Southampton",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/376.png",
+        "abbreviation": "SOU",
+        "url": "https://www.espn.com/soccer/club/_/id/376/southampton"
+      },
+      {
+        "id": "285",
+        "name": "Stevenage",
+        "shortName": "Stevenage",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/285.png",
+        "abbreviation": "STE",
+        "url": "https://www.espn.com/soccer/club/_/id/285/stevenage"
+      },
+      {
+        "id": "400",
+        "name": "Stockport County",
+        "shortName": "Stockport",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/400.png",
+        "abbreviation": "STO",
+        "url": "https://www.espn.com/soccer/club/_/id/400/stockport-county"
+      },
+      {
+        "id": "336",
+        "name": "Stoke City",
+        "shortName": "Stoke",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/336.png",
+        "abbreviation": "STK",
+        "url": "https://www.espn.com/soccer/club/_/id/336/stoke-city"
+      },
+      {
+        "id": "366",
+        "name": "Sunderland",
+        "shortName": "Sunderland",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+        "abbreviation": "SUN",
+        "url": "https://www.espn.com/soccer/club/_/id/366/sunderland"
+      },
+      {
+        "id": "318",
+        "name": "Swansea City",
+        "shortName": "Swansea",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/318.png",
+        "abbreviation": "SWA",
+        "url": "https://www.espn.com/soccer/club/_/id/318/swansea-city"
+      },
+      {
+        "id": "341",
+        "name": "Swindon Town",
+        "shortName": "Swindon",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/341.png",
+        "abbreviation": "SWI",
+        "url": "https://www.espn.com/soccer/club/_/id/341/swindon-town"
+      },
+      {
+        "id": "367",
+        "name": "Tottenham Hotspur",
+        "shortName": "Spurs",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+        "abbreviation": "TOT",
+        "url": "https://www.espn.com/soccer/club/_/id/367/tottenham-hotspur"
+      },
+      {
+        "id": "345",
+        "name": "Tranmere Rovers",
+        "shortName": "Tranmere",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/345.png",
+        "abbreviation": "TRN",
+        "url": "https://www.espn.com/soccer/club/_/id/345/tranmere-rovers"
+      },
+      {
+        "id": "401",
+        "name": "Walsall",
+        "shortName": "Walsall",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/401.png",
+        "abbreviation": "WAL",
+        "url": "https://www.espn.com/soccer/club/_/id/401/walsall"
+      },
+      {
+        "id": "395",
+        "name": "Watford",
+        "shortName": "Watford",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/395.png",
+        "abbreviation": "WAT",
+        "url": "https://www.espn.com/soccer/club/_/id/395/watford"
+      },
+      {
+        "id": "383",
+        "name": "West Bromwich Albion",
+        "shortName": "West Brom",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/383.png",
+        "abbreviation": "WBA",
+        "url": "https://www.espn.com/soccer/club/_/id/383/west-bromwich-albion"
+      },
+      {
+        "id": "371",
+        "name": "West Ham United",
+        "shortName": "West Ham",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/371.png",
+        "abbreviation": "WHU",
+        "url": "https://www.espn.com/soccer/club/_/id/371/west-ham-united"
+      },
+      {
+        "id": "350",
+        "name": "Wigan Athletic",
+        "shortName": "Wigan",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/350.png",
+        "abbreviation": "WGA",
+        "url": "https://www.espn.com/soccer/club/_/id/350/wigan-athletic"
+      },
+      {
+        "id": "380",
+        "name": "Wolverhampton Wanderers",
+        "shortName": "Wolves",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/380.png",
+        "abbreviation": "WOL",
+        "url": "https://www.espn.com/soccer/club/_/id/380/wolverhampton-wanderers"
+      },
+      {
+        "id": "352",
+        "name": "Wrexham",
+        "shortName": "Wrexham",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/352.png",
+        "abbreviation": "WXM",
+        "url": "https://www.espn.com/soccer/club/_/id/352/wrexham"
+      },
+      {
+        "id": "344",
+        "name": "Wycombe Wanderers",
+        "shortName": "Wycombe",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/344.png",
+        "abbreviation": "WYC",
+        "url": "https://www.espn.com/soccer/club/_/id/344/wycombe-wanderers"
+      },
+      {
+        "id": "315",
+        "name": "York City",
+        "shortName": "York City",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/315.png",
+        "abbreviation": "YORK",
+        "url": "https://www.espn.com/soccer/club/_/id/315/york-city"
+      }
+    ]
   }
 ]

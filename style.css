@@ -47,3 +47,14 @@ button { cursor:pointer; }
     .navigation { gap:11px; font-size:12px; }
     .btnlogin-popup { padding:6px 8px; }
 }
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #0d151d;
+    --text: #ecf2f8;
+    --line: #364554;
+    --green: #91e1b4;
+}
+[data-theme="dark"] .wrapper { background: #17232e; }
+[data-theme="dark"] .input-box input { background: #21303c; border-color: var(--line); }
+[data-theme="dark"] #password-help { color: #a7b6c6; }

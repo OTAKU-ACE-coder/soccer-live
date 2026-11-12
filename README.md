@@ -8,7 +8,7 @@ Soccer Live is a football hub with scores, fixtures, club follows, and a persona
 
 The app has dedicated overview, match centre, newsroom, standings, club discovery, and saved-story views.
 
-- Premier League, La Liga, Bundesliga, Serie A, Ligue 1, and Champions League feeds.
+- Premier League, La Liga, Bundesliga, Serie A, Ligue 1, Champions League, FA Cup, and Carabao Cup feeds. The domestic cups display fixtures and results in place of a league table.
 - Latest matchday, date picker, yesterday/today/tomorrow, live and followed-club filters.
 - Match statistics including possession, shots, shots on target, corners, and fouls when supplied.
 - Current league tables and club profiles with related matches and stories.
@@ -30,7 +30,11 @@ Club and league badge sources are recorded in `football-catalog.json`. Match and
 
 ## News alerts
 
-Open the bell to follow competitions or Ballon d’Or and choose which updates appear in your inbox. The app checks all six competition score feeds every three minutes while the page is visible. Recent completed match reports and dated editorial stories can generate alerts. The inbox and unread counts are saved in the current browser. Ballon d’Or coverage comes from Soccer Live editorial articles added to the site.
+Open the bell to follow competitions or Ballon d’Or and choose which updates appear in your inbox. The app checks the supported competition score feeds every three minutes while the page is visible. Recent completed match reports and dated editorial stories can generate alerts. The inbox and unread counts are saved in the current browser. Ballon d’Or coverage comes from Soccer Live editorial articles added to the site.
+
+## Appearance
+
+Open Settings to select light, dark, or your device’s theme. The preference is saved in the current browser and shared with the account pages.
 
 ## Local checks
 

@@ -9,11 +9,11 @@
       content="Your football match centre. Scores, news, club follows and standings across Europe's major leagues."
     />
     <title>Soccer Live | Your football, all in one place</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,check,close,home,login,manage_search,monitoring,newspaper,notifications,person,refresh,search,sports_soccer,trophy&amp;display=block" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,check,close,home,login,manage_search,monitoring,newspaper,notifications,person,refresh,search,settings,sports_soccer,trophy&amp;display=block" />
     <link rel="stylesheet" href="brand.css?v=2" />
-    <link rel="stylesheet" href="football.css?v=10" />
+    <link rel="stylesheet" href="football.css?v=11" />
     <script src="config.js"></script>
-    <script type="module" src="football.js?v=10"></script>
+    <script type="module" src="football.js?v=11"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
@@ -26,6 +26,7 @@
         <a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span>League tables</a>
         <a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span>Discover clubs</a>
         <a href="#alerts"><span class="material-symbols-outlined" aria-hidden="true">notifications</span>Alerts <small id="nav-unread" hidden>0</small></a>
+        <a href="#settings"><span class="material-symbols-outlined" aria-hidden="true">settings</span>Settings</a>
         <a href="#saved"
           ><span class="material-symbols-outlined" aria-hidden="true">bookmark</span>Saved stories
           <small id="saved-count">0</small></a
@@ -95,10 +96,11 @@
             >
           </div>
           <div class="welcome-bottom">
-            <span>⚽ SIX COMPETITIONS. ONE HOME.</span
+            <span>LEAGUES & CUPS</span
             ><span class="photo-credit">Photo · Unsplash</span>
           </div>
         </section>
+        <label class="competition-picker" id="competition-picker">Competition <select id="competition-select" aria-label="Competition"></select></label>
         <div
           class="league-strip"
           id="league-strip"
@@ -171,7 +173,7 @@
             <section class="panel mini-table" aria-labelledby="mini-title">
               <div class="section-heading">
                 <h2 id="mini-title">Top of the table</h2>
-                <a href="#standings">Full table ↗</a>
+                <a id="mini-table-link" href="#standings">Full table ↗</a>
               </div>
               <div id="mini-table"></div>
             </section>
@@ -260,6 +262,22 @@
             <div id="interest-list" class="interest-list"></div>
             <p class="data-status">Alerts refresh while Soccer Live is open. Your follows and read status are saved in this browser.</p>
           </section>
+          <section class="panel settings-panel" id="settings" aria-labelledby="settings-title" hidden>
+            <div class="section-heading"><div><span class="eyebrow">PREFERENCES</span><h2 id="settings-title">Settings</h2></div></div>
+            <fieldset class="theme-options">
+              <legend>Appearance</legend>
+              <label><input type="radio" name="theme" value="light"> <span><strong>Light</strong><small>Bright surfaces and dark text</small></span></label>
+              <label><input type="radio" name="theme" value="dark"> <span><strong>Dark</strong><small>Deep navy surfaces and light text</small></span></label>
+              <label><input type="radio" name="theme" value="system"> <span><strong>System</strong><small>Use your device’s appearance</small></span></label>
+            </fieldset>
+            <p class="data-status" id="theme-status" role="status"></p>
+            <div class="settings-links">
+              <a href="#saved"><strong>Saved stories</strong><span>Open your reading list →</span></a>
+              <a href="#alerts"><strong>Notifications and followed competitions</strong><span>Manage alerts, cups and topics →</span></a>
+              <a href="#clubs"><strong>Followed clubs</strong><span>Choose the clubs in your feed →</span></a>
+              <a href="protected.html"><strong>Account</strong><span>Open your Soccer Live account →</span></a>
+            </div>
+          </section>
           <section
             class="panel saved-panel"
             id="saved"
@@ -298,7 +316,7 @@
       ><a href="#news"><span class="material-symbols-outlined" aria-hidden="true">newspaper</span><span>News</span></a
       ><a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span><span>Tables</span></a
       ><a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span><span>Clubs</span></a
-      ><a href="#saved"><span class="material-symbols-outlined" aria-hidden="true">bookmark</span><span>Saved</span></a>
+      ><a href="#settings"><span class="material-symbols-outlined" aria-hidden="true">settings</span><span>Settings</span></a>
     </nav>
     <dialog id="detail-dialog" aria-labelledby="detail-title">
       <div class="dialog-top">
