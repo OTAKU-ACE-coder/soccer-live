@@ -10,17 +10,26 @@
         }
     </script>
     <title>Sign up | Soccer Live</title>
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="brand.css">
+    <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
-    <header>
-        <h2 class="Codex">Soccer Live</h2>
+    <header class="account-header">
+        <a class="brand-logo" href="football.html"><img src="assets/soccer-live-logo.png" width="1760" height="880" alt="Soccer Live home"></a>
         <nav class="navigation" aria-label="Main navigation">
             <a href="football.html">Football</a><a href="protected.html">Account</a>
             <button type="button" class="btnlogin-popup" data-mode="login">Login</button>
         </nav>
     </header>
-    <main class="wrapper"><div class="form-box">
+    <main class="wrapper signup-layout">
+        <aside class="account-feature" aria-label="Soccer Live">
+            <div>
+                <h2>Make matchday yours.</h2>
+                <p>Follow your clubs, check live scores and catch up on the latest match reports.</p>
+                <a href="football.html">Explore Soccer Live →</a>
+            </div>
+        </aside>
+        <div class="form-box">
         <h1 id="form-title">Create an account</h1>
         <p id="message" role="status" aria-live="polite"></p>
         <form id="auth-form" novalidate aria-labelledby="form-title">

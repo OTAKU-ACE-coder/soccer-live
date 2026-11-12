@@ -9,16 +9,14 @@
       content="Your football match centre. Scores, news, club follows and standings across Europe's major leagues."
     />
     <title>Soccer Live | Your football, all in one place</title>
-    <link rel="stylesheet" href="football.css?v=6" />
+    <link rel="stylesheet" href="brand.css" />
+    <link rel="stylesheet" href="football.css?v=7" />
     <script src="config.js"></script>
     <script type="module" src="football.js?v=6"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
-      <a class="brand" href="#home"
-        ><span class="brand-ball" aria-hidden="true"><b>SL</b></span
-        ><span>SOCCER<span class="brand-live">LIVE</span></span></a
-      >
+      <a class="brand-logo" href="#home"><img src="assets/soccer-live-logo.png" width="1760" height="880" alt="Soccer Live home"></a>
       <p class="nav-label">YOUR FOOTBALL</p>
       <nav class="main-nav" aria-label="Main navigation">
         <a href="#home"><span aria-hidden="true">⌂</span>Overview</a>
@@ -50,6 +48,7 @@
     </aside>
     <div class="app-shell">
       <header class="app-header">
+        <a class="brand-logo mobile-brand" href="#home"><img src="assets/soccer-live-logo.png" width="1760" height="880" alt="Soccer Live home"></a>
         <div>
           <span class="header-kicker">THE WORLD'S GAME</span>
           <h1 id="page-title">Your football, all in one place.</h1>

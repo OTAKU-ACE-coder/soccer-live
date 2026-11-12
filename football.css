@@ -1397,3 +1397,10 @@ body[data-view="home"] .news-latest { display: none; }
   .news-desk { grid-template-columns: minmax(0, 1fr); }
   .news-latest { border-left: 0; padding-left: 0; }
 }
+
+.mobile-brand { display: none; }
+@media (max-width: 700px) {
+  .app-header .mobile-brand { display: block; width: 105px; height: 40px; }
+  .app-header .header-kicker { display: none; }
+  .app-header h1 { font-size: 14px; }
+}
