@@ -1262,29 +1262,48 @@ function expandableData(title, load, render) {
   return section;
 }
 
+async function readPortraits(path) {
+  try {
+    const response = await fetch(path);
+    return response.ok ? await response.json() : {};
+  } catch {
+    return {};
+  }
+}
+
 function portraitIndex() {
-  portraits ??= fetch("player-portraits.json")
-    .then(response => response.ok ? response.json() : {})
-    .catch(() => ({}));
+  portraits ??= Promise.all([
+    readPortraits("player-portraits.json"),
+    readPortraits("club-player-portraits.json"),
+  ]).then(([league, clubs]) => ({ league, clubs }));
   return portraits;
 }
 
 function playerCard(player, index, shirt = player.jersey, position = player.position) {
   const name = player.displayName || player.fullName;
   const card = node("div", undefined, "player-card");
-  const initials = name.split(/s+/).filter(Boolean).map(word => word[0]).slice(0, 2).join("");
+  const initials = name.split(/\s+/).filter(Boolean).map(word => word[0]).slice(0, 2).join("");
   const portrait = node("span", initials, "player-portrait");
   portrait.setAttribute("aria-hidden", "true");
-  const key = normalize(name).replace(/[^a-z0-9]/g, "");
-  const code = index[key];
-  const photo = safeUrl(player.headshot?.href || player.headshot?.url) ||
-    (/^d+$/.test(code ?? "") ? "https://resources.premierleague.com/premierleague/photos/players/250x250/p" + code + ".png" : "");
-  if (photo) {
+  const keys = [player.fullName, player.displayName, [player.firstName, player.lastName].filter(Boolean).join(" ")]
+    .filter(Boolean).map(value => normalize(value).replace(/[^a-z0-9]/g, ""));
+  const clubPhoto = keys.map(key => index.clubs[key]).find(safeUrl);
+  const code = keys.map(key => index.league[key]).find(value => /^\d+$/.test(value ?? ""));
+  const candidates = [...new Set([
+    safeUrl(player.headshot?.href || player.headshot?.url),
+    safeUrl(clubPhoto),
+    code ? "https://resources.premierleague.com/premierleague/photos/players/250x250/p" + code + ".png" : "",
+  ].filter(Boolean))];
+  if (candidates.length) {
     const image = node("img");
-    image.src = photo;
+    image.src = candidates.shift();
     image.alt = "";
     image.loading = "lazy";
-    image.addEventListener("error", () => image.replaceWith(portrait), { once: true });
+    image.addEventListener("error", () => {
+      const next = candidates.shift();
+      if (next) image.src = next;
+      else image.replaceWith(portrait);
+    });
     card.append(image);
   } else card.append(portrait);
   const label = node("span");
@@ -1369,7 +1388,7 @@ function renderForms() {
     cell.replaceChildren(marks);
   }
   $("form-status").textContent = !groups.length ? "" : !form || form.loading ? "Loading recent results…" :
-    "Last 5 in this competition · Oldest to newest · ✓ Win · – Draw · × Loss" +
+    "Last 5 completed matches in this competition · Oldest to newest · ✓ Win · – Draw · × Loss" +
     (form.failed ? " · Some results could not be loaded." : "");
 }
 
