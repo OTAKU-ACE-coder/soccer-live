@@ -21,6 +21,13 @@ The app reads publicly accessible ESPN website feeds directly. These are unoffic
 
 Club and league badge sources are recorded in `football-catalog.json`. Match and standings data come from ESPN’s public website feeds. The stadium photograph is served from the bundled Unsplash asset.
 
+## Fixtures, squads, and recent form
+
+- Match centre lists scheduled matches for the next 14 days in the selected competition.
+- Club profiles show the current squad and upcoming club fixtures. Match details show reported starters, formations and substitutes when available.
+- The league table shows the last five completed matches in the selected competition, oldest to newest. Each mark includes the opponent, score and date.
+- Player photos use images supplied by the match data provider or the Premier League portrait index. Initials appear when no matched portrait is available.
+
 ## News alerts
 
 Open the bell to follow competitions or Ballon d’Or and choose which updates appear in your inbox. The app checks all six competition score feeds every three minutes while the page is visible. Recent completed match reports and dated editorial stories can generate alerts. The inbox and unread counts are saved in the current browser. Ballon d’Or coverage comes from Soccer Live editorial articles added to the site.

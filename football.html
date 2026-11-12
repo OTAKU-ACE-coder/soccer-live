@@ -11,9 +11,9 @@
     <title>Soccer Live | Your football, all in one place</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,check,close,home,login,manage_search,monitoring,newspaper,notifications,person,refresh,search,sports_soccer,trophy&amp;display=block" />
     <link rel="stylesheet" href="brand.css?v=2" />
-    <link rel="stylesheet" href="football.css?v=9" />
+    <link rel="stylesheet" href="football.css?v=10" />
     <script src="config.js"></script>
-    <script type="module" src="football.js?v=8"></script>
+    <script type="module" src="football.js?v=9"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
@@ -144,7 +144,7 @@
             <div class="date-shortcuts">
               <button type="button" data-date="recent" aria-pressed="true">
                 Latest matchday</button
-              ><button type="button" data-date="-1" aria-pressed="false">
+              ><button type="button" data-date="upcoming" aria-pressed="false">Upcoming 14 days</button><button type="button" data-date="-1" aria-pressed="false">
                 Yesterday</button
               ><button type="button" data-date="0" aria-pressed="false">
                 Today</button
@@ -224,6 +224,7 @@
               <span id="table-season" class="subtle"></span>
             </div>
             <p id="table-status" class="data-status" role="status"></p>
+            <p id="form-status" class="data-status" role="status"></p>
             <div id="tables"></div>
           </section>
           <section

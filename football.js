@@ -2,6 +2,8 @@ import { buildReports, editorialStories } from "./newsroom.js?v=7";
 
 import { collectAlerts, followsInterest, readAlertSettings } from "./news-alerts.js";
 
+import { upcomingFixtures, recentResults } from "./match-data.js";
+
 const $ = (id) => document.getElementById(id);
 const API = "https://site.api.espn.com/apis/site/v2/sports/soccer/";
 const TABLE_API = "https://site.web.api.espn.com/apis/v2/sports/soccer/";
@@ -196,7 +198,7 @@ function asTeam(competitor) {
     name: team.displayName,
     shortName: team.shortDisplayName,
     abbreviation: team.abbreviation,
-    logo: team.logo,
+    logo: team.logo || allTeams.find(item => item.id === String(team.id))?.logo,
     url: team.links?.find((link) => link.rel?.includes("clubhouse"))?.href,
   };
 }
@@ -351,7 +353,7 @@ function matchVisible(event) {
     (filter !== "following" || teams.some(follows))
   );
 }
-function matchRow(event) {
+function matchRow(event, competitionId = league.id) {
   const status = competition(event).status || event.status;
   const row = node(
     "button",
@@ -383,7 +385,7 @@ function matchRow(event) {
     teamList.append(label);
   }
   row.append(teamList, materialIcon("arrow_forward"));
-  row.addEventListener("click", () => openMatch(event));
+  row.addEventListener("click", () => openMatch(event, event.league?.slug || competitionId));
   return row;
 }
 function renderMatches() {
@@ -470,6 +472,7 @@ function renderTables() {
       "GA",
       "GD",
       "Pts",
+      "Last 5",
     ]) {
       const cell = node("th", title);
       cell.scope = "col";
@@ -506,6 +509,10 @@ function renderTables() {
         "points",
       ])
         row.append(node("td", stat(entry, key)));
+      const form = node("td", undefined, "form-cell");
+      form.dataset.formTeam = team.id;
+      form.textContent = "–";
+      row.append(form);
       body.append(row);
     });
     table.append(caption, head, body);
@@ -532,6 +539,8 @@ function renderTables() {
       node("p", "Table unavailable for this competition.", "subtle"),
     );
   }
+  renderForms();
+  if (view === "standings" && groups.length) loadForms();
   $("table-status").textContent = errors.table
     ? "Could not update the table. Use Refresh to retry."
     : league.name + " · Current season, as reported by ESPN";
@@ -717,12 +726,12 @@ function showDialog(content, focus = true) {
   if (!$("detail-dialog").open) $("detail-dialog").showModal();
   if (focus) $("close-dialog").focus();
 }
-function openMatch(event) {
+function openMatch(event, competitionId = league.id) {
   const data = competition(event),
     status = data.status || event.status,
     teams = opponents(event);
   const content = node("div"),
-    title = node("h2", league.name);
+    title = node("h2", catalog.find(item => item.id === competitionId)?.name || event.league?.name || league.name);
   title.id = "detail-title";
   content.append(
     title,
@@ -759,6 +768,7 @@ function openMatch(event) {
   );
   if (data.venue?.fullName)
     content.append(node("p", data.venue.fullName, "dialog-meta"));
+  addLineupSection(content, event, competitionId);
   content.append(node("h3", "Match statistics", "dialog-subheading"));
   let hasStats = false;
   for (const [key, label] of [
@@ -799,20 +809,8 @@ function openClub(team, focus = true) {
   content.append(
     heading,
     followButton(team),
-    node("h3", "Matches in the selected matchday", "dialog-subheading"),
   );
-  const matches = events.filter((event) =>
-    opponents(event).some((item) => String(item.team.id) === team.id),
-  );
-  if (!matches.length)
-    content.append(
-      node(
-        "p",
-        "No matches in the current selection. Choose the club’s competition and a match date.",
-        "subtle",
-      ),
-    );
-  matches.slice(0, 4).forEach((event) => content.append(matchRow(event)));
+  addClubSections(content, team);
   content.append(node("h3", "Related stories", "dialog-subheading"));
   const related = stories
     .filter(
@@ -855,6 +853,7 @@ function setRoute() {
     renderNews();
     renderSaved();
     renderAlerts();
+    if (view === "standings" && groups.length) loadForms();
   }
 }
 async function loadData() {
@@ -876,7 +875,7 @@ async function loadData() {
   $("table-status").textContent = "Loading standings…";
   const suffix = date ? "?dates=" + date.replaceAll("-", "") : "";
   const results = await Promise.allSettled([
-    fetchJson(API + league.id + "/scoreboard" + suffix, request.signal),
+    date === "upcoming" ? loadUpcoming(league.id, request.signal) : fetchJson(API + league.id + "/scoreboard" + suffix, request.signal),
     fetchJson(TABLE_API + league.id + "/standings", request.signal),
     date ? fetchJson(API + league.id + "/scoreboard", request.signal) : Promise.resolve(null),
   ]);
@@ -886,6 +885,7 @@ async function loadData() {
       .filter((event) => opponents(event).length === 2)
       .sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
   else errors.scores = true;
+  errors.partialFixtures = results[0].value?.partial;
   if (results[1].status === "fulfilled") {
     groups = entriesOf(results[1].value);
     $("table-season").textContent = results[1].value.season?.displayName || "";
@@ -911,7 +911,9 @@ async function loadData() {
   if (token !== generation) return;
   if (requestedStory) renderArticle();
   $("refresh").disabled = false;
-  $("score-status").textContent = errors.scores
+  $("score-status").textContent = date === "upcoming" && !errors.scores
+    ? (errors.partialFixtures ? "Some fixture dates are unavailable · " : "") + "Scheduled kickoffs over the next 14 days · Local time"
+    : errors.scores
     ? "Scores unavailable. Use Refresh to try again."
     : "ESPN · Checked " +
       new Date().toLocaleTimeString([], {
@@ -924,7 +926,7 @@ async function loadData() {
   renderNews();
 }
 async function refreshMatches() {
-  if ($("refresh").disabled || !league || document.hidden) return;
+  if ($("refresh").disabled || !league || document.hidden || date === "upcoming") return;
   const token = generation;
   try {
     const suffix = date ? "?dates=" + date.replaceAll("-", "") : "";
@@ -1011,8 +1013,13 @@ document.querySelectorAll("[data-date]").forEach((button) =>
   button.addEventListener("click", () => {
     const selected = new Date();
     selected.setDate(selected.getDate() + Number(button.dataset.date || 0));
-    date = button.dataset.date === "recent" ? "" : localDate(selected);
-    $("match-date").value = date;
+    date = button.dataset.date === "recent" ? "" : button.dataset.date === "upcoming" ? "upcoming" : localDate(selected);
+    $("match-date").value = date === "upcoming" ? "" : date;
+    if (date === "upcoming" && filter === "live") {
+      filter = "all";
+      document.querySelectorAll("[data-filter]").forEach(item =>
+        item.setAttribute("aria-pressed", String(item.dataset.filter === filter)));
+    }
     document
       .querySelectorAll("[data-date]")
       .forEach((item) =>
@@ -1194,6 +1201,204 @@ for (const input of document.querySelectorAll("[data-alert-setting]")) {
     preferences.alerts.settings[input.dataset.alertSetting] = input.checked;
     savePreferences();
   });
+}
+
+
+const formCache = new Map();
+const requests = new Map();
+let portraits;
+
+function cachedMatchData(path) {
+  const saved = requests.get(path);
+  if (saved && Date.now() - saved.at < 300000) return saved.promise;
+  const promise = fetchJson(API + path, new AbortController().signal);
+  const entry = { at: Date.now(), promise };
+  requests.set(path, entry);
+  promise.catch(() => { if (requests.get(path) === entry) requests.delete(path); });
+  return promise;
+}
+
+async function loadUpcoming(competitionId, signal) {
+  const fixtures = [];
+  let failures = 0;
+  const days = Array.from({ length: 14 }, (_, offset) => {
+    const day = new Date();
+    day.setDate(day.getDate() + offset);
+    return localDate(day).replaceAll("-", "");
+  });
+  for (let offset = 0; offset < days.length; offset += 5) {
+    if (signal.aborted) throw signal.reason;
+    const batch = await Promise.allSettled(days.slice(offset, offset + 5).map(day =>
+      fetchJson(API + competitionId + "/scoreboard?dates=" + day, signal)));
+    for (const result of batch) {
+      if (result.status === "fulfilled") fixtures.push(...(result.value.events || []));
+      else failures++;
+    }
+  }
+  if (failures === days.length) throw new Error("Fixture feed unavailable");
+  return { events: upcomingFixtures(fixtures), partial: failures > 0 };
+}
+
+function expandableData(title, load, render) {
+  const section = node("details", undefined, "match-extra");
+  const summary = node("summary", title);
+  const content = node("div", undefined, "match-extra-content");
+  section.append(summary, content);
+  let state = "idle";
+  section.addEventListener("toggle", async () => {
+    if (!section.open || state !== "idle") return;
+    state = "loading";
+    content.replaceChildren(node("p", "Loading…", "subtle"));
+    try {
+      const data = await load();
+      content.replaceChildren();
+      render(content, data);
+      state = "ready";
+    } catch {
+      content.replaceChildren(node("p", "This feed could not be reached. Close and reopen this section to retry.", "subtle"));
+      state = "idle";
+    }
+  });
+  return section;
+}
+
+function portraitIndex() {
+  portraits ??= fetch("player-portraits.json")
+    .then(response => response.ok ? response.json() : {})
+    .catch(() => ({}));
+  return portraits;
+}
+
+function playerCard(player, index, shirt = player.jersey, position = player.position) {
+  const name = player.displayName || player.fullName;
+  const card = node("div", undefined, "player-card");
+  const initials = name.split(/s+/).filter(Boolean).map(word => word[0]).slice(0, 2).join("");
+  const portrait = node("span", initials, "player-portrait");
+  portrait.setAttribute("aria-hidden", "true");
+  const key = normalize(name).replace(/[^a-z0-9]/g, "");
+  const code = index[key];
+  const photo = safeUrl(player.headshot?.href || player.headshot?.url) ||
+    (/^d+$/.test(code ?? "") ? "https://resources.premierleague.com/premierleague/photos/players/250x250/p" + code + ".png" : "");
+  if (photo) {
+    const image = node("img");
+    image.src = photo;
+    image.alt = "";
+    image.loading = "lazy";
+    image.addEventListener("error", () => image.replaceWith(portrait), { once: true });
+    card.append(image);
+  } else card.append(portrait);
+  const label = node("span");
+  label.append(node("strong", name), node("small", [shirt && "#" + shirt, position?.displayName || position?.name].filter(Boolean).join(" · ")));
+  card.append(label);
+  return card;
+}
+
+function playerGrid(players, createCard) {
+  const grid = node("div", undefined, "player-grid");
+  for (const player of players) grid.append(createCard(player));
+  return grid;
+}
+
+function addLineupSection(content, event, competitionId) {
+  content.append(expandableData("Match lineups", async () => {
+    const [data, index] = await Promise.all([
+      cachedMatchData(competitionId + "/summary?event=" + encodeURIComponent(event.id)), portraitIndex()
+    ]);
+    return { data, index };
+  }, (panel, { data, index }) => {
+    let hasLineup = false;
+    for (const team of data.rosters || []) {
+      const players = (team.roster || []).filter(item => item.athlete?.displayName || item.athlete?.fullName);
+      const starters = players.filter(item => item.starter === true);
+      if (!starters.length) continue;
+      hasLineup = true;
+      const name = team.team?.displayName || "Team";
+      const formation = team.formation ? " · " + team.formation : "";
+      const create = player => playerCard(player.athlete, index, player.jersey, player.position);
+      panel.append(node("h4", name + formation), node("p", starters.length === 11 ? "Starting XI" : "Reported starters", "subtle"), playerGrid(starters, create));
+      const bench = players.filter(item => item.starter === false);
+      if (bench.length) {
+        const substitutes = node("details", undefined, "bench-list");
+        substitutes.append(node("summary", "Substitutes (" + bench.length + ")"), playerGrid(bench, create));
+        panel.append(substitutes);
+      }
+    }
+    if (!hasLineup) panel.append(node("p", "Confirmed starters have not been published in the match feed.", "subtle"));
+  }));
+}
+
+function addClubSections(content, team) {
+  const competitionId = catalog.find(item => item.name === team.leagueName)?.id ||
+    catalog.find(item => item.id === league.id && item.teams.some(club => club.id === team.id))?.id ||
+    catalog.find(item => item.teams.some(club => club.id === team.id))?.id || league.id;
+  const path = competitionId + "/teams/" + encodeURIComponent(team.id);
+  content.append(expandableData("Club squad", async () => {
+    const [data, index] = await Promise.all([cachedMatchData(path + "/roster"), portraitIndex()]);
+    return { data, index };
+  }, (panel, { data, index }) => {
+    const players = (data.athletes || []).filter(player => player.displayName || player.fullName);
+    if (!players.length) panel.append(node("p", "No squad list is available for this club.", "subtle"));
+    else {
+      panel.append(node("p", "Current squad · Match lineups are shown in individual matches.", "subtle"));
+      panel.append(playerGrid(players, player => playerCard(player, index)));
+    }
+  }));
+  content.append(expandableData("Upcoming club matches", () => cachedMatchData(path + "/schedule?fixture=true"), (panel, data) => {
+    const fixtures = upcomingFixtures(data.events || []).filter(event => opponents(event).length === 2).slice(0, 8);
+    if (!fixtures.length) panel.append(node("p", "No scheduled matches are currently listed.", "subtle"));
+    for (const event of fixtures) {
+      panel.append(node("p", dateLabel(event.date) + " · " + (event.league?.abbreviation || "Fixture"), "match-group-heading"));
+      panel.append(matchRow(event, competitionId));
+    }
+  }));
+}
+
+function renderForms() {
+  const form = formCache.get(league.id);
+  for (const cell of document.querySelectorAll("[data-form-team]")) {
+    const outcomes = form?.results.get(cell.dataset.formTeam);
+    if (!outcomes?.length) continue;
+    const marks = node("span", undefined, "form-marks");
+    for (const item of outcomes) {
+      const mark = node("span", item.result === "Win" ? "✓" : item.result === "Loss" ? "×" : "–", "form-mark " + item.result.toLowerCase());
+      mark.title = item.result + " " + item.score + " vs " + item.opponent + " · " + dateLabel(item.date);
+      mark.setAttribute("aria-label", mark.title);
+      mark.setAttribute("role", "img");
+      marks.append(mark);
+    }
+    cell.replaceChildren(marks);
+  }
+  $("form-status").textContent = !groups.length ? "" : !form || form.loading ? "Loading recent results…" :
+    "Last 5 in this competition · Oldest to newest · ✓ Win · – Draw · × Loss" +
+    (form.failed ? " · Some results could not be loaded." : "");
+}
+
+async function loadForms() {
+  const competitionId = league.id;
+  const current = formCache.get(competitionId);
+  if (current?.loading || (current && Date.now() - current.at < 300000)) return;
+  const teams = [...new Set(groups.flatMap(group => group.entries.map(entry => String(entry.team.id))))];
+  const form = { loading: true, results: new Map(), failed: false, at: Date.now() };
+  formCache.set(competitionId, form);
+  renderForms();
+  for (let start = 0; start < teams.length; start += 5) {
+    if (league.id !== competitionId) {
+      formCache.delete(competitionId);
+      return;
+    }
+    await Promise.all(teams.slice(start, start + 5).map(async id => {
+      try {
+        const data = await cachedMatchData(competitionId + "/teams/" + encodeURIComponent(id) + "/schedule");
+        const events = (data.events || []).filter(event => !event.league?.slug || event.league.slug === competitionId);
+        form.results.set(id, recentResults(events, id));
+      } catch {
+        form.failed = true;
+      }
+    }));
+    if (league.id === competitionId) renderForms();
+  }
+  form.loading = false;
+  if (league.id === competitionId) renderForms();
 }
 
 setRoute();

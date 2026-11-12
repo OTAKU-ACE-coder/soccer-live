@@ -1466,3 +1466,23 @@ body[data-view="home"] .news-latest { display: none; }
   .app-header { gap: 8px; }
   .signin-button { gap: 5px; }
 }
+
+.match-extra { margin-top: 14px; border: 1px solid var(--line); border-radius: 10px; background: #f8faf9; }
+.match-extra > summary, .bench-list > summary { cursor: pointer; padding: 11px 13px; font-weight: 700; }
+.match-extra-content { padding: 0 12px 12px; }
+.match-extra-content h4 { margin: 14px 0 3px; font-size: 15px; }
+.match-extra-content .subtle { margin-bottom: 9px; }
+.player-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%,175px), 1fr)); gap: 7px; }
+.player-card { display: flex; gap: 8px; align-items: center; min-width: 0; background: white; border: 1px solid var(--line); border-radius: 8px; padding: 6px; }
+.player-card img, .player-portrait { width: 40px; height: 40px; flex: 0 0 40px; object-fit: cover; border-radius: 50%; background: #e6f2eb; }
+.player-portrait { display: grid; place-items: center; color: #1d6747; font-weight: 700; }
+.player-card strong, .player-card small { display: block; overflow-wrap: anywhere; }
+.player-card strong { font-size: 11px; }
+.player-card small { color: #55657a; font-size: 10px; }
+.form-marks { display: inline-flex; gap: 4px; justify-content: flex-end; min-width: 110px; }
+.form-mark { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; font-size: 13px; font-weight: 800; }
+.form-mark.win { background: #d8f1e0; color: #176238; }
+.form-mark.draw { background: #e8edf2; color: #394958; }
+.form-mark.loss { background: #fce2e5; color: #9d2335; }
+.table-scroll td.form-cell { background: transparent; color: var(--text); }
+.table-scroll td:nth-last-child(2) { font-weight: 700; color: var(--green); background: #f2f8f4; }
