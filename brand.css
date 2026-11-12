@@ -4,7 +4,6 @@
     overflow: hidden;
     width: 174px;
     height: 65px;
-    border-radius: 9px;
     flex-shrink: 0;
 }
 .brand-logo img {
@@ -15,4 +14,8 @@
     max-width: none;
     height: auto;
     transform: translate(-50%, -50%);
+}
+/* The navy background is brighter than the artwork's dark canvas in each channel. */
+.sidebar .brand-logo, .account-header .brand-logo {
+    mix-blend-mode: lighten;
 }

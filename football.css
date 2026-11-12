@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap");
 :root {
   color-scheme: light;
-  --nav: #111b2c;
+  --nav: #11212c;
   --page: #f3f5f8;
   --panel: #fff;
   --text: #182337;
@@ -1400,7 +1400,16 @@ body[data-view="home"] .news-latest { display: none; }
 
 .mobile-brand { display: none; }
 @media (max-width: 700px) {
-  .app-header .mobile-brand { display: block; width: 105px; height: 40px; }
+  .app-header .mobile-brand {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  .app-header .mobile-brand img {
+    width: 408%;
+    transform: translate(-28.8%, -50%);
+  }
   .app-header .header-kicker { display: none; }
   .app-header h1 { font-size: 14px; }
 }
