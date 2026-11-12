@@ -4,7 +4,7 @@ Soccer Live is a football hub with scores, fixtures, club follows, and a persona
 
 ## Football app
 
-[Open Soccer Live](https://otaku-ace-coder.github.io/web-login-page/football.html)
+[Open Soccer Live](https://otaku-ace-coder.github.io/soccer-live/football.html)
 
 The app has dedicated overview, match centre, newsroom, standings, club discovery, and saved-story views.
 
@@ -20,6 +20,20 @@ The app has dedicated overview, match centre, newsroom, standings, club discover
 The app reads publicly accessible ESPN website feeds directly. These are unofficial integration endpoints and may change or fail. Each panel displays an unavailable state on errors. Scores refresh every minute in an active tab. Refresh reloads match reports and standings. Match reports are generated from recorded results and available statistics. No match scores or statistics are invented.
 
 Club and league badge sources are recorded in `football-catalog.json`. Match and standings data come from ESPN’s public website feeds. The stadium photograph is served from the bundled Unsplash asset.
+
+## Screenshot previews
+
+### Overview
+
+![Soccer Live overview and match centre](assets/previews/overview.jpg)
+
+### Newsroom
+
+![Soccer Live newsroom with the lead story and latest updates](assets/previews/newsroom.jpg)
+
+### League standings
+
+![Soccer Live league table with recent form](assets/previews/standings.jpg)
 
 ## Fixtures, squads, and recent form
 
@@ -42,10 +56,10 @@ Run `node --check football.js` and `node --test auth.test.cjs`. Browser checks s
 
 ## Account previews
 
-- [Preview directory](https://otaku-ace-coder.github.io/web-login-page/preview.html)
-- [Sign up](https://otaku-ace-coder.github.io/web-login-page/index.html)
-- [Log in](https://otaku-ace-coder.github.io/web-login-page/index.html?view=login)
-- [Reset password](https://otaku-ace-coder.github.io/web-login-page/index.html?view=reset)
+- [Preview directory](https://otaku-ace-coder.github.io/soccer-live/preview.html)
+- [Sign up](https://otaku-ace-coder.github.io/soccer-live/index.html)
+- [Log in](https://otaku-ace-coder.github.io/soccer-live/index.html?view=login)
+- [Reset password](https://otaku-ace-coder.github.io/soccer-live/index.html?view=reset)
 
 The previews use the live forms. Sign-up and password reset can send emails. The account page opens after sign-in.
 
