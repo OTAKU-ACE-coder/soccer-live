@@ -1,0 +1,1100 @@
+[
+  {
+    "id": "eng.1",
+    "name": "Premier League",
+    "logo": "https://a.espncdn.com/i/leaguelogos/soccer/500/23.png",
+    "teams": [
+      {
+        "id": "349",
+        "name": "AFC Bournemouth",
+        "shortName": "Bournemouth",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png",
+        "abbreviation": "BOU",
+        "url": "https://www.espn.com/soccer/club/_/id/349/afc-bournemouth"
+      },
+      {
+        "id": "359",
+        "name": "Arsenal",
+        "shortName": "Arsenal",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+        "abbreviation": "ARS",
+        "url": "https://www.espn.com/soccer/club/_/id/359/arsenal"
+      },
+      {
+        "id": "362",
+        "name": "Aston Villa",
+        "shortName": "Aston Villa",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+        "abbreviation": "AVL",
+        "url": "https://www.espn.com/soccer/club/_/id/362/aston-villa"
+      },
+      {
+        "id": "337",
+        "name": "Brentford",
+        "shortName": "Brentford",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png",
+        "abbreviation": "BRE",
+        "url": "https://www.espn.com/soccer/club/_/id/337/brentford"
+      },
+      {
+        "id": "331",
+        "name": "Brighton & Hove Albion",
+        "shortName": "Brighton",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png",
+        "abbreviation": "BHA",
+        "url": "https://www.espn.com/soccer/club/_/id/331/brighton-hove-albion"
+      },
+      {
+        "id": "363",
+        "name": "Chelsea",
+        "shortName": "Chelsea",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+        "abbreviation": "CHE",
+        "url": "https://www.espn.com/soccer/club/_/id/363/chelsea"
+      },
+      {
+        "id": "388",
+        "name": "Coventry City",
+        "shortName": "Coventry",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png",
+        "abbreviation": "COV",
+        "url": "https://www.espn.com/soccer/club/_/id/388/coventry-city"
+      },
+      {
+        "id": "384",
+        "name": "Crystal Palace",
+        "shortName": "C Palace",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png",
+        "abbreviation": "CRY",
+        "url": "https://www.espn.com/soccer/club/_/id/384/crystal-palace"
+      },
+      {
+        "id": "368",
+        "name": "Everton",
+        "shortName": "Everton",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png",
+        "abbreviation": "EVE",
+        "url": "https://www.espn.com/soccer/club/_/id/368/everton"
+      },
+      {
+        "id": "370",
+        "name": "Fulham",
+        "shortName": "Fulham",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png",
+        "abbreviation": "FUL",
+        "url": "https://www.espn.com/soccer/club/_/id/370/fulham"
+      },
+      {
+        "id": "306",
+        "name": "Hull City",
+        "shortName": "Hull",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png",
+        "abbreviation": "HUL",
+        "url": "https://www.espn.com/soccer/club/_/id/306/hull-city"
+      },
+      {
+        "id": "373",
+        "name": "Ipswich Town",
+        "shortName": "Ipswich",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/373.png",
+        "abbreviation": "IPS",
+        "url": "https://www.espn.com/soccer/club/_/id/373/ipswich-town"
+      },
+      {
+        "id": "357",
+        "name": "Leeds United",
+        "shortName": "Leeds",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png",
+        "abbreviation": "LEE",
+        "url": "https://www.espn.com/soccer/club/_/id/357/leeds-united"
+      },
+      {
+        "id": "364",
+        "name": "Liverpool",
+        "shortName": "Liverpool",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+        "abbreviation": "LIV",
+        "url": "https://www.espn.com/soccer/club/_/id/364/liverpool"
+      },
+      {
+        "id": "382",
+        "name": "Manchester City",
+        "shortName": "Man City",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+        "abbreviation": "MNC",
+        "url": "https://www.espn.com/soccer/club/_/id/382/manchester-city"
+      },
+      {
+        "id": "360",
+        "name": "Manchester United",
+        "shortName": "Man Utd",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+        "abbreviation": "MAN",
+        "url": "https://www.espn.com/soccer/club/_/id/360/manchester-united"
+      },
+      {
+        "id": "361",
+        "name": "Newcastle United",
+        "shortName": "Newcastle",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png",
+        "abbreviation": "NEW",
+        "url": "https://www.espn.com/soccer/club/_/id/361/newcastle-united"
+      },
+      {
+        "id": "393",
+        "name": "Nottingham Forest",
+        "shortName": "Nottm Forest",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png",
+        "abbreviation": "NFO",
+        "url": "https://www.espn.com/soccer/club/_/id/393/nottingham-forest"
+      },
+      {
+        "id": "366",
+        "name": "Sunderland",
+        "shortName": "Sunderland",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png",
+        "abbreviation": "SUN",
+        "url": "https://www.espn.com/soccer/club/_/id/366/sunderland"
+      },
+      {
+        "id": "367",
+        "name": "Tottenham Hotspur",
+        "shortName": "Spurs",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png",
+        "abbreviation": "TOT",
+        "url": "https://www.espn.com/soccer/club/_/id/367/tottenham-hotspur"
+      }
+    ]
+  },
+  {
+    "id": "esp.1",
+    "name": "La Liga",
+    "logo": "https://a.espncdn.com/i/leaguelogos/soccer/500/15.png",
+    "teams": [
+      {
+        "id": "96",
+        "name": "Alavés",
+        "shortName": "Alavés",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/96.png",
+        "abbreviation": "ALA",
+        "url": "https://www.espn.com/soccer/club/_/id/96/alaves"
+      },
+      {
+        "id": "93",
+        "name": "Athletic Club",
+        "shortName": "Athletic",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/93.png",
+        "abbreviation": "ATH",
+        "url": "https://www.espn.com/soccer/club/_/id/93/athletic-club"
+      },
+      {
+        "id": "1068",
+        "name": "Atlético Madrid",
+        "shortName": "Atlético",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1068.png",
+        "abbreviation": "ATM",
+        "url": "https://www.espn.com/soccer/club/_/id/1068/atletico-madrid"
+      },
+      {
+        "id": "83",
+        "name": "Barcelona",
+        "shortName": "Barcelona",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/83.png",
+        "abbreviation": "BAR",
+        "url": "https://www.espn.com/soccer/club/_/id/83/barcelona"
+      },
+      {
+        "id": "85",
+        "name": "Celta Vigo",
+        "shortName": "Celta Vigo",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/85.png",
+        "abbreviation": "CEL",
+        "url": "https://www.espn.com/soccer/club/_/id/85/celta-vigo"
+      },
+      {
+        "id": "90",
+        "name": "Deportivo",
+        "shortName": "Deportivo",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/90.png",
+        "abbreviation": "DEP",
+        "url": "https://www.espn.com/soccer/club/_/id/90/deportivo"
+      },
+      {
+        "id": "3751",
+        "name": "Elche",
+        "shortName": "Elche",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3751.png",
+        "abbreviation": "ELC",
+        "url": "https://www.espn.com/soccer/club/_/id/3751/elche"
+      },
+      {
+        "id": "88",
+        "name": "Espanyol",
+        "shortName": "Espanyol",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/88.png",
+        "abbreviation": "ESP",
+        "url": "https://www.espn.com/soccer/club/_/id/88/espanyol"
+      },
+      {
+        "id": "2922",
+        "name": "Getafe",
+        "shortName": "Getafe",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2922.png",
+        "abbreviation": "GET",
+        "url": "https://www.espn.com/soccer/club/_/id/2922/getafe"
+      },
+      {
+        "id": "1538",
+        "name": "Levante",
+        "shortName": "Levante",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1538.png",
+        "abbreviation": "LEV",
+        "url": "https://www.espn.com/soccer/club/_/id/1538/levante"
+      },
+      {
+        "id": "99",
+        "name": "Málaga",
+        "shortName": "Málaga",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/99.png",
+        "abbreviation": "MCF",
+        "url": "https://www.espn.com/soccer/club/_/id/99/malaga"
+      },
+      {
+        "id": "97",
+        "name": "Osasuna",
+        "shortName": "Osasuna",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/97.png",
+        "abbreviation": "OSA",
+        "url": "https://www.espn.com/soccer/club/_/id/97/osasuna"
+      },
+      {
+        "id": "87",
+        "name": "Racing Santander",
+        "shortName": "Racing",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/87.png",
+        "abbreviation": "RAC",
+        "url": "https://www.espn.com/soccer/club/_/id/87/racing-santander"
+      },
+      {
+        "id": "101",
+        "name": "Rayo Vallecano",
+        "shortName": "Rayo",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/101.png",
+        "abbreviation": "RAY",
+        "url": "https://www.espn.com/soccer/club/_/id/101/rayo-vallecano"
+      },
+      {
+        "id": "244",
+        "name": "Real Betis",
+        "shortName": "Betis",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/244.png",
+        "abbreviation": "BET",
+        "url": "https://www.espn.com/soccer/club/_/id/244/real-betis"
+      },
+      {
+        "id": "86",
+        "name": "Real Madrid",
+        "shortName": "Real Madrid",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/86.png",
+        "abbreviation": "RMA",
+        "url": "https://www.espn.com/soccer/club/_/id/86/real-madrid"
+      },
+      {
+        "id": "89",
+        "name": "Real Sociedad",
+        "shortName": "Real Sociedad",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/89.png",
+        "abbreviation": "RSO",
+        "url": "https://www.espn.com/soccer/club/_/id/89/real-sociedad"
+      },
+      {
+        "id": "243",
+        "name": "Sevilla",
+        "shortName": "Sevilla",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/243.png",
+        "abbreviation": "SEV",
+        "url": "https://www.espn.com/soccer/club/_/id/243/sevilla"
+      },
+      {
+        "id": "94",
+        "name": "Valencia",
+        "shortName": "Valencia",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/94.png",
+        "abbreviation": "VAL",
+        "url": "https://www.espn.com/soccer/club/_/id/94/valencia"
+      },
+      {
+        "id": "102",
+        "name": "Villarreal",
+        "shortName": "Villarreal",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/102.png",
+        "abbreviation": "VIL",
+        "url": "https://www.espn.com/soccer/club/_/id/102/villarreal"
+      }
+    ]
+  },
+  {
+    "id": "ger.1",
+    "name": "Bundesliga",
+    "logo": "https://a.espncdn.com/i/leaguelogos/soccer/500/10.png",
+    "teams": [
+      {
+        "id": "598",
+        "name": "1. FC Union Berlin",
+        "shortName": "Union Berlin",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/598.png",
+        "abbreviation": "FCU",
+        "url": "https://www.espn.com/soccer/club/_/id/598/1-fc-union-berlin"
+      },
+      {
+        "id": "131",
+        "name": "Bayer Leverkusen",
+        "shortName": "Leverkusen",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/131.png",
+        "abbreviation": "B04",
+        "url": "https://www.espn.com/soccer/club/_/id/131/bayer-leverkusen"
+      },
+      {
+        "id": "132",
+        "name": "Bayern Munich",
+        "shortName": "Bayern",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/132.png",
+        "abbreviation": "MUN",
+        "url": "https://www.espn.com/soccer/club/_/id/132/bayern-munich"
+      },
+      {
+        "id": "124",
+        "name": "Borussia Dortmund",
+        "shortName": "Dortmund",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/124.png",
+        "abbreviation": "DOR",
+        "url": "https://www.espn.com/soccer/club/_/id/124/borussia-dortmund"
+      },
+      {
+        "id": "268",
+        "name": "Borussia Mönchengladbach",
+        "shortName": "Gladbach",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/268.png",
+        "abbreviation": "BMG",
+        "url": "https://www.espn.com/soccer/club/_/id/268/borussia-monchengladbach"
+      },
+      {
+        "id": "125",
+        "name": "Eintracht Frankfurt",
+        "shortName": "Frankfurt",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/125.png",
+        "abbreviation": "SGE",
+        "url": "https://www.espn.com/soccer/club/_/id/125/eintracht-frankfurt"
+      },
+      {
+        "id": "3841",
+        "name": "FC Augsburg",
+        "shortName": "Augsburg",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3841.png",
+        "abbreviation": "FCA",
+        "url": "https://www.espn.com/soccer/club/_/id/3841/fc-augsburg"
+      },
+      {
+        "id": "122",
+        "name": "FC Cologne",
+        "shortName": "Cologne",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/122.png",
+        "abbreviation": "KOE",
+        "url": "https://www.espn.com/soccer/club/_/id/122/fc-cologne"
+      },
+      {
+        "id": "127",
+        "name": "Hamburg SV",
+        "shortName": "Hamburg",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/127.png",
+        "abbreviation": "HSV",
+        "url": "https://www.espn.com/soccer/club/_/id/127/hamburg-sv"
+      },
+      {
+        "id": "2950",
+        "name": "Mainz",
+        "shortName": "Mainz",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2950.png",
+        "abbreviation": "M05",
+        "url": "https://www.espn.com/soccer/club/_/id/2950/mainz"
+      },
+      {
+        "id": "11420",
+        "name": "RB Leipzig",
+        "shortName": "RB Leipzig",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11420.png",
+        "abbreviation": "RBL",
+        "url": "https://www.espn.com/soccer/club/_/id/11420/rb-leipzig"
+      },
+      {
+        "id": "126",
+        "name": "SC Freiburg",
+        "shortName": "Freiburg",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/126.png",
+        "abbreviation": "SCF",
+        "url": "https://www.espn.com/soccer/club/_/id/126/sc-freiburg"
+      },
+      {
+        "id": "3307",
+        "name": "SC Paderborn 07",
+        "shortName": "Paderborn",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3307.png",
+        "abbreviation": "SCP",
+        "url": "https://www.espn.com/soccer/club/_/id/3307/sc-paderborn-07"
+      },
+      {
+        "id": "10388",
+        "name": "SV Elversberg",
+        "shortName": "Elversberg",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/10388.png",
+        "abbreviation": "ELV",
+        "url": "https://www.espn.com/soccer/club/_/id/10388/sv-elversberg"
+      },
+      {
+        "id": "133",
+        "name": "Schalke 04",
+        "shortName": "Schalke",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/133.png",
+        "abbreviation": "S04",
+        "url": "https://www.espn.com/soccer/club/_/id/133/schalke-04"
+      },
+      {
+        "id": "7911",
+        "name": "TSG Hoffenheim",
+        "shortName": "Hoffenheim",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7911.png",
+        "abbreviation": "TSG",
+        "url": "https://www.espn.com/soccer/club/_/id/7911/tsg-hoffenheim"
+      },
+      {
+        "id": "134",
+        "name": "VfB Stuttgart",
+        "shortName": "Stuttgart",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/134.png",
+        "abbreviation": "VFB",
+        "url": "https://www.espn.com/soccer/club/_/id/134/vfb-stuttgart"
+      },
+      {
+        "id": "137",
+        "name": "Werder Bremen",
+        "shortName": "Bremen",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/137.png",
+        "abbreviation": "SVW",
+        "url": "https://www.espn.com/soccer/club/_/id/137/werder-bremen"
+      }
+    ]
+  },
+  {
+    "id": "ita.1",
+    "name": "Serie A",
+    "logo": "https://a.espncdn.com/i/leaguelogos/soccer/500/12.png",
+    "teams": [
+      {
+        "id": "103",
+        "name": "AC Milan",
+        "shortName": "Milan",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png",
+        "abbreviation": "MIL",
+        "url": "https://www.espn.com/soccer/club/_/id/103/ac-milan"
+      },
+      {
+        "id": "104",
+        "name": "AS Roma",
+        "shortName": "AS Roma",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/104.png",
+        "abbreviation": "ROMA",
+        "url": "https://www.espn.com/soccer/club/_/id/104/as-roma"
+      },
+      {
+        "id": "105",
+        "name": "Atalanta",
+        "shortName": "Atalanta",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/105.png",
+        "abbreviation": "ATA",
+        "url": "https://www.espn.com/soccer/club/_/id/105/atalanta"
+      },
+      {
+        "id": "107",
+        "name": "Bologna",
+        "shortName": "Bologna",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/107.png",
+        "abbreviation": "BOL",
+        "url": "https://www.espn.com/soccer/club/_/id/107/bologna"
+      },
+      {
+        "id": "2925",
+        "name": "Cagliari",
+        "shortName": "Cagliari",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2925.png",
+        "abbreviation": "CAG",
+        "url": "https://www.espn.com/soccer/club/_/id/2925/cagliari"
+      },
+      {
+        "id": "2572",
+        "name": "Como",
+        "shortName": "Como",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2572.png",
+        "abbreviation": "COMO",
+        "url": "https://www.espn.com/soccer/club/_/id/2572/como"
+      },
+      {
+        "id": "109",
+        "name": "Fiorentina",
+        "shortName": "Fiorentina",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/109.png",
+        "abbreviation": "FIO",
+        "url": "https://www.espn.com/soccer/club/_/id/109/fiorentina"
+      },
+      {
+        "id": "4057",
+        "name": "Frosinone",
+        "shortName": "Frosinone",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4057.png",
+        "abbreviation": "FRO",
+        "url": "https://www.espn.com/soccer/club/_/id/4057/frosinone"
+      },
+      {
+        "id": "3263",
+        "name": "Genoa",
+        "shortName": "Genoa",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3263.png",
+        "abbreviation": "GEN",
+        "url": "https://www.espn.com/soccer/club/_/id/3263/genoa"
+      },
+      {
+        "id": "110",
+        "name": "Internazionale",
+        "shortName": "Inter Milan",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/110.png",
+        "abbreviation": "INT",
+        "url": "https://www.espn.com/soccer/club/_/id/110/internazionale"
+      },
+      {
+        "id": "111",
+        "name": "Juventus",
+        "shortName": "Juventus",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png",
+        "abbreviation": "JUV",
+        "url": "https://www.espn.com/soccer/club/_/id/111/juventus"
+      },
+      {
+        "id": "112",
+        "name": "Lazio",
+        "shortName": "Lazio",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/112.png",
+        "abbreviation": "LAZ",
+        "url": "https://www.espn.com/soccer/club/_/id/112/lazio"
+      },
+      {
+        "id": "113",
+        "name": "Lecce",
+        "shortName": "Lecce",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/113.png",
+        "abbreviation": "LEC",
+        "url": "https://www.espn.com/soccer/club/_/id/113/lecce"
+      },
+      {
+        "id": "4007",
+        "name": "Monza",
+        "shortName": "Monza",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4007.png",
+        "abbreviation": "MON",
+        "url": "https://www.espn.com/soccer/club/_/id/4007/monza"
+      },
+      {
+        "id": "114",
+        "name": "Napoli",
+        "shortName": "Napoli",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/114.png",
+        "abbreviation": "NAP",
+        "url": "https://www.espn.com/soccer/club/_/id/114/napoli"
+      },
+      {
+        "id": "115",
+        "name": "Parma",
+        "shortName": "Parma",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/115.png",
+        "abbreviation": "PAR",
+        "url": "https://www.espn.com/soccer/club/_/id/115/parma"
+      },
+      {
+        "id": "3997",
+        "name": "Sassuolo",
+        "shortName": "Sassuolo",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3997.png",
+        "abbreviation": "SAS",
+        "url": "https://www.espn.com/soccer/club/_/id/3997/sassuolo"
+      },
+      {
+        "id": "239",
+        "name": "Torino",
+        "shortName": "Torino",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/239.png",
+        "abbreviation": "TOR",
+        "url": "https://www.espn.com/soccer/club/_/id/239/torino"
+      },
+      {
+        "id": "118",
+        "name": "Udinese",
+        "shortName": "Udinese",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/118.png",
+        "abbreviation": "UDI",
+        "url": "https://www.espn.com/soccer/club/_/id/118/udinese"
+      },
+      {
+        "id": "17530",
+        "name": "Venezia",
+        "shortName": "Venezia",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/17530.png",
+        "abbreviation": "VEN",
+        "url": "https://www.espn.com/soccer/club/_/id/17530/venezia"
+      }
+    ]
+  },
+  {
+    "id": "fra.1",
+    "name": "Ligue 1",
+    "logo": "https://a.espncdn.com/i/leaguelogos/soccer/500/9.png",
+    "teams": [
+      {
+        "id": "172",
+        "name": "AJ Auxerre",
+        "shortName": "Auxerre",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/172.png",
+        "abbreviation": "AUX",
+        "url": "https://www.espn.com/soccer/club/_/id/172/aj-auxerre"
+      },
+      {
+        "id": "174",
+        "name": "AS Monaco",
+        "shortName": "Monaco",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/174.png",
+        "abbreviation": "MON",
+        "url": "https://www.espn.com/soccer/club/_/id/174/as-monaco"
+      },
+      {
+        "id": "7868",
+        "name": "Angers",
+        "shortName": "Angers",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7868.png",
+        "abbreviation": "ANG",
+        "url": "https://www.espn.com/soccer/club/_/id/7868/angers"
+      },
+      {
+        "id": "6997",
+        "name": "Brest",
+        "shortName": "Brest",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6997.png",
+        "abbreviation": "BRE",
+        "url": "https://www.espn.com/soccer/club/_/id/6997/brest"
+      },
+      {
+        "id": "3236",
+        "name": "Le Havre AC",
+        "shortName": "Le Havre AC",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3236.png",
+        "abbreviation": "HAC",
+        "url": "https://www.espn.com/soccer/club/_/id/3236/le-havre-ac"
+      },
+      {
+        "id": "2697",
+        "name": "Le Mans",
+        "shortName": "Le Mans",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2697.png",
+        "abbreviation": "MNS",
+        "url": "https://www.espn.com/soccer/club/_/id/2697/le-mans"
+      },
+      {
+        "id": "175",
+        "name": "Lens",
+        "shortName": "Lens",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/175.png",
+        "abbreviation": "RCL",
+        "url": "https://www.espn.com/soccer/club/_/id/175/lens"
+      },
+      {
+        "id": "166",
+        "name": "Lille",
+        "shortName": "Lille",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/166.png",
+        "abbreviation": "LILL",
+        "url": "https://www.espn.com/soccer/club/_/id/166/lille"
+      },
+      {
+        "id": "273",
+        "name": "Lorient",
+        "shortName": "Lorient",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/273.png",
+        "abbreviation": "LOR",
+        "url": "https://www.espn.com/soccer/club/_/id/273/lorient"
+      },
+      {
+        "id": "167",
+        "name": "Lyon",
+        "shortName": "Lyon",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/167.png",
+        "abbreviation": "LYON",
+        "url": "https://www.espn.com/soccer/club/_/id/167/lyon"
+      },
+      {
+        "id": "176",
+        "name": "Marseille",
+        "shortName": "Marseille",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/176.png",
+        "abbreviation": "OLM",
+        "url": "https://www.espn.com/soccer/club/_/id/176/marseille"
+      },
+      {
+        "id": "2502",
+        "name": "Nice",
+        "shortName": "Nice",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2502.png",
+        "abbreviation": "NICE",
+        "url": "https://www.espn.com/soccer/club/_/id/2502/nice"
+      },
+      {
+        "id": "6851",
+        "name": "Paris FC",
+        "shortName": "Paris FC",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6851.png",
+        "abbreviation": "PAR",
+        "url": "https://www.espn.com/soccer/club/_/id/6851/paris-fc"
+      },
+      {
+        "id": "160",
+        "name": "Paris Saint-Germain",
+        "shortName": "PSG",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/160.png",
+        "abbreviation": "PSG",
+        "url": "https://www.espn.com/soccer/club/_/id/160/paris-saint-germain"
+      },
+      {
+        "id": "169",
+        "name": "Stade Rennais",
+        "shortName": "Rennes",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/169.png",
+        "abbreviation": "REN",
+        "url": "https://www.espn.com/soccer/club/_/id/169/stade-rennais"
+      },
+      {
+        "id": "180",
+        "name": "Strasbourg",
+        "shortName": "Strasbourg",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/180.png",
+        "abbreviation": "STR",
+        "url": "https://www.espn.com/soccer/club/_/id/180/strasbourg"
+      },
+      {
+        "id": "179",
+        "name": "Toulouse",
+        "shortName": "Toulouse",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/179.png",
+        "abbreviation": "TOU",
+        "url": "https://www.espn.com/soccer/club/_/id/179/toulouse"
+      },
+      {
+        "id": "170",
+        "name": "Troyes",
+        "shortName": "Troyes",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/170.png",
+        "abbreviation": "TRY",
+        "url": "https://www.espn.com/soccer/club/_/id/170/troyes"
+      }
+    ]
+  },
+  {
+    "id": "uefa.champions",
+    "name": "Champions League",
+    "logo": "https://a.espncdn.com/i/leaguelogos/soccer/500/2.png",
+    "teams": [
+      {
+        "id": "887",
+        "name": "AEK Athens",
+        "shortName": "AEK Athens",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/887.png",
+        "abbreviation": "AEK",
+        "url": "https://www.espn.com/soccer/club/_/id/887/aek-athens"
+      },
+      {
+        "id": "104",
+        "name": "AS Roma",
+        "shortName": "AS Roma",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/104.png",
+        "abbreviation": "ROMA",
+        "url": "https://www.espn.com/soccer/club/_/id/104/as-roma"
+      },
+      {
+        "id": "359",
+        "name": "Arsenal",
+        "shortName": "Arsenal",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+        "abbreviation": "ARS",
+        "url": "https://www.espn.com/soccer/club/_/id/359/arsenal"
+      },
+      {
+        "id": "362",
+        "name": "Aston Villa",
+        "shortName": "Aston Villa",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png",
+        "abbreviation": "AVL",
+        "url": "https://www.espn.com/soccer/club/_/id/362/aston-villa"
+      },
+      {
+        "id": "1068",
+        "name": "Atlético Madrid",
+        "shortName": "Atlético",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/1068.png",
+        "abbreviation": "ATM",
+        "url": "https://www.espn.com/soccer/club/_/id/1068/atletico-madrid"
+      },
+      {
+        "id": "83",
+        "name": "Barcelona",
+        "shortName": "Barcelona",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/83.png",
+        "abbreviation": "BAR",
+        "url": "https://www.espn.com/soccer/club/_/id/83/barcelona"
+      },
+      {
+        "id": "132",
+        "name": "Bayern Munich",
+        "shortName": "Bayern",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/132.png",
+        "abbreviation": "MUN",
+        "url": "https://www.espn.com/soccer/club/_/id/132/bayern-munich"
+      },
+      {
+        "id": "2980",
+        "name": "Bodo/Glimt",
+        "shortName": "Bodo/Glimt",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2980.png",
+        "abbreviation": "BODO",
+        "url": "https://www.espn.com/soccer/club/_/id/2980/bodoglimt"
+      },
+      {
+        "id": "124",
+        "name": "Borussia Dortmund",
+        "shortName": "Dortmund",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/124.png",
+        "abbreviation": "DOR",
+        "url": "https://www.espn.com/soccer/club/_/id/124/borussia-dortmund"
+      },
+      {
+        "id": "570",
+        "name": "Club Brugge",
+        "shortName": "Club Brugge",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/570.png",
+        "abbreviation": "BRU",
+        "url": "https://www.espn.com/soccer/club/_/id/570/club-brugge"
+      },
+      {
+        "id": "2572",
+        "name": "Como",
+        "shortName": "Como",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2572.png",
+        "abbreviation": "COMO",
+        "url": "https://www.espn.com/soccer/club/_/id/2572/como"
+      },
+      {
+        "id": "437",
+        "name": "FC Porto",
+        "shortName": "FC Porto",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/437.png",
+        "abbreviation": "FCP",
+        "url": "https://www.espn.com/soccer/club/_/id/437/fc-porto"
+      },
+      {
+        "id": "436",
+        "name": "Fenerbahce",
+        "shortName": "Fenerbahce",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/436.png",
+        "abbreviation": "FEN",
+        "url": "https://www.espn.com/soccer/club/_/id/436/fenerbahce"
+      },
+      {
+        "id": "142",
+        "name": "Feyenoord Rotterdam",
+        "shortName": "Feyenoord",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/142.png",
+        "abbreviation": "FEY",
+        "url": "https://www.espn.com/soccer/club/_/id/142/feyenoord-rotterdam"
+      },
+      {
+        "id": "432",
+        "name": "Galatasaray",
+        "shortName": "Galatasaray",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/432.png",
+        "abbreviation": "GAL",
+        "url": "https://www.espn.com/soccer/club/_/id/432/galatasaray"
+      },
+      {
+        "id": "110",
+        "name": "Internazionale",
+        "shortName": "Inter Milan",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/110.png",
+        "abbreviation": "INT",
+        "url": "https://www.espn.com/soccer/club/_/id/110/internazionale"
+      },
+      {
+        "id": "4411",
+        "name": "LASK Linz",
+        "shortName": "LASK Linz",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4411.png",
+        "abbreviation": "LAS",
+        "url": "https://www.espn.com/soccer/club/_/id/4411/lask-linz"
+      },
+      {
+        "id": "175",
+        "name": "Lens",
+        "shortName": "Lens",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/175.png",
+        "abbreviation": "RCL",
+        "url": "https://www.espn.com/soccer/club/_/id/175/lens"
+      },
+      {
+        "id": "166",
+        "name": "Lille",
+        "shortName": "Lille",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/166.png",
+        "abbreviation": "LILL",
+        "url": "https://www.espn.com/soccer/club/_/id/166/lille"
+      },
+      {
+        "id": "364",
+        "name": "Liverpool",
+        "shortName": "Liverpool",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+        "abbreviation": "LIV",
+        "url": "https://www.espn.com/soccer/club/_/id/364/liverpool"
+      },
+      {
+        "id": "382",
+        "name": "Manchester City",
+        "shortName": "Man City",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+        "abbreviation": "MNC",
+        "url": "https://www.espn.com/soccer/club/_/id/382/manchester-city"
+      },
+      {
+        "id": "360",
+        "name": "Manchester United",
+        "shortName": "Man Utd",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+        "abbreviation": "MAN",
+        "url": "https://www.espn.com/soccer/club/_/id/360/manchester-united"
+      },
+      {
+        "id": "114",
+        "name": "Napoli",
+        "shortName": "Napoli",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/114.png",
+        "abbreviation": "NAP",
+        "url": "https://www.espn.com/soccer/club/_/id/114/napoli"
+      },
+      {
+        "id": "148",
+        "name": "PSV Eindhoven",
+        "shortName": "PSV",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/148.png",
+        "abbreviation": "PSV",
+        "url": "https://www.espn.com/soccer/club/_/id/148/psv-eindhoven"
+      },
+      {
+        "id": "160",
+        "name": "Paris Saint-Germain",
+        "shortName": "PSG",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/160.png",
+        "abbreviation": "PSG",
+        "url": "https://www.espn.com/soccer/club/_/id/160/paris-saint-germain"
+      },
+      {
+        "id": "11420",
+        "name": "RB Leipzig",
+        "shortName": "RB Leipzig",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/11420.png",
+        "abbreviation": "RBL",
+        "url": "https://www.espn.com/soccer/club/_/id/11420/rb-leipzig"
+      },
+      {
+        "id": "244",
+        "name": "Real Betis",
+        "shortName": "Betis",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/244.png",
+        "abbreviation": "BET",
+        "url": "https://www.espn.com/soccer/club/_/id/244/real-betis"
+      },
+      {
+        "id": "86",
+        "name": "Real Madrid",
+        "shortName": "Real Madrid",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/86.png",
+        "abbreviation": "RMA",
+        "url": "https://www.espn.com/soccer/club/_/id/86/real-madrid"
+      },
+      {
+        "id": "21922",
+        "name": "Sabah FK",
+        "shortName": "Sabah",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21922.png",
+        "abbreviation": "SAB",
+        "url": "https://www.espn.com/soccer/club/_/id/21922/sabah-fk"
+      },
+      {
+        "id": "493",
+        "name": "Shakhtar Donetsk",
+        "shortName": "Shakhtar",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/493.png",
+        "abbreviation": "SHK",
+        "url": "https://www.espn.com/soccer/club/_/id/493/shakhtar-donetsk"
+      },
+      {
+        "id": "494",
+        "name": "Slavia Prague",
+        "shortName": "Slavia Prague",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/494.png",
+        "abbreviation": "SLP",
+        "url": "https://www.espn.com/soccer/club/_/id/494/slavia-prague"
+      },
+      {
+        "id": "521",
+        "name": "Slovan Bratislava",
+        "shortName": "S Bratislava",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/521.png",
+        "abbreviation": "SLB",
+        "url": "https://www.espn.com/soccer/club/_/id/521/slovan-bratislava"
+      },
+      {
+        "id": "2250",
+        "name": "Sporting CP",
+        "shortName": "Sporting",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2250.png",
+        "abbreviation": "SCP",
+        "url": "https://www.espn.com/soccer/club/_/id/2250/sporting-cp"
+      },
+      {
+        "id": "134",
+        "name": "VfB Stuttgart",
+        "shortName": "Stuttgart",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/134.png",
+        "abbreviation": "VFB",
+        "url": "https://www.espn.com/soccer/club/_/id/134/vfb-stuttgart"
+      },
+      {
+        "id": "510",
+        "name": "Viking FK",
+        "shortName": "Viking FK",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/510.png",
+        "abbreviation": "VFK",
+        "url": "https://www.espn.com/soccer/club/_/id/510/viking-fk"
+      },
+      {
+        "id": "102",
+        "name": "Villarreal",
+        "shortName": "Villarreal",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/102.png",
+        "abbreviation": "VIL",
+        "url": "https://www.espn.com/soccer/club/_/id/102/villarreal"
+      }
+    ]
+  }
+]

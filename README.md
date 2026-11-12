@@ -2,13 +2,28 @@
 
 Soccer Live is a football hub with scores, fixtures, club follows, and a personalized news feed. The existing account pages use Supabase Auth.
 
-## Football hub
+## Football app
 
 [Open Soccer Live](https://otaku-ace-coder.github.io/web-login-page/football.html)
 
-- Follow clubs and search for teams or topics. The For you feed ranks BBC Sport headlines based on your follows and recent searches, which are saved in this browser.
-- Bundesliga and 2. Bundesliga scores and fixtures come from [OpenLigaDB](https://www.openligadb.de/) and are checked once a minute. The in-progress filter uses kickoff time and the provider's completion flag. Results can be delayed.
-- The news panel reads a snapshot of the [BBC Sport football RSS feed](https://www.bbc.co.uk/sport/articles/cqllxj2n4kyo). Open BBC Sport for breaking news.
+The app has dedicated overview, match centre, newsroom, standings, club discovery, and saved-story views.
+
+- Premier League, La Liga, Bundesliga, Serie A, Ligue 1, and Champions League feeds.
+- Latest matchday, date picker, yesterday/today/tomorrow, live and followed-club filters.
+- Match statistics including possession, shots, shots on target, corners, and fouls when supplied.
+- Current league tables and club profiles with related matches and stories.
+- A newsroom with original data-driven match reports, football explainers, personalised ranking, and a saved reading list. Articles open inside Soccer Live.
+- Club follows, searches, and saved stories persist in browser storage. Existing Touchline follows migrate automatically. These preferences currently stay on the device.
+- Desktop sidebar with club badges, competition badges, stadium photography, and mobile navigation.
+- Supabase sign-up, login, recovery, and account pages remain connected to the app.
+
+The app reads publicly accessible ESPN website feeds directly. These are unofficial integration endpoints and may change or fail. Each panel displays an unavailable state on errors. Scores refresh every minute in an active tab. Refresh reloads match reports and standings. Match reports are generated from recorded results and available statistics. No match scores or statistics are invented.
+
+Club and league badge sources are recorded in `football-catalog.json`. Match and standings data come from ESPN’s public website feeds. The stadium photograph is served from the bundled Unsplash asset.
+
+## Local checks
+
+Run `node --check football.js` and `node --test auth.test.cjs`. Browser checks should cover a date change, league switch, match details, follow/unfollow, search, saved-story reload persistence, and mobile navigation.
 
 ## Account previews
 

@@ -1,73 +1,304 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#101914">
-    <title>Soccer Live | Football scores and news</title>
-    <link rel="stylesheet" href="football.css?v=4">
-    <script type="module" src="football.js?v=4"></script>
-</head>
-<body>
-    <header class="top">
-        <a class="brand" href="football.html" aria-label="Soccer Live home"><span class="mark" aria-hidden="true">⚽</span> Soccer Live</a>
-        <nav aria-label="Main navigation">
-            <a href="#matches">Scores</a><a href="#standings">Table</a><a href="#news">News</a><a href="#clubs">Clubs</a>
-        </nav>
-        <a class="account" href="index.html?view=login">Log in</a>
-    </header>
-    <main>
-        <section class="hero" aria-labelledby="headline">
-            <div class="hero-content">
-                <p class="eyebrow"><span aria-hidden="true"></span> YOUR MATCHDAY, CONNECTED</p>
-                <h1 id="headline">Every club.<br><em>Every moment.</em></h1>
-                <p>Follow your clubs, check the scores, and catch up on the stories you care about.</p>
-                <form id="search-form" role="search">
-                    <label class="sr-only" for="search">Search clubs or football news</label>
-                    <input type="search" id="search" maxlength="80" placeholder="Search clubs or football news">
-                    <button type="submit">Search</button><button type="button" id="clear-search" aria-label="Clear search">×</button>
-                </form>
-                <p id="search-status" role="status"></p>
-            </div>
-            <div class="pitch" aria-hidden="true"><div class="pitch-lines"><i></i></div></div>
-        </section>
-        <div class="dashboard">
-            <section id="matches" aria-labelledby="matches-title">
-                <div class="section-head">
-                    <div><p class="eyebrow">MATCH CENTRE</p><h2 id="matches-title">Scores & fixtures</h2></div>
-                    <button type="button" class="quiet" id="refresh">Refresh</button>
-                </div>
-                <div class="controls">
-                    <label class="sr-only" for="league">Competition</label>
-                    <select id="league"><option value="bl1">Bundesliga</option><option value="bl2">2. Bundesliga</option></select>
-                    <label class="sr-only" for="period">Match filter</label>
-                    <select id="period"><option value="matchday">Current matchday</option><option value="today">Today</option><option value="progress">In progress</option><option value="following">Following</option></select>
-                </div>
-                <p class="muted" id="score-status" role="status">Loading scores…</p>
-                <div id="scores" class="scores"></div>
-                <a class="source" href="https://www.openligadb.de/">Scores by OpenLigaDB</a>
-            </section>
-            <section id="clubs" aria-labelledby="clubs-title">
-                <div class="section-head"><div><p class="eyebrow">YOUR TEAMS</p><h2 id="clubs-title">Follow clubs</h2></div><span class="count" id="follow-count"></span></div>
-                <p class="muted">Following a club gives its stories priority in your feed.</p>
-                <div id="club-list" class="club-list"></div>
-            </section>
-            <section id="standings" aria-labelledby="table-title">
-                <div class="section-head"><div><p class="eyebrow">LEAGUE TABLE</p><h2 id="table-title">Standings</h2></div></div>
-                <p id="table-status" class="muted" role="status">Loading standings…</p>
-                <div class="table-scroll"><table><thead><tr><th scope="col">#</th><th scope="col">Club</th><th scope="col">P</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th><th scope="col">GD</th><th scope="col">Pts</th></tr></thead><tbody id="table-body"></tbody></table></div>
-            </section>
-            <section id="news" aria-labelledby="news-title">
-                <div class="section-head">
-                    <div><p class="eyebrow">THE FOOTBALL FEED</p><h2 id="news-title">Football news</h2></div>
-                    <div class="tabs" aria-label="News sort"><button type="button" data-sort="personal" aria-pressed="true">For you</button><button type="button" data-sort="latest" aria-pressed="false">Latest</button></div>
-                </div>
-                <p id="news-status" class="muted" role="status"></p>
-                <div id="stories" class="stories"></div>
-                <a class="source" href="https://www.bbc.com/sport/football">More football news from BBC Sport ↗</a>
-            </section>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111b2c" />
+    <meta
+      name="description"
+      content="Your football match centre. Scores, news, club follows and standings across Europe's major leagues."
+    />
+    <title>Soccer Live | Your football, all in one place</title>
+    <link rel="stylesheet" href="football.css?v=6" />
+    <script src="config.js"></script>
+    <script type="module" src="football.js?v=6"></script>
+  </head>
+  <body>
+    <aside class="sidebar" aria-label="App sidebar">
+      <a class="brand" href="#home"
+        ><span class="brand-ball" aria-hidden="true"><b>SL</b></span
+        ><span>SOCCER<span class="brand-live">LIVE</span></span></a
+      >
+      <p class="nav-label">YOUR FOOTBALL</p>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#home"><span aria-hidden="true">⌂</span>Overview</a>
+        <a href="#matches"><span aria-hidden="true">◉</span>Match centre</a>
+        <a href="#news"><span aria-hidden="true">▤</span>Newsroom</a>
+        <a href="#standings"><span aria-hidden="true">▥</span>League tables</a>
+        <a href="#clubs"><span aria-hidden="true">⚑</span>Discover clubs</a>
+        <a href="#saved"
+          ><span aria-hidden="true">☆</span>Saved stories
+          <small id="saved-count">0</small></a
+        >
+      </nav>
+      <div class="sidebar-following">
+        <div class="sidebar-heading">
+          <p class="nav-label">MY CLUBS</p>
+          <a href="#clubs" aria-label="Choose clubs">＋</a>
         </div>
-    </main>
-    <footer><span>Soccer Live</span><a href="index.html">Create an account</a><a href="protected.html">My account</a></footer>
-</body>
+        <div id="sidebar-clubs"></div>
+      </div>
+      <a class="sidebar-promo" href="#matches"
+        ><span>MATCHDAY CENTRAL</span><strong>Closer to<br />the game.</strong
+        ><span>Explore fixtures ↗</span></a
+      >
+      <a class="sidebar-account" href="protected.html"
+        ><span class="avatar" aria-hidden="true">◉</span
+        ><span>Your account<small>Manage your sign-in</small></span
+        ><span aria-hidden="true">↗</span></a
+      >
+    </aside>
+    <div class="app-shell">
+      <header class="app-header">
+        <div>
+          <span class="header-kicker">THE WORLD'S GAME</span>
+          <h1 id="page-title">Your football, all in one place.</h1>
+        </div>
+        <form id="search-form" role="search">
+          <label class="sr-only" for="search"
+            >Search clubs, matches and news</label
+          ><span aria-hidden="true">⌕</span
+          ><input
+            id="search"
+            type="search"
+            maxlength="80"
+            placeholder="Search clubs, matches, news"
+          /><button type="submit" aria-label="Search">↵</button
+          ><button
+            type="button"
+            id="clear-search"
+            aria-label="Clear search"
+            hidden
+          >
+            ×
+          </button>
+        </form>
+        <a class="signin-button" href="index.html?view=login"
+          >Sign in <span aria-hidden="true">↗</span></a
+        >
+      </header>
+      <main id="content">
+        <p id="search-status" class="search-status" role="status" hidden></p>
+        <section class="welcome" id="welcome" aria-labelledby="welcome-title">
+          <img
+            src="assets/stadium.jpg"
+            alt="Football stadium and pitch under floodlights"
+            class="stadium-photo"
+            fetchpriority="high"
+          />
+          <div class="welcome-copy">
+            <span class="hero-tag">WELCOME TO YOUR MATCHDAY</span>
+            <h2 id="welcome-title">The game never<br />stands still.</h2>
+            <p>Your clubs. Your scores. Your next big story.</p>
+            <a href="#clubs" class="primary-button"
+              >Build your football feed <span aria-hidden="true">↗</span></a
+            >
+          </div>
+          <div class="welcome-bottom">
+            <span>⚽ SIX COMPETITIONS. ONE HOME.</span
+            ><span class="photo-credit">Photo · Unsplash</span>
+          </div>
+        </section>
+        <div
+          class="league-strip"
+          id="league-strip"
+          role="group"
+          aria-label="Select competition"
+        ></div>
+        <div class="content-grid">
+          <section
+            class="panel matches-panel"
+            id="matches"
+            aria-labelledby="matches-title"
+          >
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">ON THE PITCH</span>
+                <h2 id="matches-title">Match centre</h2>
+              </div>
+              <button
+                type="button"
+                id="refresh"
+                class="icon-button"
+                aria-label="Refresh football data"
+              >
+                ↻
+              </button>
+            </div>
+            <div class="match-toolbar">
+              <div class="segmented" aria-label="Match status">
+                <button type="button" data-filter="all" aria-pressed="true">
+                  All</button
+                ><button type="button" data-filter="live" aria-pressed="false">
+                  Live <span id="live-count">0</span></button
+                ><button
+                  type="button"
+                  data-filter="following"
+                  aria-pressed="false"
+                >
+                  My clubs
+                </button>
+              </div>
+              <label class="date-label"
+                >Date<input id="match-date" type="date" aria-label="Match date"
+              /></label>
+            </div>
+            <div class="date-shortcuts">
+              <button type="button" data-date="recent" aria-pressed="true">
+                Latest matchday</button
+              ><button type="button" data-date="-1" aria-pressed="false">
+                Yesterday</button
+              ><button type="button" data-date="0" aria-pressed="false">
+                Today</button
+              ><button type="button" data-date="1" aria-pressed="false">
+                Tomorrow
+              </button>
+            </div>
+            <p id="score-status" class="data-status" role="status">
+              Loading matches…
+            </p>
+            <div id="scores"></div>
+            <a class="section-link" href="#matches" id="all-matches-link"
+              >Explore match centre <span aria-hidden="true">→</span></a
+            >
+          </section>
+          <aside class="right-rail" id="right-rail">
+            <section class="panel your-clubs" aria-labelledby="following-title">
+              <div class="section-heading">
+                <h2 id="following-title">Your clubs</h2>
+                <a href="#clubs">Manage ↗</a>
+              </div>
+              <div id="following-cards"></div>
+            </section>
+            <section class="panel mini-table" aria-labelledby="mini-title">
+              <div class="section-heading">
+                <h2 id="mini-title">Top of the table</h2>
+                <a href="#standings">Full table ↗</a>
+              </div>
+              <div id="mini-table"></div>
+            </section>
+            <div class="editorial-note">
+              <span class="eyebrow">MADE FOR MATCHDAY</span
+              ><strong>Follow the badge.<br />Find your people.</strong>
+              <p>
+                Pick your clubs to bring their stories to the front of your
+                feed.
+              </p>
+              <a href="#clubs">Find your club →</a>
+            </div>
+          </aside>
+          <section
+            class="panel news-panel"
+            id="news"
+            aria-labelledby="news-title"
+          >
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">BEYOND THE SCORELINE</span>
+                <h2 id="news-title">The newsroom</h2>
+              </div>
+              <div class="segmented">
+                <button type="button" data-sort="personal" aria-pressed="true">
+                  For you</button
+                ><button type="button" data-sort="latest" aria-pressed="false">
+                  Latest
+                </button>
+              </div>
+            </div>
+            <p id="news-status" class="data-status" role="status"></p>
+            <div id="stories" class="news-desk"></div>
+            <button type="button" id="more-news" class="load-more" hidden>
+              Show more stories ↓
+            </button>
+          </section>
+          <section id="article" class="article-page" aria-label="News article" hidden></section>
+          <section class="panel standings-panel"
+            id="standings"
+            aria-labelledby="table-title"
+            hidden
+          >
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">THE SEASON SO FAR</span>
+                <h2 id="table-title">League standings</h2>
+              </div>
+              <span id="table-season" class="subtle"></span>
+            </div>
+            <p id="table-status" class="data-status" role="status"></p>
+            <div id="tables"></div>
+          </section>
+          <section
+            class="panel clubs-panel"
+            id="clubs"
+            aria-labelledby="clubs-title"
+            hidden
+          >
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">FIND YOUR COLOURS</span>
+                <h2 id="clubs-title">Discover clubs</h2>
+              </div>
+              <label class="switch-label"
+                ><input type="checkbox" id="followed-only" />Following
+                only</label
+              >
+            </div>
+            <p id="club-status" class="data-status"></p>
+            <div id="club-grid" class="club-grid"></div>
+          </section>
+          <section
+            class="panel saved-panel"
+            id="saved"
+            aria-labelledby="saved-title"
+            hidden
+          >
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">YOUR READING LIST</span>
+                <h2 id="saved-title">Saved stories</h2>
+              </div>
+            </div>
+            <p class="data-status">
+              Saved on this browser, ready when you are.
+            </p>
+            <div id="saved-stories" class="story-grid"></div>
+          </section>
+        </div>
+      </main>
+      <footer class="app-footer">
+        <span>SOCCER LIVE <small>Football, in focus.</small></span>
+        <div>
+          <a href="index.html">Create account</a
+          ><a href="protected.html">My account</a
+          >
+        </div>
+        <p>
+          Scores refresh every minute while this tab is active. Provider updates
+          may be delayed. Club follows and saved stories stay in this browser.
+        </p>
+      </footer>
+    </div>
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="#home">⌂<span>Home</span></a
+      ><a href="#matches">◉<span>Matches</span></a
+      ><a href="#news">▤<span>News</span></a
+      ><a href="#standings">▥<span>Tables</span></a
+      ><a href="#clubs">⚑<span>Clubs</span></a
+      ><a href="#saved">☆<span>Saved</span></a>
+    </nav>
+    <dialog id="detail-dialog" aria-labelledby="detail-title">
+      <div class="dialog-top">
+        <span class="eyebrow">SOCCER LIVE</span
+        ><button
+          id="close-dialog"
+          class="icon-button"
+          aria-label="Close details"
+        >
+          ×
+        </button>
+      </div>
+      <div id="detail-content"></div>
+    </dialog>
+    <div id="toast" class="toast" role="status" hidden></div>
+  </body>
 </html>
