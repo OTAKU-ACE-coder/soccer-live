@@ -132,6 +132,14 @@ function teamMatches(team, text) {
     );
   });
 }
+const clubCrests = new Map();
+
+function crestSource(value) {
+  return typeof value === "string" && /^assets\/clubs\/[a-z0-9.-]+$/i.test(value)
+    ? value
+    : safeUrl(value);
+}
+
 function crest(team) {
   const fallback = node(
     "span",
@@ -139,14 +147,20 @@ function crest(team) {
     "crest-fallback",
   );
   fallback.setAttribute("aria-hidden", "true");
-  if (!safeUrl(team.logo)) return fallback;
+  const candidates = [...new Set([
+    clubCrests.get(String(team.id)),
+    crestSource(team.logo),
+  ].filter(Boolean))];
+  if (!candidates.length) return fallback;
   const image = node("img");
-  image.src = team.logo;
   image.alt = "";
   image.loading = "lazy";
-  image.addEventListener("error", () => image.replaceWith(fallback), {
-    once: true,
+  image.addEventListener("error", () => {
+    const next = candidates.shift();
+    if (next) image.src = next;
+    else image.replaceWith(fallback);
   });
+  image.src = candidates.shift();
   return image;
 }
 function empty(title, description, linkText, href) {
@@ -201,7 +215,7 @@ function asTeam(competitor) {
     name: team.displayName,
     shortName: team.shortDisplayName,
     abbreviation: team.abbreviation,
-    logo: team.logo || allTeams.find(item => item.id === String(team.id))?.logo,
+    logo: team.logo,
     url: team.links?.find((link) => link.rel?.includes("clubhouse"))?.href,
   };
 }
@@ -1468,14 +1482,19 @@ window.addEventListener("soccer-theme-change", syncThemeOptions);
 syncThemeOptions();
 setRoute();
 try {
-  const response = await fetch("football-catalog.json?v=6");
+  const response = await fetch("football-catalog.json?v=7");
   if (!response.ok) throw new Error("Club catalogue unavailable");
   catalog = await response.json();
   const teams = new Map();
   for (const item of catalog) {
     item.teams = item.teams.map((team) => ({ ...team, leagueName: item.name }));
-    for (const team of item.teams)
+    for (const team of item.teams) {
       if (!teams.has(team.id)) teams.set(team.id, team);
+      const logo = crestSource(team.logo);
+      if (logo && (!clubCrests.has(team.id) || logo.startsWith("assets/clubs/"))) {
+        clubCrests.set(team.id, logo);
+      }
+    }
   }
   allTeams = [...teams.values()];
   league = catalog.find((item) => item.id === preferences.league) || catalog[0];

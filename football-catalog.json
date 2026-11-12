@@ -1116,14 +1116,16 @@
         "name": "AFC Hornchurch",
         "shortName": "Hornchurh",
         "abbreviation": "HOR",
-        "url": "https://www.espn.com/soccer/club/_/id/10167/afc-hornchurch"
+        "url": "https://www.espn.com/soccer/club/_/id/10167/afc-hornchurch",
+        "logo": "assets/clubs/espn-10167.png"
       },
       {
         "id": "132415",
         "name": "AFC Rushden & Diamonds",
         "shortName": "AFC Rushden",
         "abbreviation": "AFC",
-        "url": "https://www.espn.com/soccer/club/_/id/132415/afc-rushden-diamonds"
+        "url": "https://www.espn.com/soccer/club/_/id/132415/afc-rushden-diamonds",
+        "logo": "assets/clubs/espn-132415.png"
       },
       {
         "id": "3802",
@@ -1162,7 +1164,8 @@
         "name": "Alvechurch",
         "shortName": "Alvechurch",
         "abbreviation": "ALV",
-        "url": "https://www.espn.com/soccer/club/_/id/21711/alvechurch"
+        "url": "https://www.espn.com/soccer/club/_/id/21711/alvechurch",
+        "logo": "assets/clubs/espn-21711.png"
       },
       {
         "id": "280",
@@ -1193,7 +1196,8 @@
         "name": "Berkhamsted",
         "shortName": "Berkhamsted",
         "abbreviation": "BER",
-        "url": "https://www.espn.com/soccer/club/_/id/132350/berkhamsted"
+        "url": "https://www.espn.com/soccer/club/_/id/132350/berkhamsted",
+        "logo": "assets/clubs/espn-132350.png"
       },
       {
         "id": "346",
@@ -1296,7 +1300,8 @@
         "name": "Cray Wanderers",
         "shortName": "Cray",
         "abbreviation": "CRWD",
-        "url": "https://www.espn.com/soccer/club/_/id/20770/cray-wanderers"
+        "url": "https://www.espn.com/soccer/club/_/id/20770/cray-wanderers",
+        "logo": "assets/clubs/espn-20770.png"
       },
       {
         "id": "396",
@@ -1391,7 +1396,8 @@
         "name": "Harborough Town",
         "shortName": "Harborough",
         "abbreviation": "HAR",
-        "url": "https://www.espn.com/soccer/club/_/id/22468/harborough-town"
+        "url": "https://www.espn.com/soccer/club/_/id/22468/harborough-town",
+        "logo": "assets/clubs/espn-22468.png"
       },
       {
         "id": "19262",
@@ -1414,7 +1420,8 @@
         "name": "Kidderminster Harriers",
         "shortName": "Kid'minster",
         "abbreviation": "KID",
-        "url": "https://www.espn.com/soccer/club/_/id/319/kidderminster-harriers"
+        "url": "https://www.espn.com/soccer/club/_/id/319/kidderminster-harriers",
+        "logo": "assets/clubs/espn-319.png"
       },
       {
         "id": "375",
@@ -1461,7 +1468,8 @@
         "name": "Marine",
         "shortName": "Marine",
         "abbreviation": "MAR",
-        "url": "https://www.espn.com/soccer/club/_/id/20771/marine"
+        "url": "https://www.espn.com/soccer/club/_/id/20771/marine",
+        "logo": "assets/clubs/espn-20771.png"
       },
       {
         "id": "390",
@@ -1508,7 +1516,8 @@
         "name": "Oxford City",
         "shortName": "Oxford City",
         "abbreviation": "OXC",
-        "url": "https://www.espn.com/soccer/club/_/id/4489/oxford-city"
+        "url": "https://www.espn.com/soccer/club/_/id/4489/oxford-city",
+        "logo": "assets/clubs/espn-4489.png"
       },
       {
         "id": "311",
@@ -1539,7 +1548,8 @@
         "name": "Plymouth Parkway",
         "shortName": "Plymouth",
         "abbreviation": "PLY",
-        "url": "https://www.espn.com/soccer/club/_/id/132948/plymouth-parkway"
+        "url": "https://www.espn.com/soccer/club/_/id/132948/plymouth-parkway",
+        "logo": "assets/clubs/espn-132948.png"
       },
       {
         "id": "348",
@@ -1586,7 +1596,8 @@
         "name": "Salisbury FC",
         "shortName": "Salisbury",
         "abbreviation": "SAL",
-        "url": "https://www.espn.com/soccer/club/_/id/132144/salisbury-fc"
+        "url": "https://www.espn.com/soccer/club/_/id/132144/salisbury-fc",
+        "logo": "assets/clubs/espn-132144.png"
       },
       {
         "id": "313",
@@ -1609,7 +1620,8 @@
         "name": "Sholing",
         "shortName": "Sholing",
         "abbreviation": "SHO",
-        "url": "https://www.espn.com/soccer/club/_/id/133366/sholing"
+        "url": "https://www.espn.com/soccer/club/_/id/133366/sholing",
+        "logo": "assets/clubs/espn-133366.png"
       },
       {
         "id": "302",
@@ -1624,7 +1636,8 @@
         "name": "Stafford Rangers",
         "shortName": "Stafford",
         "abbreviation": "STF",
-        "url": "https://www.espn.com/soccer/club/_/id/2589/stafford-rangers"
+        "url": "https://www.espn.com/soccer/club/_/id/2589/stafford-rangers",
+        "logo": "assets/clubs/espn-2589.png"
       },
       {
         "id": "285",
@@ -1695,14 +1708,16 @@
         "name": "Wimborne Town",
         "shortName": "Wimborne",
         "abbreviation": "WIM",
-        "url": "https://www.espn.com/soccer/club/_/id/133370/wimborne-town"
+        "url": "https://www.espn.com/soccer/club/_/id/133370/wimborne-town",
+        "logo": "assets/clubs/espn-133370.png"
       },
       {
         "id": "649",
         "name": "Worcester City",
         "shortName": "Worcester Ci",
         "abbreviation": "Worcester Ci",
-        "url": "https://www.espn.com/soccer/club/_/id/649/worcester-city"
+        "url": "https://www.espn.com/soccer/club/_/id/649/worcester-city",
+        "logo": "assets/clubs/espn-649.png"
       },
       {
         "id": "344",

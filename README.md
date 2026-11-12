@@ -19,7 +19,7 @@ The app has dedicated overview, match centre, newsroom, standings, club discover
 
 The app reads publicly accessible ESPN website feeds directly. These are unofficial integration endpoints and may change or fail. Each panel displays an unavailable state on errors. Scores refresh every minute in an active tab. Refresh reloads match reports and standings. Match reports are generated from recorded results and available statistics. No match scores or statistics are invented.
 
-Club and league badge sources are recorded in `football-catalog.json`. Match and standings data come from ESPN’s public website feeds. The stadium photograph is served from the bundled Unsplash asset.
+Club and league badge sources are recorded in `football-catalog.json`. The bundled FA Cup crests come from the clubs’ Wikipedia articles and the Stafford Rangers club site. Match and standings data come from ESPN’s public website feeds. The stadium photograph is served from the bundled Unsplash asset.
 
 ## Screenshot previews
 
