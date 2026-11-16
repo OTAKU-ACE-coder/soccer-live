@@ -19,7 +19,7 @@ function upstreamFor(url) {
   if (feed === "summary" && !/^\d{1,12}$/.test(value || "")) return null;
   if (feed === "schedule" && value && value !== "true") return null;
   const host = service === "tables"
-    ? "https://site.web.api.espn.com/apis/v2/sports/soccer/"
+    ? "https://site.api.espn.com/apis/v2/sports/soccer/"
     : "https://site.api.espn.com/apis/site/v2/sports/soccer/";
   const upstream = new URL(league + "/" + endpoint, host);
   if (value) upstream.searchParams.set(key, value);
@@ -46,7 +46,7 @@ export default {
     try {
       const cached = await cache?.match(key);
       if (cached) return cached;
-      const response = await fetch(target.upstream, { signal: AbortSignal.timeout(8000), redirect: "error" });
+      const response = await fetch(target.upstream, { signal: AbortSignal.timeout(8000), redirect: "manual" });
       if (!response.ok) return failure("Upstream football feed unavailable", 502);
       const data = validateFeed(target.feed, await response.json().catch(() => null));
       const result = Response.json(data, { headers: {

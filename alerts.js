@@ -1,6 +1,6 @@
-import { followsInterest } from "./news-alerts.js?v=717eb71eae87";
-import { dateLabel } from "./football-format.js?v=717eb71eae87";
-import { crest, empty, materialIcon, node } from "./render.js?v=717eb71eae87";
+import { followsInterest } from "./news-alerts.js?v=6feaefbe941b";
+import { dateLabel } from "./football-format.js?v=6feaefbe941b";
+import { crest, empty, materialIcon, node } from "./render.js?v=6feaefbe941b";
 const $ = (id) => document.getElementById(id);
 
 export function createAlerts({ preferences, getStories, getCatalogue, storyLink, savePreferences, renderNews }) {

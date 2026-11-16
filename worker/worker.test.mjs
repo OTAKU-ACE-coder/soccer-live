@@ -12,9 +12,12 @@ test("proxy limits the upstream, caches valid feeds, and reports schema changes"
     match: async key => cache.get(key.url)?.clone(),
     put: async (key, value) => cache.set(key.url, value),
   } };
-  globalThis.fetch = async (url) => {
+  globalThis.fetch = async (url, options) => {
     calls++;
     assert.equal(url.hostname, "site.api.espn.com");
+    assert.equal(options.redirect, "manual");
+    if (url.searchParams.get("dates") === "20261117") return Response.redirect("https://example.com/");
+    if (url.pathname === "/apis/v2/sports/soccer/eng.1/standings") return Response.json({ children: [] });
     assert.match(url.pathname, /\/uefa\.nations\/scoreboard$/);
     return Response.json(url.searchParams.size ? { changed: true } : { events: [] });
   };
@@ -32,7 +35,11 @@ test("proxy limits the upstream, caches valid feeds, and reports schema changes"
     const wrong = await request("/scores/uefa.nations/scoreboard?dates=20261116");
     assert.equal(wrong.status, 502);
     assert.equal(wrong.headers.get("x-soccer-feed-error"), "format");
+    assert.equal((await request("/scores/uefa.nations/scoreboard?dates=20261117")).status, 502);
     assert.equal(cache.size, 1);
+    const standings = await request("/tables/eng.1/standings");
+    assert.equal(standings.status, 200);
+    assert.deepEqual(await standings.json(), { children: [] });
   } finally {
     globalThis.fetch = originalFetch;
     globalThis.caches = originalCaches;

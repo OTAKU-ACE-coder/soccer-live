@@ -1,6 +1,6 @@
-import { aliases, contains, dateLabel } from "./football-format.js?v=717eb71eae87";
-import { crest, empty, node } from "./render.js?v=717eb71eae87";
-import { recentResults } from "./match-data.js?v=717eb71eae87";
+import { aliases, contains, dateLabel } from "./football-format.js?v=6feaefbe941b";
+import { crest, empty, node } from "./render.js?v=6feaefbe941b";
+import { recentResults } from "./match-data.js?v=6feaefbe941b";
 const $ = (id) => document.getElementById(id);
 
 export function entriesOf(data) {

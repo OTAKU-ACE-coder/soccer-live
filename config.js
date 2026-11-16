@@ -5,4 +5,4 @@ window.SUPABASE_CONFIG = {
 };
 
 // Set this to the deployed HTTPS Worker URL to use shared feed caching.
-window.SOCCER_LIVE_CONFIG = Object.freeze({ footballProxy: "" });
+window.SOCCER_LIVE_CONFIG = Object.freeze({ footballProxy: "https://soccer-live-feeds.soccer-live.workers.dev" });
