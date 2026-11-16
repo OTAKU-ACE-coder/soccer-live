@@ -3,8 +3,8 @@ export function recentResults(events, clubId) {
     .sort((a,b) => Date.parse(b.date) - Date.parse(a.date))
     .flatMap(event => {
       const competitors = event.competitions[0].competitors || [];
-      const club = competitors.find(item => String(item.team.id) === clubId);
-      const opponent = competitors.find(item => String(item.team.id) !== clubId);
+      const club = competitors.find(item => item.team?.id != null && String(item.team.id) === clubId);
+      const opponent = competitors.find(item => item.team?.id != null && String(item.team.id) !== clubId);
       const scored = club?.score?.value ?? club?.score;
       const conceded = opponent?.score?.value ?? opponent?.score;
       if (scored == null || conceded == null || !/^\d+$/.test(scored) || !/^\d+$/.test(conceded)) return [];

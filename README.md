@@ -14,11 +14,11 @@ The app has dedicated overview, match centre, newsroom, standings, club discover
 - Match statistics including possession, shots, shots on target, corners, and fouls when supplied.
 - Current league tables and club profiles with related matches and stories.
 - A newsroom with original data-driven match reports, football explainers, personalised ranking, and a saved reading list. Articles open inside Soccer Live.
-- Club follows, searches, and saved stories persist in browser storage. Existing Touchline follows migrate automatically. These preferences currently stay on the device.
+- Club follows, searches, and saved stories persist in browser storage. Existing Touchline follows migrate automatically. A signed-in account can also sync follows and saved stories after the preferences migration is deployed. Searches, alerts, and appearance stay on the device.
 - Desktop sidebar with club badges, competition badges, stadium photography, and mobile navigation.
 - Supabase sign-up, login, recovery, and account pages remain connected to the app.
 
-The app reads publicly accessible ESPN website feeds directly. These are unofficial integration endpoints and may change or fail. Each panel displays an unavailable state on errors. Scores refresh every minute in an active tab. Refresh reloads match reports and standings. Match reports are generated from recorded results and available statistics. No match scores or statistics are invented.
+Soccer Live uses ESPN’s unofficial website feeds. It validates score, fixture, standings, roster, and match detail responses and shows an error if a feed changes format. A Cloudflare Worker can cache supported queries. Set the Worker URL as described below to route feed requests through it. Scores refresh every minute in an active tab. Refresh reloads match reports and standings. Match reports are generated from recorded results and available statistics. No match scores or statistics are invented.
 
 Club and league badge sources are recorded in `football-catalog.json`. The bundled FA Cup crests come from the clubs’ Wikipedia articles and the Stafford Rangers club site. Match and standings data come from ESPN’s public website feeds. The stadium photograph is served from the bundled Unsplash asset.
 
@@ -53,7 +53,23 @@ Open Settings to select light, dark, or your device’s theme. The preference is
 
 ## Local checks
 
-Run `node --check football.js` and `node --test auth.test.cjs`. Browser checks should cover a date change, league switch, match details, follow/unfollow, search, saved-story reload persistence, and mobile navigation.
+Run `npm ci` and `npm test`. Tests cover account flows, date and club matching, form, reports, feed validation, proxy caching, and preference conflicts.
+
+## Release and hosting
+
+Run `npm run release` before committing a release. It updates browser asset URLs with a hash derived from the site files. Run `npm run release:check` to verify the committed URLs. GitHub Pages serves the static files from the repository.
+
+The pinned Supabase browser bundle lives in `vendor/supabase.js`. After changing the SDK version, run `npm ci`, `npm run vendor`, and `npm run release`. Commit the lockfile, bundle, and license notices.
+
+### Cached football feeds
+
+Deploy the Worker from an authenticated Cloudflare account with `npx wrangler deploy --config worker/wrangler.toml`. Set `SOCCER_LIVE_CONFIG.footballProxy` in `config.js` to the HTTPS URL, then run the release command. The Worker validates and caches supported public requests for 45 seconds at the edge. An empty URL uses the existing direct feed. Confirm the provider’s terms for your use before operating a public proxy.
+
+### Account preference sync
+
+Apply `supabase/migrations/20261116000000_soccer_preferences.sql` to the configured Supabase project. The migration enables RLS and installs owner-only policies before granting authenticated access. Keep server credentials in Supabase. The browser uses the existing publishable key and each signed-in user’s session.
+
+If an account has no sync data yet, it starts with the follows and saved stories on this device. Existing account data loads across devices. Changes made during a network error are queued in a per-account browser cache and retried when the app is online. Settings shows the sync status.
 
 ## Account previews
 
@@ -74,7 +90,7 @@ Serve the project folder over HTTP and open `http://localhost:8000/preview.html`
 2. Enable the Email provider in Authentication settings. Enable email confirmation for registration, and set the server password minimum to at least 8 characters (the client uses 8). Stronger server rules are enforced by Supabase and displayed in the form.
 3. Under Authentication → URL Configuration, set Site URL to your deployed site and allow the exact callback URL `https://your-domain/path/index.html`. For local development also allow `http://localhost:8000/index.html`. Use the same host consistently; localhost and 127.0.0.1 have separate storage. Keep confirmation/reset email templates using Supabase's standard `ConfirmationURL` link.
 4. Configure custom SMTP for production confirmation and recovery emails. The default sender is restricted and is suitable only for testing with allowed recipients. SMTP credentials belong in Supabase settings only.
-5. Serve this directory over HTTP locally, for example `python -m http.server 8000`, then open `http://localhost:8000/index.html`. Do not open HTML as `file://`. Deploy over HTTPS. The SDK loads from a pinned esm.sh URL and requires internet access.
+5. Serve this directory over HTTP locally, for example `python -m http.server 8000`, then open `http://localhost:8000/index.html`. Do not open HTML as `file://`. Deploy over HTTPS. The SDK is served from the pinned local vendor bundle. Account requests still require a connection to Supabase.
 
 ## Flow and storage
 

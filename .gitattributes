@@ -1,1 +1,3 @@
 * text=auto eol=lf
+# Preserve whitespace in the upstream SDK bundle.
+vendor/supabase.js whitespace=-blank-at-eol

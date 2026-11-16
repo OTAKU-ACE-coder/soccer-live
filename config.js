@@ -3,3 +3,6 @@ window.SUPABASE_CONFIG = {
     url: 'https://geyligmlkzdphsvtxkxm.supabase.co',
     publishableKey: 'sb_publishable_pkqItsXuCc66og7dWAg5Yw_eqHk-cNW'
 };
+
+// Set this to the deployed HTTPS Worker URL to use shared feed caching.
+window.SOCCER_LIVE_CONFIG = Object.freeze({ footballProxy: "" });
