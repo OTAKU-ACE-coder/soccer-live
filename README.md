@@ -9,7 +9,8 @@ Soccer Live is a football hub with scores, fixtures, club follows, and a persona
 The app has dedicated overview, match centre, newsroom, standings, club discovery, and saved-story views.
 
 - Premier League, La Liga, Bundesliga, Serie A, Ligue 1, Champions League, FA Cup, and Carabao Cup feeds. The domestic cups display fixtures and results in place of a league table.
-- Latest matchday, date picker, yesterday/today/tomorrow, live and followed-club filters.
+- International coverage includes UEFA Nations League, AFCON Qualifying, Concacaf Nations League, men’s and women’s friendlies, both FIFA World Cups, and the Africa Cup of Nations. Open the International competition group to see scores, fixtures and group tables where supplied, and discover and follow national teams.
+- Latest matchday, date picker, yesterday/today/tomorrow, live and followed-team filters.
 - Match statistics including possession, shots, shots on target, corners, and fouls when supplied.
 - Current league tables and club profiles with related matches and stories.
 - A newsroom with original data-driven match reports, football explainers, personalised ranking, and a saved reading list. Articles open inside Soccer Live.
@@ -44,7 +45,7 @@ Club and league badge sources are recorded in `football-catalog.json`. The bundl
 
 ## News alerts
 
-Open the bell to follow competitions or Ballon d’Or and choose which updates appear in your inbox. The app checks the supported competition score feeds every three minutes while the page is visible. Recent completed match reports and dated editorial stories can generate alerts. The inbox and unread counts are saved in the current browser. Ballon d’Or coverage comes from Soccer Live editorial articles added to the site.
+Open the bell to follow competitions or Ballon d’Or and choose which updates appear in your inbox. The app checks the supported competition score feeds every three minutes while the page is visible, and loads the previous two matchdays for international coverage. The International football newsroom filter shows reports from those competitions. Recent completed match reports and dated editorial stories can generate alerts. The inbox and unread counts are saved in the current browser. Ballon d’Or coverage comes from Soccer Live editorial articles added to the site.
 
 ## Appearance
 

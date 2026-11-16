@@ -24,7 +24,7 @@ export function collectAlerts(state, stories, followedClub, now = Date.now()) {
   for (const story of recent) {
     if (seen.has(story.id)) continue;
     seen.add(story.id);
-    const reason = state.settings.clubs && followedClub(story) ? "Followed club"
+    const reason = state.settings.clubs && followedClub(story) ? "Followed team"
       : state.settings.interests && followsInterest(story, state.interests) ? "Followed competition or topic"
       : state.settings.general ? "Football news" : "";
     if (reason) incoming.push({ story, reason, read: false });

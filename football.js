@@ -1,6 +1,6 @@
-import { buildReports, editorialStories } from "./newsroom.js?v=7";
+import { buildReports, editorialStories } from "./newsroom.js?v=8";
 
-import { collectAlerts, followsInterest, readAlertSettings } from "./news-alerts.js";
+import { collectAlerts, followsInterest, readAlertSettings } from "./news-alerts.js?v=2";
 
 import { upcomingFixtures, recentResults } from "./match-data.js";
 
@@ -25,6 +25,7 @@ const names = {
   "Bayern Munich": ["FC Bayern München", "Bayern München"],
 };
 const routes = ["home", "matches", "news", "standings", "clubs", "saved", "alerts", "settings"];
+const searchSections = ["matches", "news", "standings", "clubs"];
 const titles = {
   home: "Your football, all in one place.",
   matches: "Every match. Every moment.",
@@ -51,7 +52,11 @@ let generation = 0,
   newsLimit = 8;
 let errors = {};
 let requestedStory = "";
+let selectedMatchReports = [];
+let archivedReport;
 const reportFeeds = new Map();
+const nationalTeamIds = new Set();
+const loadedNewsDates = new Map();
 let checkingNews = false;
 
 function node(tag, text, className) {
@@ -119,10 +124,12 @@ function aliases(team) {
     Boolean,
   );
 }
+function followsPreference(team, preference) {
+  if (nationalTeamIds.has(team.id)) return preference === "national:" + team.id;
+  return aliases(team).some(alias => normalize(alias) === normalize(preference));
+}
 function follows(team) {
-  return preferences.following.some((name) =>
-    aliases(team).some((alias) => normalize(alias) === normalize(name)),
-  );
+  return preferences.following.some(preference => followsPreference(team, preference));
 }
 function teamMatches(team, text) {
   return aliases(team).some((name) => {
@@ -222,20 +229,28 @@ function asTeam(competitor) {
 function renderLeagues() {
   $("league-strip").replaceChildren();
   $("competition-select").replaceChildren();
-  for (const item of catalog) {
-    const button = node("button", undefined, "league-chip");
-    button.type = "button";
-    button.setAttribute("aria-pressed", String(item.id === league.id));
-    button.append(
-      crest({ name: item.name, logo: item.logo }),
-      node("span", item.name),
-    );
-    button.addEventListener("click", () => selectCompetition(item.id));
-    const option = node("option", item.name);
-    option.value = item.id;
-    option.selected = league.id === item.id;
-    $("competition-select").append(option);
-    $("league-strip").append(button);
+  for (const [label, international] of [["Club competitions", false], ["International", true]]) {
+    const heading = node("p", label, "competition-heading");
+    const buttons = node("div", undefined, "competition-chips");
+    buttons.setAttribute("role", "group");
+    buttons.setAttribute("aria-label", label);
+    const options = node("optgroup");
+    options.label = label;
+    for (const item of catalog.filter(entry => Boolean(entry.international) === international)) {
+      const button = node("button", undefined, "league-chip");
+      button.type = "button";
+      button.dataset.competition = item.id;
+      button.setAttribute("aria-pressed", String(item.id === league.id));
+      button.append(crest({ name: item.name, logo: item.logo }), node("span", item.name));
+      button.addEventListener("click", () => selectCompetition(item.id));
+      const option = node("option", item.name);
+      option.value = item.id;
+      option.selected = league.id === item.id;
+      options.append(option);
+      buttons.append(button);
+    }
+    $("competition-select").append(options);
+    $("league-strip").append(heading, buttons);
   }
 }
 function selectCompetition(id) {
@@ -244,7 +259,15 @@ function selectCompetition(id) {
   league = selected;
   preferences.league = selected.id;
   savePreferences();
-  renderLeagues();
+  for (const button of $("league-strip").querySelectorAll("[data-competition]")) {
+    button.setAttribute("aria-pressed", String(button.dataset.competition === league.id));
+  }
+  $("competition-select").value = league.id;
+  const url = new URL(location.href);
+  if (url.searchParams.has("competition")) {
+    url.searchParams.set("competition", league.id);
+    history.replaceState(null, "", url);
+  }
   renderClubs();
   loadData();
 }
@@ -252,11 +275,8 @@ $("competition-select").addEventListener("change", event => selectCompetition(ev
 
 function toggleFollow(team) {
   const active = follows(team);
-  preferences.following = preferences.following.filter(
-    (name) =>
-      !aliases(team).some((alias) => normalize(alias) === normalize(name)),
-  );
-  if (!active) preferences.following.push(team.name);
+  preferences.following = preferences.following.filter(preference => !followsPreference(team, preference));
+  if (!active) preferences.following.push(nationalTeamIds.has(team.id) ? "national:" + team.id : team.name);
   savePreferences();
   renderFollowing();
   renderClubs();
@@ -268,10 +288,11 @@ function followButton(team) {
   const active = follows(team);
   const button = node(
     "button",
-    active ? "✓ Following" : "＋ Follow club",
+    active ? "✓ Following" : nationalTeamIds.has(team.id) ? "＋ Follow team" : "＋ Follow club",
     "follow-button",
   );
   button.type = "button";
+  button.dataset.teamId = team.id;
   button.setAttribute("aria-pressed", String(active));
   button.setAttribute(
     "aria-label",
@@ -282,11 +303,7 @@ function followButton(team) {
     if ($("detail-dialog").open) openClub(team, false);
     else
       [...document.querySelectorAll("#club-grid .follow-button")]
-        .find(
-          (b) =>
-            b.getAttribute("aria-label") ===
-            (!active ? "Unfollow " : "Follow ") + team.name,
-        )
+        .find(button => button.dataset.teamId === team.id)
         ?.focus({ preventScroll: true });
   });
   return button;
@@ -344,7 +361,7 @@ function renderClubs() {
     );
   $("club-status").textContent =
     teams.length +
-    " clubs · " +
+    (query || $("followed-only").checked || league.international ? " teams · " : " clubs · ") +
     (query || $("followed-only").checked
       ? "Across all competitions"
       : league.name);
@@ -364,7 +381,7 @@ function renderClubs() {
   }
   if (!teams.length)
     list.append(
-      empty("No clubs found", "Try another search or turn off Following only."),
+      empty("No teams found", "Try another search or turn off Following only."),
     );
 }
 function matchVisible(event) {
@@ -473,24 +490,27 @@ function tableTeam(entry) {
       ?.href,
   };
 }
+function hasStandings(item) {
+  return !item.knockout && !item.fixturesOnly;
+}
 function renderTables() {
   $("tables").replaceChildren();
   $("mini-table").replaceChildren();
-  $("table-title").textContent = league.knockout ? league.name + " fixtures and results" : "League standings";
-  $("mini-title").textContent = league.knockout ? league.name : "Top of the table";
-  $("mini-table-link").textContent = league.knockout ? "Match centre →" : "Full table ↗";
-  $("mini-table-link").href = league.knockout ? "#matches" : "#standings";
-  if (league.knockout) {
+  $("table-title").textContent = !hasStandings(league) ? league.name + " fixtures and results" : "League standings";
+  $("mini-title").textContent = !hasStandings(league) ? league.name : "Top of the table";
+  $("mini-table-link").textContent = !hasStandings(league) ? "Match centre →" : "Full table ↗";
+  $("mini-table-link").href = !hasStandings(league) ? "#matches" : "#standings";
+  if (!hasStandings(league)) {
     $("form-status").textContent = "";
     $("table-season").textContent = "";
-    $("table-status").textContent = "Knockout competition · Fixtures and results";
-    $("mini-table").append(node("p", "Follow fixtures and results for each round in the Match Centre.", "subtle"));
+    $("table-status").textContent = (league.knockout ? "Knockout competition" : "Friendlies") + " · Fixtures and results";
+    $("mini-table").append(node("p", "See fixtures and results in the Match Centre.", "subtle"));
     const cupMatches = events.filter(matchVisible);
     for (const match of cupMatches) {
       $("tables").append(node("p", dateLabel(match.date), "match-group-heading"), matchRow(match));
     }
     if (!cupMatches.length) {
-      $("tables").append(empty("No cup matches in this selection", "Open the Match Centre to choose another date or browse upcoming fixtures.", "Open Match Centre →", "#matches"));
+      $("tables").append(empty("No matches in this selection", "Open the Match Centre to choose another date or browse upcoming fixtures.", "Open Match Centre →", "#matches"));
     }
     return;
   }
@@ -669,7 +689,7 @@ function storyImage(story) {
   image.alt = "";
   image.loading = "lazy";
   visual.append(image);
-  if (story.teams.length === 2) {
+  if (story.teams?.length === 2) {
     const badges = node("div", undefined, "story-badges");
     badges.append(crest(story.teams[0]), node("span", story.score), crest(story.teams[1]));
     visual.append(badges);
@@ -730,7 +750,8 @@ function renderNews() {
 function renderArticle() {
   const article = $("article");
   article.replaceChildren();
-  const story = [...stories, ...editorialStories, ...preferences.saved, ...preferences.alerts.inbox.map(item => item.story)].find(item => item.id === requestedStory);
+  const story = [...stories, ...editorialStories, ...preferences.saved, ...preferences.alerts.inbox.map(item => item.story), archivedReport]
+    .find(item => item?.id === requestedStory);
   const back = node("a", "← Back to newsroom", "article-back");
   back.href = "#news";
   article.append(back);
@@ -883,8 +904,8 @@ function setRoute() {
   $("welcome").hidden = view !== "home" || Boolean(query);
   $("right-rail").hidden = view !== "home" || Boolean(query);
   for (const section of routes.filter(route => route !== "home")) {
-    $(section).hidden = requestedStory ? true : query
-      ? ["saved", "alerts", "settings"].includes(section) && view !== section
+    $(section).hidden = requestedStory ? true : query && (view === "home" || searchSections.includes(view))
+      ? !searchSections.includes(section)
       : view === "home"
         ? !["matches", "news"].includes(section)
         : section !== view;
@@ -909,10 +930,13 @@ async function loadData() {
   $("refresh").disabled = true;
   events = [];
   groups = [];
-  stories = [];
+  selectedMatchReports = [];
+  stories = combinedStories();
   errors = {};
   $("scores").replaceChildren();
   $("tables").replaceChildren();
+  $("table-season").textContent = "";
+  $("form-status").textContent = "";
   $("stories").replaceChildren();
   $("mini-table").replaceChildren(node("p", "Loading table…", "subtle"));
   $("score-status").textContent = "Loading " + league.name + " matches…";
@@ -921,7 +945,7 @@ async function loadData() {
   const suffix = date ? "?dates=" + date.replaceAll("-", "") : "";
   const results = await Promise.allSettled([
     date === "upcoming" ? loadUpcoming(league.id, request.signal) : fetchJson(API + league.id + "/scoreboard" + suffix, request.signal),
-    league.knockout ? Promise.resolve(null) : fetchJson(TABLE_API + league.id + "/standings", request.signal),
+    !hasStandings(league) ? Promise.resolve(null) : fetchJson(TABLE_API + league.id + "/standings", request.signal),
     date ? fetchJson(API + league.id + "/scoreboard", request.signal) : Promise.resolve(null),
   ]);
   if (token !== generation) return;
@@ -934,22 +958,25 @@ async function loadData() {
   if (results[1].status === "fulfilled" && results[1].value) {
     groups = entriesOf(results[1].value);
     $("table-season").textContent = results[1].value.season?.displayName || "";
-  } else errors.table = !league.knockout;
+  } else errors.table = hasStandings(league);
 
   const latestEvents = results[2].status === "fulfilled" ? results[2].value?.events : [];
   if (latestEvents?.length || (!date && !errors.scores)) {
-    reportFeeds.set(league.id, buildReports(latestEvents || events, league));
+    mergeReports(league.id, buildReports(latestEvents || events, league));
   }
-  const matchReports = buildReports(events, league);
-  stories = combinedStories(matchReports);
-  if (requestedStory && !stories.some(story => story.id === requestedStory)) {
-    const report = /^(.*)~(\d{8})~(\d+)$/.exec(requestedStory);
+  selectedMatchReports = date ? buildReports(events, league) : [];
+  stories = combinedStories();
+  const articleId = requestedStory;
+  if (articleId && !stories.some(story => story.id === articleId) && archivedReport?.id !== articleId) {
+    const report = /^(.*)~(\d{8})~(\d+)$/.exec(articleId);
     const reportLeague = report && catalog.find(item => item.id === report[1]);
     if (reportLeague) {
       try {
         const archive = await fetchJson(API + reportLeague.id + "/scoreboard?dates=" + report[2], request.signal);
         if (token !== generation) return;
-        stories.push(...buildReports(archive.events || [], reportLeague).filter(story => story.id === requestedStory));
+        if (requestedStory === articleId) {
+          archivedReport = buildReports(archive.events || [], reportLeague).find(story => story.id === articleId);
+        }
       } catch { /* The article view explains an unavailable match report. */ }
     }
   }
@@ -992,11 +1019,11 @@ async function refreshMatches() {
       }) +
       " · Match times are local";
     renderMatches();
-    if (league.knockout && view === "standings") renderTables();
-    if (!date) {
-      reportFeeds.set(league.id, buildReports(events, league));
-      updateNewsAlerts();
-    }
+    if (!hasStandings(league) && view === "standings") renderTables();
+    const reports = buildReports(events, league);
+    if (date) selectedMatchReports = reports;
+    else mergeReports(league.id, reports);
+    updateNewsAlerts();
   } catch {
     if (token === generation)
       $("score-status").textContent =
@@ -1018,7 +1045,11 @@ $("search-form").addEventListener("submit", (event) => {
   $("clear-search").hidden = !query;
   $("search-status").hidden = !query;
   $("search-status").textContent =
-    "Results for “" + query + "” · Clubs, matches, and stories";
+    "Results for “" + query + "” · Teams, matches, and stories";
+  if (query && view !== "home" && !searchSections.includes(view)) {
+    history.pushState(null, "", "#clubs");
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
   setRoute();
   if (league) {
     renderClubs();
@@ -1087,7 +1118,10 @@ $("match-date").addEventListener("change", () => {
   if (league) loadData();
 });
 $("refresh").addEventListener("click", () => {
-  if (league) loadData();
+  if (league) {
+    loadData();
+    checkNews();
+  }
 });
 $("followed-only").addEventListener("change", () => {
   if (league) renderClubs();
@@ -1103,7 +1137,8 @@ $("detail-dialog").addEventListener("close", () =>
 document.addEventListener("visibilitychange", () => { if (league && !document.hidden) checkNews(); });
 window.addEventListener("hashchange", () => {
   setRoute();
-  if (requestedStory && league && ![...stories, ...preferences.saved, ...editorialStories].some(story => story.id === requestedStory)) loadData();
+  if (requestedStory && league && ![...stories, ...preferences.saved, ...editorialStories, archivedReport,
+    ...preferences.alerts.inbox.map(item => item.story)].some(story => story?.id === requestedStory)) loadData();
   window.scrollTo({ top: 0, behavior: "instant" });
 });
 window.addEventListener("storage", (event) => {
@@ -1127,19 +1162,20 @@ function materialIcon(name) {
 }
 
 function storyFromFollowedClub(story) {
-  return allTeams.some(team => follows(team) && (story.teams || []).some(club => club.id === team.id));
+  return (story.teams || []).some(team => follows(team));
 }
 
 function storyInScope(story) {
   const scope = $("news-scope").value;
   if (scope === "competition") return story.leagueId === league?.id;
+  if (scope === "international") return catalog.some(item => item.international && item.id === story.leagueId);
   if (scope === "ballon") return story.topic === "ballon-dor";
   if (scope === "following") return storyFromFollowedClub(story) || followsInterest(story, preferences.alerts.interests);
   return true;
 }
 
-function combinedStories(extra = []) {
-  const combined = [...reportFeeds.values()].flat().concat(editorialStories, extra);
+function combinedStories() {
+  const combined = [...reportFeeds.values()].flat().concat(editorialStories, selectedMatchReports);
   return [...new Map(combined.map(story => [story.id, story])).values()];
 }
 
@@ -1152,7 +1188,14 @@ function updateNewsAlerts() {
   if (!wasInitialized || added || previousSeen.length !== alertState.seen.length || previousSeen.at(-1) !== alertState.seen.at(-1)) savePreferences();
   renderNews();
   renderAlerts();
+  if (requestedStory && !$("article").querySelector(".article-heading")) renderArticle();
   if (added && wasInitialized) toast(added === 1 ? "You have a new football update" : added + " new football updates");
+}
+
+function mergeReports(id, reports) {
+  const byId = new Map((reportFeeds.get(id) || []).map(story => [story.id, story]));
+  for (const story of reports) byId.set(story.id, story);
+  reportFeeds.set(id, [...byId.values()].sort((a, b) => Date.parse(b.published) - Date.parse(a.published)).slice(0, 60));
 }
 
 async function checkNews() {
@@ -1160,12 +1203,26 @@ async function checkNews() {
   checkingNews = true;
   try {
     const signal = new AbortController().signal;
-    const results = await Promise.allSettled(catalog.map(item => fetchJson(API + item.id + "/scoreboard", signal)));
-    results.forEach((result, index) => {
-      if (result.status !== "fulfilled") return;
-      const item = catalog[index];
-      reportFeeds.set(item.id, buildReports(result.value.events || [], item));
+    const matchday = new Date();
+    const today = localDate(matchday);
+    const recentDays = [1, 2].map(offset => {
+      const day = new Date(matchday);
+      day.setDate(day.getDate() - offset);
+      return localDate(day).replaceAll("-", "");
     });
+    await Promise.allSettled(catalog.map(async item => {
+      const scoreboard = API + item.id + "/scoreboard";
+      const latest = fetchJson(scoreboard, signal);
+      const previous = item.international && loadedNewsDates.get(item.id) !== today
+        ? recentDays.map(day => fetchJson(scoreboard + "?dates=" + day, signal)) : [];
+      const [current, ...earlier] = await Promise.allSettled([latest, ...previous]);
+      for (const result of [...earlier, current]) {
+        if (result.status === "fulfilled") mergeReports(item.id, buildReports(result.value.events || [], item));
+      }
+      if (earlier.length && earlier.every(result => result.status === "fulfilled")) {
+        loadedNewsDates.set(item.id, today);
+      }
+    }));
     updateNewsAlerts();
   } finally {
     checkingNews = false;
@@ -1482,7 +1539,7 @@ window.addEventListener("soccer-theme-change", syncThemeOptions);
 syncThemeOptions();
 setRoute();
 try {
-  const response = await fetch("football-catalog.json?v=7");
+  const response = await fetch("football-catalog.json?v=8");
   if (!response.ok) throw new Error("Club catalogue unavailable");
   catalog = await response.json();
   const teams = new Map();
@@ -1490,6 +1547,7 @@ try {
     item.teams = item.teams.map((team) => ({ ...team, leagueName: item.name }));
     for (const team of item.teams) {
       if (!teams.has(team.id)) teams.set(team.id, team);
+      if (item.international) nationalTeamIds.add(team.id);
       const logo = crestSource(team.logo);
       if (logo && (!clubCrests.has(team.id) || logo.startsWith("assets/clubs/"))) {
         clubCrests.set(team.id, logo);
@@ -1497,7 +1555,9 @@ try {
     }
   }
   allTeams = [...teams.values()];
-  league = catalog.find((item) => item.id === preferences.league) || catalog[0];
+  const requestedCompetition = new URLSearchParams(location.search).get("competition");
+  league = catalog.find(item => item.id === requestedCompetition)
+    || catalog.find(item => item.id === preferences.league) || catalog[0];
   renderLeagues();
   renderFollowing();
   renderClubs();

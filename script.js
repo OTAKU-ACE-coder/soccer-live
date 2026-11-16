@@ -6,7 +6,8 @@ const email = document.getElementById('email');
 const password = document.getElementById('password');
 const confirm = document.getElementById('confirm-password');
 const submit = document.getElementById('submit-button');
-let startupMessage;
+let startupMessage = "";
+let ready = false;
 let mode = 'register', busy = false, recovery = false, client;
 const modeButtons = document.querySelectorAll('[data-mode]');
 const recoveryKey = 'codex-password-recovery-user';
@@ -37,7 +38,7 @@ function setMode(next) {
         const modes = button.dataset.showIn;
         if (modes) button.hidden = !modes.split(' ').includes(next);
     }
-    showMessage('');
+    showMessage(startupMessage, Boolean(startupMessage));
 }
 modeButtons.forEach(button => button.addEventListener('click', () => {
     if (!busy && !recovery) setMode(button.dataset.mode);
@@ -54,7 +55,7 @@ form.addEventListener('submit', async event => {
     }
     confirm.setCustomValidity(!confirm.disabled && password.value !== confirm.value ? 'Passwords must match.' : '');
     fullName.setCustomValidity(mode === 'register' && !fullName.value.trim() ? 'Enter your full name.' : '');
-    if (!form.reportValidity() || !client) return;
+    if (!ready || !form.reportValidity()) return;
     busy = true;
     submit.disabled = true;
     showMessage('Please wait…');
@@ -110,7 +111,6 @@ try {
     });
     const { data, error } = await client.auth.getSession();
     if (error) throw error;
-    submit.disabled = false;
     if (!recovery && !callbackError && data.session?.user?.id === sessionStorage.getItem(recoveryKey)) {
         recovery = true;
         setMode('update');
@@ -127,10 +127,12 @@ try {
         }
     }
     if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    ready = true;
+    submit.disabled = false;
 } catch (error) {
     startupMessage = error.cause === 'missing-config'
-        ? ''
+        ? 'Sign-in and sign-up are temporarily unavailable. You can still browse Soccer Live.'
         : 'Unable to load the form. Please reload and try again.';
     submit.disabled = false;
-    if (startupMessage) showMessage(startupMessage, true);
+    showMessage(startupMessage, true);
 }

@@ -2,8 +2,9 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const vm = require('node:vm');
 const fs = require('node:fs');
+const path = require('node:path');
 
-async function boot(file, overrides = {}, storage = new Map()) {
+async function boot(file, overrides = {}, storage = new Map(), startupError) {
     const elements = new Map();
     const element = id => {
         if (!elements.has(id)) elements.set(id, {
@@ -35,16 +36,28 @@ async function boot(file, overrides = {}, storage = new Map()) {
         document: { getElementById: element, querySelectorAll: () => buttons },
         window: { location }, location, history: { replaceState() {} }, URLSearchParams,
         sessionStorage: { getItem: key => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key) },
-        createAuthClient: async () => ({ auth }), pageUrl: name => `http://localhost:8000/${name}`,
+        createAuthClient: async () => {
+            if (startupError) throw startupError;
+            return { auth };
+        }, pageUrl: name => `http://localhost:8000/${name}`,
         showMessage: (text, error) => { element('message').textContent = text; element('message').error = error; }
     });
-    const source = fs.readFileSync(file, 'utf8').replace(/^import .*;\r?\n/, '');
+    const source = fs.readFileSync(path.join(__dirname, file), 'utf8').replace(/^import .*;\r?\n/, '');
     await vm.runInContext(`(async () => { ${source}\n})()`, context);
     return { element, calls, event: (...args) => listener(...args), redirected: () => redirected,
         mode: name => element(`mode-${name}`).handlers.click(),
         run: code => vm.runInContext(code, context),
         submit: () => element('auth-form').handlers.submit({ preventDefault() {} }) };
 }
+
+test('an unavailable authentication service shows an error after switching forms and submitting', async () => {
+    const app = await boot('script.js', {}, new Map(), new Error('Missing configuration', { cause: 'missing-config' }));
+    app.mode('login');
+    await app.submit();
+    assert.match(app.element('message').textContent, /temporarily unavailable/);
+    assert.equal(app.element('message').error, true);
+    assert.equal(app.calls.length, 0);
+});
 
 test('login sends credentials to Supabase and redirects; never persists password itself', async () => {
     const app = await boot('script.js');

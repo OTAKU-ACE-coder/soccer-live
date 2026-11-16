@@ -11,9 +11,9 @@
     <title>Soccer Live | Your football, all in one place</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,check,close,home,login,manage_search,monitoring,newspaper,notifications,person,refresh,search,settings,sports_soccer,trophy&amp;display=block" />
     <link rel="stylesheet" href="brand.css?v=2" />
-    <link rel="stylesheet" href="football.css?v=11" />
+    <link rel="stylesheet" href="football.css?v=12" />
     <script src="config.js"></script>
-    <script type="module" src="football.js?v=12"></script>
+    <script type="module" src="football.js?v=14"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
@@ -58,13 +58,13 @@
         </div>
         <form id="search-form" role="search">
           <label class="sr-only" for="search"
-            >Search clubs, matches and news</label
+            >Search teams, matches and news</label
           ><span aria-hidden="true">⌕</span
           ><input
             id="search"
             type="search"
             maxlength="80"
-            placeholder="Search clubs, matches, news"
+            placeholder="Search teams, matches, news"
           /><button type="submit" aria-label="Search"><span class="material-symbols-outlined" aria-hidden="true">search</span></button
           ><button
             type="button"
@@ -96,7 +96,7 @@
             >
           </div>
           <div class="welcome-bottom">
-            <span>LEAGUES & CUPS</span
+            <span>CLUB & INTERNATIONAL FOOTBALL</span
             ><span class="photo-credit">Photo · Unsplash</span>
           </div>
         </section>
@@ -205,7 +205,7 @@
                 </button>
               </div>
             </div>
-            <label class="news-scope">Coverage <select id="news-scope"><option value="all">All football</option><option value="competition">Selected competition</option><option value="following">Following</option><option value="ballon">Ballon d’Or</option></select></label>
+            <label class="news-scope">Coverage <select id="news-scope"><option value="all">All football</option><option value="competition">Selected competition</option><option value="international">International football</option><option value="following">Following</option><option value="ballon">Ballon d’Or</option></select></label>
             <p id="news-status" class="data-status" role="status"></p>
             <div id="stories" class="news-desk"></div>
             <button type="button" id="more-news" class="load-more" hidden>
@@ -238,7 +238,7 @@
             <div class="section-heading">
               <div>
                 <span class="eyebrow">FIND YOUR COLOURS</span>
-                <h2 id="clubs-title">Discover clubs</h2>
+                <h2 id="clubs-title">Discover clubs and national teams</h2>
               </div>
               <label class="switch-label"
                 ><input type="checkbox" id="followed-only" />Following
@@ -254,7 +254,7 @@
             <div id="alert-items"></div>
             <h3 class="alerts-subheading">What to notify me about</h3>
             <div class="alert-settings">
-              <label><input type="checkbox" data-alert-setting="clubs"> Followed clubs</label>
+              <label><input type="checkbox" data-alert-setting="clubs"> Followed clubs and national teams</label>
               <label><input type="checkbox" data-alert-setting="interests"> Followed competitions and topics</label>
               <label><input type="checkbox" data-alert-setting="general"> General football news</label>
             </div>

@@ -61,7 +61,7 @@ export function buildReports(events, league) {
   for (const event of events) {
     const match = event.competitions?.[0];
     const status = match?.status?.type || event.status?.type;
-    if (!status?.completed || status.state !== "post" || !/^\d+$/.test(event.id) ||
+    if (!match || !status?.completed || status.state !== "post" || !/^\d+$/.test(event.id) ||
         !Number.isFinite(Date.parse(event.date))) continue;
     const home = match.competitors?.find(team => team.homeAway === "home");
     const away = match.competitors?.find(team => team.homeAway === "away");
@@ -99,7 +99,7 @@ export function buildReports(events, league) {
     if (Number.isInteger(match.attendance) && match.attendance > 0) {
       paragraphs.push("The recorded attendance was " + match.attendance.toLocaleString() + ".");
     }
-    const team = competitor => ({ id: String(competitor.team.id), name: competitor.team.displayName, logo: competitor.team.logo, abbreviation: competitor.team.abbreviation });
+    const team = competitor => ({ id: String(competitor.team.id), name: competitor.team.displayName, shortName: competitor.team.shortDisplayName, logo: competitor.team.logo, abbreviation: competitor.team.abbreviation });
     reports.set(id, {
       id, leagueId: league.id, title: homeName + " " + score + " " + awayName, category: league.name + " · Match report",
       published: event.date, score, summary: result, paragraphs, teams: [team(home), team(away)]
