@@ -1,7 +1,7 @@
-import { competitionMark } from "./competition-marks.js?v=b9b75ab61a0e";
-import { aliases, contains, dateLabel } from "./football-format.js?v=b9b75ab61a0e";
-import { crest, empty, node } from "./render.js?v=b9b75ab61a0e";
-import { recentResults } from "./match-data.js?v=b9b75ab61a0e";
+import { competitionMark } from "./competition-marks.js?v=deffb300c842";
+import { aliases, contains, dateLabel } from "./football-format.js?v=deffb300c842";
+import { crest, empty, node } from "./render.js?v=deffb300c842";
+import { recentResults } from "./match-data.js?v=deffb300c842";
 const $ = (id) => document.getElementById(id);
 
 export function entriesOf(data) {
