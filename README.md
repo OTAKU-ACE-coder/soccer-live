@@ -42,7 +42,7 @@ Club and league badge sources are recorded in `football-catalog.json`. The bundl
 - Match centre lists scheduled matches for the next 14 days in the selected competition.
 - Club profiles show the current squad and upcoming club fixtures. Match details show reported starters, formations and substitutes when available.
 - The league table shows the last five completed matches in the selected competition, oldest to newest. Each mark includes the opponent, score and date.
-- Player photos use the match feed, official Real Madrid, FC Barcelona and UEFA squad portraits, and the Premier League portrait index. Names are matched before loading photos. Initials appear when a photo is unavailable.
+- Player photos use the match feed, official club and league portraits, and the [FootyLogos photo catalog](https://www.footylogos.com/player-pngs). The supplemental index skips names shared by multiple players. Initials appear when the available sources lack a photo.
 
 ## News alerts
 

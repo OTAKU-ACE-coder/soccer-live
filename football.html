@@ -11,10 +11,10 @@
     <title>Soccer Live | Your football, all in one place</title>
     <link rel="icon" href="assets/trionda-mark.png" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,calendar_month,check,close,home,login,manage_search,monitoring,newspaper,notifications,person,refresh,search,settings,sports_soccer,trophy&amp;display=block" />
-    <link rel="stylesheet" href="brand.css?v=549d282c82b4" />
-    <link rel="stylesheet" href="football.css?v=549d282c82b4" />
-    <script src="config.js?v=549d282c82b4"></script>
-    <script type="module" src="football.js?v=549d282c82b4"></script>
+    <link rel="stylesheet" href="brand.css?v=d0b99a1d540a" />
+    <link rel="stylesheet" href="football.css?v=d0b99a1d540a" />
+    <script src="config.js?v=d0b99a1d540a"></script>
+    <script type="module" src="football.js?v=d0b99a1d540a"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
@@ -56,7 +56,7 @@
         <a class="brand-logo mobile-brand" aria-label="Soccer Live home" href="#home"><img src="assets/trionda-mark.png" width="128" height="128" alt=""><span class="brand-wordmark" aria-hidden="true">SOCCER <span>LIVE</span></span></a>
         <div>
           <span class="header-kicker">THE WORLD'S GAME</span>
-          <h1 id="page-title">Your football, all in one place.</h1>
+          <h1 id="page-title" tabindex="-1">Your football, all in one place.</h1>
         </div>
         <form id="search-form" role="search">
           <label class="sr-only" for="search"
@@ -83,18 +83,11 @@
       <main id="content">
         <p id="search-status" class="search-status" role="status" hidden></p>
         <section class="welcome" id="welcome" aria-labelledby="welcome-title">
-          <div class="welcome-copy">
-            <span class="hero-tag">LEAGUES CUP HIGHLIGHT</span>
-            <h2 id="welcome-title">Messi from distance.</h2>
-            <p>A low strike from outside the box doubles Inter Miami’s lead against Philadelphia Union.</p>
-            <a href="#clubs" class="primary-button">Build your football feed <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-          </div>
-          <figure class="welcome-media">
-            <video id="messi-highlight" controls playsinline preload="none" aria-label="Animated replay of Lionel Messi’s goal against Philadelphia Union" poster="assets/messi-goal.webp">
-              <source src="assets/messi-goal.webm" type="video/webm">
-            </video>
-            <figcaption>Animated replay · 7 sec · <a href="https://www.mlssoccer.com/competitions/leagues-cup/video/goal-lionel-messi-inter-miami-cf-20th-minute" target="_blank" rel="noopener">Watch the original on MLS</a></figcaption>
-          </figure>
+          <h2 class="sr-only" id="welcome-title">Featured football highlight</h2>
+          <video id="messi-highlight" controls playsinline preload="none" aria-labelledby="welcome-title" poster="assets/home-highlight.webp">
+            <source src="assets/home-highlight.mp4" type="video/mp4">
+            <a href="assets/home-highlight.mp4">Open the featured football video</a>
+          </video>
         </section>
         <label class="competition-picker" id="competition-picker"><span>Competition</span> <span id="competition-picker-mark"></span><select id="competition-select" aria-label="Competition"></select></label>
         <div
@@ -273,6 +266,14 @@
             </div>
             <p id="club-status" class="data-status"></p>
             <div id="club-grid" class="club-grid"></div>
+          </section>
+          <section class="panel search-matches" id="search-matches" aria-labelledby="search-matches-title" hidden>
+            <h2 id="search-matches-title">Matching fixtures</h2>
+            <div id="search-match-items"></div>
+          </section>
+          <section class="panel search-stories" id="search-stories" aria-labelledby="search-stories-title" hidden>
+            <h2 id="search-stories-title">Matching stories</h2>
+            <div id="search-story-items"></div>
           </section>
           <section class="panel alerts-panel" id="alerts" aria-labelledby="alerts-title" hidden>
             <div class="section-heading"><div><span class="eyebrow">YOUR FOOTBALL</span><h2 id="alerts-title">Notifications</h2></div>
