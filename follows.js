@@ -1,5 +1,5 @@
-import { readAlertSettings } from "./news-alerts.js?v=3b5152491c6b";
-import { aliases, normalize } from "./football-format.js?v=3b5152491c6b";
+import { readAlertSettings } from "./news-alerts.js?v=b9b75ab61a0e";
+import { aliases, normalize } from "./football-format.js?v=b9b75ab61a0e";
 
 export const preferenceKey = "soccer-live-preferences";
 

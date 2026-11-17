@@ -1,32 +1,20 @@
-import { node } from "./render.js?v=3b5152491c6b";
+import { node } from "./render.js?v=b9b75ab61a0e";
 
-const marks = {
-  "eng.1": ["PL", "plum", "shield"],
-  "esp.1": ["LL", "scarlet", "pitch"],
-  "ger.1": ["BL", "scarlet", "pitch"],
-  "ita.1": ["SA", "cobalt", "shield"],
-  "fra.1": ["L1", "ink", "pitch"],
-  "uefa.champions": ["UCL", "ink", "globe"],
-  "eng.fa": ["FA", "scarlet", "cup"],
-  "eng.league_cup": ["EFL", "forest", "cup"],
-  "uefa.nations": ["UNL", "cobalt", "shield"],
-  "caf.nations_qual": ["AFQ", "forest", "shield"],
-  "concacaf.nations.league": ["CNL", "cobalt", "globe"],
-  "fifa.friendly": ["INT", "ink", "globe"],
-  "fifa.friendly.w": ["WIF", "plum", "globe"],
-  "fifa.world": ["WC", "bronze", "cup"],
-  "fifa.wwc": ["WWC", "plum", "cup"],
-  "caf.nations": ["AFN", "forest", "cup"],
-  "ballon-dor": ["BD", "bronze", "globe"],
+const sharedEmblems = {
+  "caf.nations_qual": "caf.nations",
+  "fifa.friendly.w": "fifa.friendly",
 };
 
 export function competitionMark(competition) {
-  const [initials, tone, shape] = marks[competition.id]
-    || [competition.name.slice(0, 3).toUpperCase(), "forest", "shield"];
-  const badge = node("span", undefined, "competition-mark");
-  badge.dataset.tone = tone;
-  badge.dataset.shape = shape;
-  badge.setAttribute("aria-hidden", "true");
-  badge.append(node("span", undefined, "competition-mark-symbol"), node("b", initials));
-  return badge;
+  const id = sharedEmblems[competition.id] || competition.id;
+  const image = node("img", undefined, "competition-mark");
+  image.alt = "";
+  image.width = 36;
+  image.height = 36;
+  image.decoding = "async";
+  image.addEventListener("error", () => {
+    image.hidden = true;
+  }, { once: true });
+  image.src = "assets/competitions/" + id + (id === "fra.1" ? ".webp" : ".png");
+  return image;
 }

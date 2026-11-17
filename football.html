@@ -10,11 +10,11 @@
     />
     <title>Soccer Live | Your football, all in one place</title>
     <link rel="icon" href="assets/trionda-mark.png" type="image/png">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,check,close,home,login,manage_search,monitoring,newspaper,notifications,person,refresh,search,settings,sports_soccer,trophy&amp;display=block" />
-    <link rel="stylesheet" href="brand.css?v=3b5152491c6b" />
-    <link rel="stylesheet" href="football.css?v=3b5152491c6b" />
-    <script src="config.js?v=3b5152491c6b"></script>
-    <script type="module" src="football.js?v=3b5152491c6b"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,calendar_month,check,close,home,login,manage_search,monitoring,newspaper,notifications,person,refresh,search,settings,sports_soccer,trophy&amp;display=block" />
+    <link rel="stylesheet" href="brand.css?v=b9b75ab61a0e" />
+    <link rel="stylesheet" href="football.css?v=b9b75ab61a0e" />
+    <script src="config.js?v=b9b75ab61a0e"></script>
+    <script type="module" src="football.js?v=b9b75ab61a0e"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
@@ -23,7 +23,7 @@
       <nav class="main-nav" aria-label="Main navigation">
         <a href="#home"><span class="material-symbols-outlined" aria-hidden="true">home</span>Overview</a>
         <a href="#matches"><span class="material-symbols-outlined" aria-hidden="true">sports_soccer</span>Match centre</a>
-        <a href="#matchday"><span class="material-symbols-outlined" aria-hidden="true">sports_soccer</span>All competitions</a>
+        <a href="#matchday"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>All competitions</a>
         <a href="#news"><span class="material-symbols-outlined" aria-hidden="true">newspaper</span>Newsroom</a>
         <a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span>League tables</a>
         <a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span>Discover clubs</a>
@@ -88,9 +88,10 @@
             <span class="hero-tag">WELCOME TO YOUR MATCHDAY</span>
             <h2 id="welcome-title">The game never<br />stands still.</h2>
             <p>Your clubs. Your scores. Your next big story.</p>
-            <a href="#clubs" class="primary-button"
-              >Build your football feed <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a
-            >
+            <div class="welcome-actions">
+              <a href="#clubs" class="primary-button">Build your football feed <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+              <button class="highlight-button" id="watch-highlight" type="button" aria-haspopup="dialog">Watch Messi’s goal</button>
+            </div>
           </div>
           <div class="welcome-bottom">
             <span>CLUB & INTERNATIONAL FOOTBALL</span>

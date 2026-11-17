@@ -1,19 +1,19 @@
-import { competitionMark } from "./competition-marks.js?v=3b5152491c6b";
-import { buildReports, editorialStories } from "./newsroom.js?v=3b5152491c6b";
-import { collectAlerts, followsInterest } from "./news-alerts.js?v=3b5152491c6b";
-import { upcomingFixtures } from "./match-data.js?v=3b5152491c6b";
-import { getTheme, setTheme } from "./theme.js?v=3b5152491c6b";
-import { directoryResults, profileFacts } from "./football-directory.js?v=3b5152491c6b";
-import { API, TABLE_API, fetchJson, getPlayerProfile, searchFootball } from "./api.js?v=3b5152491c6b";
-import { FeedFormatError } from "./feed-format.js?v=3b5152491c6b";
-import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=3b5152491c6b";
-import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=3b5152491c6b";
-import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=3b5152491c6b";
-import { createStandings, entriesOf, hasStandings } from "./standings.js?v=3b5152491c6b";
-import { createAlerts } from "./alerts.js?v=3b5152491c6b";
-import { createMatchday } from "./matchday.js?v=3b5152491c6b";
-import { fixtureCalendar } from "./matchday-data.js?v=3b5152491c6b";
-import { createPreferenceSync } from "./preference-sync.js?v=3b5152491c6b";
+import { competitionMark } from "./competition-marks.js?v=b9b75ab61a0e";
+import { buildReports, editorialStories } from "./newsroom.js?v=b9b75ab61a0e";
+import { collectAlerts, followsInterest } from "./news-alerts.js?v=b9b75ab61a0e";
+import { upcomingFixtures } from "./match-data.js?v=b9b75ab61a0e";
+import { getTheme, setTheme } from "./theme.js?v=b9b75ab61a0e";
+import { directoryResults, profileFacts } from "./football-directory.js?v=b9b75ab61a0e";
+import { API, TABLE_API, fetchJson, getPlayerProfile, searchFootball } from "./api.js?v=b9b75ab61a0e";
+import { FeedFormatError } from "./feed-format.js?v=b9b75ab61a0e";
+import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=b9b75ab61a0e";
+import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=b9b75ab61a0e";
+import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=b9b75ab61a0e";
+import { createStandings, entriesOf, hasStandings } from "./standings.js?v=b9b75ab61a0e";
+import { createAlerts } from "./alerts.js?v=b9b75ab61a0e";
+import { createMatchday } from "./matchday.js?v=b9b75ab61a0e";
+import { fixtureCalendar } from "./matchday-data.js?v=b9b75ab61a0e";
+import { createPreferenceSync } from "./preference-sync.js?v=b9b75ab61a0e";
 
 const $ = (id) => document.getElementById(id);
 const routes = ["home", "matches", "matchday", "news", "standings", "clubs", "saved", "alerts", "settings"];
@@ -262,8 +262,10 @@ async function lookupFootball(term) {
     $("player-search-status").textContent = results.players.length
       ? results.players.length + " player" + (results.players.length === 1 ? "" : "s") + " found"
       : "No players found. Try the player’s full name.";
+    const index = results.players.length ? await portraitIndex() : null;
+    if (request.signal.aborted) return;
     for (const player of results.players) {
-      const card = playerCard({ id: player.id, displayName: player.name, headshot: { href: player.logo } }, { league: {}, clubs: {} });
+      const card = playerCard({ id: player.id, displayName: player.name, headshot: player.logo ? { href: player.logo } : undefined }, index);
       card.querySelector("small").textContent = player.leagueName || "View player profile";
       $("player-search-grid").append(card);
     }
@@ -553,6 +555,26 @@ function showDialog(content, focus = true) {
   if (!$("detail-dialog").open) $("detail-dialog").showModal();
   if (focus) $("close-dialog").focus();
 }
+$("watch-highlight").addEventListener("click", () => {
+  // Use FIFA's original highlight and load the external player on demand.
+  const videoId = "xhDzgSY9oCE";
+  const content = node("div");
+  const title = node("h2", "Messi scores against Mexico");
+  title.id = "detail-title";
+  const player = node("iframe", undefined, "highlight-frame");
+  player.title = "FIFA video: Lionel Messi scores against Mexico";
+  player.src = "https://www.youtube-nocookie.com/embed/" + videoId + "?autoplay=1&rel=0";
+  player.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+  player.allowFullscreen = true;
+  player.referrerPolicy = "strict-origin-when-cross-origin";
+  const source = node("a", "Open the clip on FIFA", "highlight-source");
+  source.href = "https://www.fifa.com/es/watch/d2uYt6yr7UWTLzjc3Xp17g";
+  source.target = "_blank";
+  source.rel = "noopener";
+  content.append(title, node("p", "Argentina vs Mexico · 2022 FIFA World Cup", "dialog-meta"), player, source);
+  showDialog(content);
+});
+
 function openMatch(event, competitionId = league.id) {
   const data = competition(event),
     status = data.status || event.status,
@@ -911,9 +933,10 @@ $("more-news").addEventListener("click", () => {
   renderNews();
 });
 $("close-dialog").addEventListener("click", () => $("detail-dialog").close());
-$("detail-dialog").addEventListener("close", () =>
-  dialogOpener?.focus({ preventScroll: true }),
-);
+$("detail-dialog").addEventListener("close", () => {
+  $("detail-content").querySelector(".highlight-frame")?.remove();
+  dialogOpener?.focus({ preventScroll: true });
+});
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) return;
   if (league) checkNews();
@@ -1089,10 +1112,47 @@ async function readPortraits(path) {
 
 function portraitIndex() {
   portraits ??= Promise.all([
-    readPortraits("player-portraits.json?v=3b5152491c6b"),
-    readPortraits("club-player-portraits.json?v=3b5152491c6b"),
+    readPortraits("player-portraits.json?v=b9b75ab61a0e"),
+    readPortraits("club-player-portraits.json?v=b9b75ab61a0e"),
   ]).then(([league, clubs]) => ({ league, clubs }));
   return portraits;
+}
+
+function playerPortrait(player, index, eager = false) {
+  const name = player.displayName || player.fullName;
+  const initials = name.split(/\s+/).filter(Boolean).map(word => word[0]).slice(0, 2).join("");
+  const portrait = node("span", undefined, "player-portrait");
+  portrait.setAttribute("aria-hidden", "true");
+  const fallback = node("span", initials, "portrait-initials");
+  portrait.append(fallback);
+  const keys = [player.fullName, player.displayName, [player.firstName, player.lastName].filter(Boolean).join(" ")]
+    .filter(Boolean).map(value => normalize(value).replace(/[^a-z0-9]/g, ""));
+  const clubPhoto = keys.map(key => index.clubs[key]).find(safeUrl);
+  const code = keys.map(key => index.league[key]).find(value => /^\d+$/.test(value ?? ""));
+  const candidates = [...new Set([
+    safeUrl(player.headshot?.href || player.headshot?.url),
+    safeUrl(clubPhoto),
+    /^\d{1,12}$/.test(player.id) ? "https://a.espncdn.com/i/headshots/soccer/players/full/" + player.id + ".png" : "",
+    code ? "https://resources.premierleague.com/premierleague/photos/players/250x250/p" + code + ".png" : "",
+  ].filter(Boolean))];
+  if (candidates.length) {
+    const image = node("img");
+    image.alt = "";
+    image.loading = eager ? "eager" : "lazy";
+    image.decoding = "async";
+    image.addEventListener("load", () => {
+      image.classList.add("is-ready");
+      fallback.hidden = true;
+    });
+    image.addEventListener("error", () => {
+      const next = candidates.shift();
+      if (next) image.src = next;
+      else image.remove();
+    });
+    image.src = candidates.shift();
+    portrait.append(image);
+  }
+  return portrait;
 }
 
 function playerCard(player, index, shirt = player.jersey, position = player.position) {
@@ -1103,32 +1163,7 @@ function playerCard(player, index, shirt = player.jersey, position = player.posi
     card.type = "button";
     card.addEventListener("click", () => void openPlayerProfile(player, index));
   }
-  const initials = name.split(/\s+/).filter(Boolean).map(word => word[0]).slice(0, 2).join("");
-  const portrait = node("span", undefined, "player-portrait");
-  portrait.setAttribute("role", "img");
-  portrait.setAttribute("aria-label", "Illustrated avatar for " + name + " · photo unavailable");
-  portrait.append(materialIcon("person"), node("small", initials));
-  const keys = [player.fullName, player.displayName, [player.firstName, player.lastName].filter(Boolean).join(" ")]
-    .filter(Boolean).map(value => normalize(value).replace(/[^a-z0-9]/g, ""));
-  const clubPhoto = keys.map(key => index.clubs[key]).find(safeUrl);
-  const code = keys.map(key => index.league[key]).find(value => /^\d+$/.test(value ?? ""));
-  const candidates = [...new Set([
-    safeUrl(player.headshot?.href || player.headshot?.url),
-    safeUrl(clubPhoto),
-    code ? "https://resources.premierleague.com/premierleague/photos/players/250x250/p" + code + ".png" : "",
-  ].filter(Boolean))];
-  if (candidates.length) {
-    const image = node("img");
-    image.src = candidates.shift();
-    image.alt = "";
-    image.loading = "lazy";
-    image.addEventListener("error", () => {
-      const next = candidates.shift();
-      if (next) image.src = next;
-      else image.replaceWith(portrait);
-    });
-    card.append(image);
-  } else card.append(portrait);
+  card.append(playerPortrait(player, index));
   const label = node("span");
   label.append(node("strong", name), node("small", [shirt && "#" + shirt, position?.displayName || position?.name].filter(Boolean).join(" · ")));
   card.append(label);
@@ -1140,7 +1175,7 @@ async function openPlayerProfile(player, index) {
   const heading = node("div", undefined, "club-dialog-heading player-profile-heading");
   const title = node("h2", player.displayName || player.fullName);
   title.id = "detail-title";
-  const playerPicture = playerCard({ ...player, id: undefined }, index).firstChild;
+  const playerPicture = playerPortrait(player, index, true);
   heading.append(playerPicture, title);
   const status = node("p", "Loading player profile…", "data-status");
   status.setAttribute("role", "status");
@@ -1150,8 +1185,9 @@ async function openPlayerProfile(player, index) {
     const { athlete } = await getPlayerProfile(player.id);
     if (!content.isConnected || !$("detail-dialog").open) return;
     title.textContent = athlete.displayName;
-    const photo = playerCard({ ...athlete, id: undefined, headshot: athlete.headshot || player.headshot }, index).firstChild;
-    heading.replaceChild(photo, heading.firstElementChild);
+    if (safeUrl(athlete.headshot?.href || athlete.headshot?.url) && !player.headshot) {
+      heading.replaceChild(playerPortrait(athlete, index, true), playerPicture);
+    }
     const facts = profileFacts(athlete);
     if (!facts.length) {
       status.textContent = "No biographical details are available for this player.";
@@ -1279,7 +1315,7 @@ window.addEventListener("soccer-theme-change", syncThemeOptions);
 syncThemeOptions();
 setRoute();
 try {
-  const response = await fetch("football-catalog.json?v=3b5152491c6b");
+  const response = await fetch("football-catalog.json?v=b9b75ab61a0e");
   if (!response.ok) throw new Error("Club catalogue unavailable");
   catalog = await response.json();
   const teams = new Map();
@@ -1334,7 +1370,7 @@ function showAccountLink(signedIn) {
 
 async function startAccount() {
   try {
-    const { createAuthClient } = await import("./auth-client.js?v=3b5152491c6b");
+    const { createAuthClient } = await import("./auth-client.js?v=b9b75ab61a0e");
     const client = await createAuthClient();
     let authRevision = 0;
     const verify = async () => {
