@@ -2,13 +2,29 @@ import catalogue from "../football-catalog.json" with { type: "json" };
 import { FeedFormatError, validateFeed } from "../feed-format.js";
 
 const leagues = new Set(catalogue.map(league => league.id));
-const route = /^\/(scores|tables)\/([a-z0-9_.]+)\/(scoreboard|standings|summary|teams\/\d{1,12}\/(?:schedule|roster))$/;
+const athleteID = /^\d{1,12}$/;
+const lookupHost = "https://site.web.api.espn.com";
+const route = /^\/(scores|tables)\/([a-z0-9][a-z0-9_.]{0,47})\/(scoreboard|standings|summary|teams\/\d{1,12}\/(?:schedule|roster))$/;
 const date = /^\d{8}$/;
 
 function upstreamFor(url) {
+  if (url.pathname === "/lookup/search") {
+    const query = url.searchParams.get("query")?.trim();
+    if (!query || query.length < 2 || query.length > 80 || url.searchParams.size !== 1) return null;
+    const upstream = new URL("/apis/search/v2", lookupHost);
+    upstream.search = new URLSearchParams({ query, type: "player,team", limit: "24" });
+    return { upstream, feed: "search" };
+  }
+  if (url.pathname === "/lookup/player") {
+    const id = url.searchParams.get("id");
+    if (!athleteID.test(id || "") || url.searchParams.size !== 1) return null;
+    const upstream = new URL("/apis/common/v3/sports/soccer/all/athletes/" + id, lookupHost);
+    return { upstream, feed: "player" };
+  }
   const match = route.exec(url.pathname);
-  if (!match || !leagues.has(match[2])) return null;
+  if (!match) return null;
   const [, service, league, endpoint] = match;
+  if (!leagues.has(league) && (endpoint === "scoreboard" || endpoint === "standings")) return null;
   if ((service === "tables") !== (endpoint === "standings")) return null;
   const feed = endpoint.split("/").at(-1);
   const params = url.searchParams;
@@ -42,6 +58,7 @@ export default {
     const target = upstreamFor(url);
     if (!target) return failure("Feed not found", 404);
     const cache = globalThis.caches?.default;
+    if (target.feed === "search") url.searchParams.set("query", url.searchParams.get("query").trim().toLowerCase());
     const key = new Request(url.toString());
     try {
       const cached = await cache?.match(key);
@@ -49,7 +66,8 @@ export default {
       const response = await fetch(target.upstream, { signal: AbortSignal.timeout(8000), redirect: "manual" });
       if (!response.ok) return failure("Upstream football feed unavailable", 502);
       const data = validateFeed(target.feed, await response.json().catch(() => null));
-      const result = Response.json(data, { headers: {
+      const payload = target.feed === "player" ? { athlete: data.athlete } : data;
+      const result = Response.json(payload, { headers: {
         "access-control-allow-origin": "*",
         "cache-control": "public, max-age=30, s-maxage=45",
         "x-content-type-options": "nosniff",

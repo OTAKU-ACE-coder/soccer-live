@@ -9,16 +9,16 @@
       content="Your football match centre. Scores, news, club follows and standings across Europe's major leagues."
     />
     <title>Soccer Live | Your football, all in one place</title>
-    <link rel="icon" href="assets/world-cup-ball.png" type="image/png">
+    <link rel="icon" href="assets/trionda-mark.png" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,check,close,home,login,manage_search,monitoring,newspaper,notifications,person,refresh,search,settings,sports_soccer,trophy&amp;display=block" />
-    <link rel="stylesheet" href="brand.css?v=2d7f47e273b8" />
-    <link rel="stylesheet" href="football.css?v=2d7f47e273b8" />
-    <script src="config.js?v=2d7f47e273b8"></script>
-    <script type="module" src="football.js?v=2d7f47e273b8"></script>
+    <link rel="stylesheet" href="brand.css?v=c98ccd0efea7" />
+    <link rel="stylesheet" href="football.css?v=c98ccd0efea7" />
+    <script src="config.js?v=c98ccd0efea7"></script>
+    <script type="module" src="football.js?v=c98ccd0efea7"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
-      <a class="brand-logo" aria-label="Soccer Live home" href="#home"><img src="assets/world-cup-ball.png" width="320" height="320" alt=""><span class="brand-wordmark" aria-hidden="true">SOCCER <span>LIVE</span></span></a>
+      <a class="brand-logo" aria-label="Soccer Live home" href="#home"><img src="assets/trionda-mark.png" width="128" height="128" alt=""><span class="brand-wordmark" aria-hidden="true">SOCCER <span>LIVE</span></span></a>
       <p class="nav-label">YOUR FOOTBALL</p>
       <nav class="main-nav" aria-label="Main navigation">
         <a href="#home"><span class="material-symbols-outlined" aria-hidden="true">home</span>Overview</a>
@@ -53,20 +53,20 @@
     </aside>
     <div class="app-shell">
       <header class="app-header">
-        <a class="brand-logo mobile-brand" aria-label="Soccer Live home" href="#home"><img src="assets/world-cup-ball.png" width="320" height="320" alt=""><span class="brand-wordmark" aria-hidden="true">SOCCER <span>LIVE</span></span></a>
+        <a class="brand-logo mobile-brand" aria-label="Soccer Live home" href="#home"><img src="assets/trionda-mark.png" width="128" height="128" alt=""><span class="brand-wordmark" aria-hidden="true">SOCCER <span>LIVE</span></span></a>
         <div>
           <span class="header-kicker">THE WORLD'S GAME</span>
           <h1 id="page-title">Your football, all in one place.</h1>
         </div>
         <form id="search-form" role="search">
           <label class="sr-only" for="search"
-            >Search teams, matches and news</label
+            >Search clubs, players, matches and news</label
           ><span aria-hidden="true">⌕</span
           ><input
             id="search"
             type="search"
             maxlength="80"
-            placeholder="Search teams, matches, news"
+            placeholder="Search clubs, players, news"
           /><button type="submit" aria-label="Search"><span class="material-symbols-outlined" aria-hidden="true">search</span></button
           ><button
             type="button"
@@ -83,12 +83,7 @@
       <main id="content">
         <p id="search-status" class="search-status" role="status" hidden></p>
         <section class="welcome" id="welcome" aria-labelledby="welcome-title">
-          <img
-            src="assets/stadium.jpg"
-            alt="Football stadium and pitch under floodlights"
-            class="stadium-photo"
-            fetchpriority="high"
-          />
+          <img src="assets/trionda-hero.png" alt="" class="welcome-ball" width="640" height="640" fetchpriority="high">
           <div class="welcome-copy">
             <span class="hero-tag">WELCOME TO YOUR MATCHDAY</span>
             <h2 id="welcome-title">The game never<br />stands still.</h2>
@@ -98,17 +93,21 @@
             >
           </div>
           <div class="welcome-bottom">
-            <span>CLUB & INTERNATIONAL FOOTBALL</span
-            ><span class="photo-credit">Photo · Unsplash</span>
+            <span>CLUB & INTERNATIONAL FOOTBALL</span>
           </div>
         </section>
-        <label class="competition-picker" id="competition-picker">Competition <select id="competition-select" aria-label="Competition"></select></label>
+        <label class="competition-picker" id="competition-picker"><span>Competition</span> <span id="competition-picker-mark"></span><select id="competition-select" aria-label="Competition"></select></label>
         <div
           class="league-strip"
           id="league-strip"
           role="group"
           aria-label="Select competition"
         ></div>
+        <section class="panel player-results" id="player-results" aria-labelledby="player-results-title" hidden>
+          <h2 id="player-results-title">Players</h2>
+          <p id="player-search-status" class="data-status" role="status"></p>
+          <div id="player-search-grid" class="club-grid"></div>
+        </section>
         <div class="content-grid">
           <section
             class="panel matches-panel"
@@ -199,7 +198,7 @@
             </section>
             <section class="panel mini-table" aria-labelledby="mini-title">
               <div class="section-heading">
-                <h2 id="mini-title">Top of the table</h2>
+                <h2 id="mini-title" class="standings-title">Top of the table</h2>
                 <a id="mini-table-link" href="#standings">Full table ↗</a>
               </div>
               <div id="mini-table"></div>
@@ -248,7 +247,7 @@
             <div class="section-heading">
               <div>
                 <span class="eyebrow">THE SEASON SO FAR</span>
-                <h2 id="table-title">League standings</h2>
+                <h2 id="table-title" class="standings-title">League standings</h2>
               </div>
               <span id="table-season" class="subtle"></span>
             </div>
@@ -294,7 +293,7 @@
             <fieldset class="theme-options">
               <legend>Appearance</legend>
               <label><input type="radio" name="theme" value="light"> <span><strong>Light</strong><small>Bright surfaces and dark text</small></span></label>
-              <label><input type="radio" name="theme" value="dark"> <span><strong>Dark</strong><small>Deep navy surfaces and light text</small></span></label>
+              <label><input type="radio" name="theme" value="dark"> <span><strong>Dark</strong><small>Deep green surfaces and ivory text</small></span></label>
               <label><input type="radio" name="theme" value="system"> <span><strong>System</strong><small>Use your device’s appearance</small></span></label>
             </fieldset>
             <p class="data-status" id="theme-status" role="status"></p>

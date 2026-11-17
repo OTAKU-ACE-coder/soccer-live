@@ -1,5 +1,5 @@
-import { readAlertSettings } from "./news-alerts.js?v=2d7f47e273b8";
-import { aliases, normalize } from "./football-format.js?v=2d7f47e273b8";
+import { readAlertSettings } from "./news-alerts.js?v=c98ccd0efea7";
+import { aliases, normalize } from "./football-format.js?v=c98ccd0efea7";
 
 export const preferenceKey = "soccer-live-preferences";
 
@@ -14,6 +14,10 @@ export function readPreferences() {
       following: Array.isArray(value.following)
         ? value.following.filter((v) => typeof v === "string").slice(0, 150)
         : [],
+      discoveredClubs: Array.isArray(value.discoveredClubs)
+        ? value.discoveredClubs.filter(team => team && /^\d{1,12}$/.test(team.id)
+          && typeof team.name === "string" && /^[a-z0-9_.]{1,48}$/.test(team.competitionId)).slice(0, 150)
+        : [],
       searches: Array.isArray(value.searches)
         ? value.searches.filter((v) => typeof v === "string").slice(0, 10)
         : [],
@@ -26,7 +30,7 @@ export function readPreferences() {
       league: typeof value.league === "string" ? value.league : "eng.1",
     };
   } catch {
-    return { following: [], searches: [], saved: [], league: "eng.1", alerts: readAlertSettings() };
+    return { following: [], discoveredClubs: [], searches: [], saved: [], league: "eng.1", alerts: readAlertSettings() };
   }
 }
 

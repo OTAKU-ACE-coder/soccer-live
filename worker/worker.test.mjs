@@ -45,3 +45,28 @@ test("proxy limits the upstream, caches valid feeds, and reports schema changes"
     globalThis.caches = originalCaches;
   }
 });
+
+test("football lookup accepts only bounded searches and player identifiers", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url) => {
+    assert.equal(url.hostname, "site.web.api.espn.com");
+    if (url.pathname === "/apis/search/v2") {
+      assert.equal(url.searchParams.get("query"), "Al Nassr");
+      assert.equal(url.searchParams.get("type"), "player,team");
+      return Response.json({ results: [] });
+    }
+    assert.equal(url.pathname, "/apis/common/v3/sports/soccer/all/athletes/45843");
+    return Response.json({ athlete: { displayName: "Lionel Messi" }, unrelated: {} });
+  };
+  const request = path => worker.fetch(new Request("https://soccer-worker.example" + path), {}, {});
+  try {
+    assert.equal((await request("/lookup/search?query=x")).status, 404);
+    assert.equal((await request("/lookup/search?query=Al+Nassr&limit=99")).status, 404);
+    assert.equal((await request("/lookup/player?id=../../45843")).status, 404);
+    assert.equal((await request("/lookup/player?id=1&id=2")).status, 404);
+    assert.deepEqual(await (await request("/lookup/search?query=Al+Nassr")).json(), { results: [] });
+    assert.deepEqual(await (await request("/lookup/player?id=45843")).json(), { athlete: { displayName: "Lionel Messi" } });
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});

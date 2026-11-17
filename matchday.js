@@ -1,7 +1,8 @@
-import { API, fetchJson } from "./api.js?v=2d7f47e273b8";
-import { asTeam, dateLabel, localDate } from "./football-format.js?v=2d7f47e273b8";
-import { crest, empty, node } from "./render.js?v=2d7f47e273b8";
-import { filterMatchday, fixtureState, matchesForLocalDay, providerMatchDates } from "./matchday-data.js?v=2d7f47e273b8";
+import { competitionMark } from "./competition-marks.js?v=c98ccd0efea7";
+import { API, fetchJson } from "./api.js?v=c98ccd0efea7";
+import { asTeam, dateLabel, localDate } from "./football-format.js?v=c98ccd0efea7";
+import { empty, node } from "./render.js?v=c98ccd0efea7";
+import { filterMatchday, fixtureState, matchesForLocalDay, providerMatchDates } from "./matchday-data.js?v=c98ccd0efea7";
 
 export function createMatchday({ getCatalogue, matchRow, matchesTeam, followsTeam }) {
   const picker = document.getElementById("matchday-date");
@@ -50,7 +51,7 @@ export function createMatchday({ getCatalogue, matchRow, matchesTeam, followsTea
       if (!events.length) continue;
       visible += events.length;
       const heading = node("h3", undefined, "match-group-heading");
-      heading.append(crest({ name: item.name, logo: item.logo }), node("span", item.name));
+      heading.append(competitionMark(item), node("span", item.name));
       results.append(heading);
       for (const event of events) {
         const row = matchRow(event, item.id);

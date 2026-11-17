@@ -1,3 +1,38 @@
+:root {
+    color-scheme: light;
+    --nav: #102b2d;
+    --page: #f4efe5;
+    --panel: #fffdf7;
+    --text: #17292d;
+    --muted: #516264;
+    --line: #dcd4c4;
+    --green: #12634b;
+    --blue: #254a9b;
+    --red: #a32030;
+    --gold: #f0cd81;
+    --gold-hover: #f7db9e;
+    --surface-raised: #f4eee2;
+    --surface-accent: #e4efe6;
+    --focus-ring: #2b58b5;
+    --hero-art:
+        linear-gradient(128deg, #102b2d 19%, transparent 70%),
+        repeating-linear-gradient(141deg, transparent 0 9px, #f0cd8124 10px 11px),
+        linear-gradient(141deg, #164038 0 48%, #98313d 48% 62%, #223c78 62% 100%);
+}
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #0e1b1e;
+    --panel: #17282c;
+    --text: #f8f1e4;
+    --muted: #afbfbd;
+    --line: #3d5151;
+    --green: #8ddfbb;
+    --blue: #a9c2ff;
+    --red: #ff929c;
+    --surface-raised: #213437;
+    --surface-accent: #244037;
+    --focus-ring: var(--gold);
+}
 .brand-logo {
     display: inline-flex;
     align-items: center;
@@ -5,7 +40,7 @@
     width: fit-content;
     min-height: 54px;
     flex-shrink: 0;
-    color: #f7faf8;
+    color: #fff9ed;
     text-decoration: none;
 }
 .brand-logo img {
@@ -13,10 +48,22 @@
     width: 46px;
     height: 46px;
     object-fit: contain;
+    filter: drop-shadow(0 2px 4px #0006);
 }
 .brand-wordmark {
-    font: 800 26px / 1 "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font: 800 27px / 1 "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
     letter-spacing: .035em;
     white-space: nowrap;
 }
-.brand-wordmark > span { color: #b9f575; }
+.brand-wordmark > span {
+    color: #fff9ed;
+    background: #9e2333;
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    padding: 3px 5px 4px;
+    font-size: .68em;
+    letter-spacing: .08em;
+}

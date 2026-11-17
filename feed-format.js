@@ -20,6 +20,8 @@ export function validateFeed(feed, value) {
     standings: () => validTable(value),
     roster: () => Array.isArray(value?.athletes),
     summary: () => Boolean(value?.header && typeof value.header === "object"),
+    search: () => Array.isArray(value?.results) && value.results.every(group => Array.isArray(group?.contents)),
+    player: () => typeof value?.athlete?.displayName === "string",
   };
   if (!valid[feed]?.()) throw new FeedFormatError(feed);
   return value;

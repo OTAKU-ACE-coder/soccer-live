@@ -1,6 +1,7 @@
-import { followsInterest } from "./news-alerts.js?v=2d7f47e273b8";
-import { dateLabel } from "./football-format.js?v=2d7f47e273b8";
-import { crest, empty, materialIcon, node } from "./render.js?v=2d7f47e273b8";
+import { competitionMark } from "./competition-marks.js?v=c98ccd0efea7";
+import { followsInterest } from "./news-alerts.js?v=c98ccd0efea7";
+import { dateLabel } from "./football-format.js?v=c98ccd0efea7";
+import { empty, materialIcon, node } from "./render.js?v=c98ccd0efea7";
 const $ = (id) => document.getElementById(id);
 
 export function createAlerts({ preferences, getStories, getCatalogue, storyLink, savePreferences, renderNews }) {
@@ -63,7 +64,7 @@ export function createAlerts({ preferences, getStories, getCatalogue, storyLink,
         renderAlerts();
         renderNews();
       });
-      label.append(topic.logo ? crest(topic) : materialIcon("trophy"), node("span", topic.name), checkbox);
+      label.append(competitionMark(topic), node("span", topic.name), checkbox);
       $("interest-list").append(label);
     }
   }

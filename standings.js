@@ -1,6 +1,7 @@
-import { aliases, contains, dateLabel } from "./football-format.js?v=2d7f47e273b8";
-import { crest, empty, node } from "./render.js?v=2d7f47e273b8";
-import { recentResults } from "./match-data.js?v=2d7f47e273b8";
+import { competitionMark } from "./competition-marks.js?v=c98ccd0efea7";
+import { aliases, contains, dateLabel } from "./football-format.js?v=c98ccd0efea7";
+import { crest, empty, node } from "./render.js?v=c98ccd0efea7";
+import { recentResults } from "./match-data.js?v=c98ccd0efea7";
 const $ = (id) => document.getElementById(id);
 
 export function entriesOf(data) {
@@ -31,11 +32,12 @@ export function createStandings({ state, matchVisible, matchRow, openClub, cache
     const { league, events, groups, query, view, errors } = state();
     $("tables").replaceChildren();
     $("mini-table").replaceChildren();
-    $("table-title").textContent = !hasStandings(league) ? league.name + " fixtures and results" : "League standings";
-    $("mini-title").textContent = !hasStandings(league) ? league.name : "Top of the table";
-    $("mini-table-link").textContent = !hasStandings(league) ? "Match centre →" : "Full table ↗";
-    $("mini-table-link").href = !hasStandings(league) ? "#matches" : "#standings";
-    if (!hasStandings(league)) {
+    const standings = hasStandings(league);
+    $("table-title").replaceChildren(competitionMark(league), node("span", standings ? league.name + " standings" : league.name + " fixtures and results"));
+    $("mini-title").replaceChildren(competitionMark(league), node("span", standings ? "Top of the table" : league.name));
+    $("mini-table-link").textContent = !standings ? "Match centre →" : "Full table ↗";
+    $("mini-table-link").href = !standings ? "#matches" : "#standings";
+    if (!standings) {
       $("form-status").textContent = "";
       $("table-season").textContent = "";
       $("table-status").textContent = (league.knockout ? "Knockout competition" : "Friendlies") + " · Fixtures and results";
