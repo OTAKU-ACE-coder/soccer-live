@@ -546,6 +546,11 @@ button:disabled {
   height: 20px;
   object-fit: contain;
 }
+.matchday-panel { grid-column: 1 / -1; }
+.matchday-panel .match-group-heading { font-size: inherit; }
+.matchday-filters { flex-wrap: wrap; }
+.section-link.matchday-link { margin-top: 0; margin-bottom: 14px; }
+.fixture-calendar { margin: 8px 0 12px; }
 .match-row {
   display: grid;
   grid-template-columns: 48px minmax(0, 1fr) 25px;
@@ -1401,15 +1406,13 @@ body[data-view="home"] .news-latest { display: none; }
 .mobile-brand { display: none; }
 @media (max-width: 700px) {
   .app-header .mobile-brand {
-    display: block;
+    display: inline-flex;
     width: 40px;
     height: 40px;
     border-radius: 50%;
   }
-  .app-header .mobile-brand img {
-    width: 408%;
-    transform: translate(-28.8%, -50%);
-  }
+  .app-header .mobile-brand img { width: 40px; height: 40px; }
+  .app-header .mobile-brand .brand-wordmark { display: none; }
   .app-header .header-kicker { display: none; }
   .app-header h1 { font-size: 14px; }
 }

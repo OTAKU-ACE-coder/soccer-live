@@ -11,6 +11,7 @@ The app has dedicated overview, match centre, newsroom, standings, club discover
 - Premier League, La Liga, Bundesliga, Serie A, Ligue 1, Champions League, FA Cup, and Carabao Cup feeds. The domestic cups display fixtures and results in place of a league table.
 - International coverage includes UEFA Nations League, AFCON Qualifying, Concacaf Nations League, men’s and women’s friendlies, both FIFA World Cups, and the Africa Cup of Nations. Open the International competition group to see scores, fixtures and group tables where supplied, and discover and follow national teams.
 - Latest matchday, date picker, yesterday/today/tomorrow, live and followed-team filters.
+- **All competitions** shows the selected day’s scores grouped by competition, with live, upcoming, final and followed-team filters. Open a scheduled fixture to download its kickoff as a calendar event.
 - Match statistics including possession, shots, shots on target, corners, and fouls when supplied.
 - Current league tables and club profiles with related matches and stories.
 - A newsroom with original data-driven match reports, football explainers, personalised ranking, and a saved reading list. Articles open inside Soccer Live.

@@ -1,22 +1,25 @@
-import { buildReports, editorialStories } from "./newsroom.js?v=6feaefbe941b";
-import { collectAlerts, followsInterest } from "./news-alerts.js?v=6feaefbe941b";
-import { upcomingFixtures } from "./match-data.js?v=6feaefbe941b";
-import { getTheme, setTheme } from "./theme.js?v=6feaefbe941b";
-import { API, TABLE_API, fetchJson } from "./api.js?v=6feaefbe941b";
-import { FeedFormatError } from "./feed-format.js?v=6feaefbe941b";
-import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=6feaefbe941b";
-import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=6feaefbe941b";
-import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=6feaefbe941b";
-import { createStandings, entriesOf, hasStandings } from "./standings.js?v=6feaefbe941b";
-import { createAlerts } from "./alerts.js?v=6feaefbe941b";
-import { createPreferenceSync } from "./preference-sync.js?v=6feaefbe941b";
+import { buildReports, editorialStories } from "./newsroom.js?v=2d7f47e273b8";
+import { collectAlerts, followsInterest } from "./news-alerts.js?v=2d7f47e273b8";
+import { upcomingFixtures } from "./match-data.js?v=2d7f47e273b8";
+import { getTheme, setTheme } from "./theme.js?v=2d7f47e273b8";
+import { API, TABLE_API, fetchJson } from "./api.js?v=2d7f47e273b8";
+import { FeedFormatError } from "./feed-format.js?v=2d7f47e273b8";
+import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=2d7f47e273b8";
+import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=2d7f47e273b8";
+import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=2d7f47e273b8";
+import { createStandings, entriesOf, hasStandings } from "./standings.js?v=2d7f47e273b8";
+import { createAlerts } from "./alerts.js?v=2d7f47e273b8";
+import { createMatchday } from "./matchday.js?v=2d7f47e273b8";
+import { fixtureCalendar } from "./matchday-data.js?v=2d7f47e273b8";
+import { createPreferenceSync } from "./preference-sync.js?v=2d7f47e273b8";
 
 const $ = (id) => document.getElementById(id);
-const routes = ["home", "matches", "news", "standings", "clubs", "saved", "alerts", "settings"];
+const routes = ["home", "matches", "matchday", "news", "standings", "clubs", "saved", "alerts", "settings"];
 const searchSections = ["matches", "news", "standings", "clubs"];
 const titles = {
   home: "Your football, all in one place.",
   matches: "Every match. Every moment.",
+  matchday: "The day in football.",
   news: "The stories behind the game.",
   standings: "The race for the top.",
   clubs: "Follow the badge.",
@@ -273,6 +276,7 @@ function matchRow(event, competitionId = league.id) {
   return row;
 }
 function renderMatches() {
+  matchday.render();
   $("scores").replaceChildren();
   const visible = events.filter(matchVisible);
   $("live-count").textContent = events.filter(
@@ -468,12 +472,17 @@ function renderArticle() {
   const heading = node("header", undefined, "article-heading");
   heading.append(storyMeta(story), node("h1", story.title), node("p", story.summary, "article-deck"));
   const byline = node("div", undefined, "article-byline");
-  byline.append(node("span", story.leagueId ? "Soccer Live Match Desk" : "Soccer Live Editorial"), saveButton(story));
+  byline.append(node("span", story.score ? "Soccer Live Match Desk" : "Soccer Live Editorial"), saveButton(story));
   heading.append(byline);
   const body = node("div", undefined, "article-body");
   for (const paragraph of story.paragraphs) body.append(node("p", paragraph));
-  if (story.leagueId) body.append(node("p", "Match report generated from recorded scores and available match statistics.", "article-note"));
+  if (story.score) body.append(node("p", "Match report generated from recorded scores and available match statistics.", "article-note"));
   if (story.credit) body.append(node("p", story.credit, "article-note"));
+  if (story.matchday) {
+    const link = node("a", "View scores and fixtures in Matchday →", "section-link");
+    link.href = "#matchday";
+    body.append(link);
+  }
   article.append(heading, storyImage(story), body);
 }
 function renderSaved() {
@@ -539,6 +548,19 @@ function openMatch(event, competitionId = league.id) {
   );
   if (data.venue?.fullName)
     content.append(node("p", data.venue.fullName, "dialog-meta"));
+  const calendar = fixtureCalendar(event, competitionId);
+  if (calendar) {
+    const button = node("button", "Add kickoff to calendar", "load-more fixture-calendar");
+    button.type = "button";
+    button.addEventListener("click", () => {
+      const link = node("a");
+      link.href = URL.createObjectURL(new Blob([calendar], { type: "text/calendar;charset=utf-8" }));
+      link.download = "soccer-live-" + event.id + ".ics";
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    });
+    content.append(button);
+  }
   addLineupSection(content, event, competitionId);
   content.append(node("h3", "Match statistics", "dialog-subheading"));
   let hasStats = false;
@@ -602,7 +624,7 @@ function setRoute() {
   requestedStory = new URLSearchParams(requested).get("story") || "";
   view = requestedStory ? "article" : routes.includes(requested) ? requested : "home";
   $("article").hidden = !requestedStory;
-  $("league-strip").hidden = Boolean(requestedStory) || view === "settings";
+  $("league-strip").hidden = Boolean(requestedStory) || ["settings", "matchday"].includes(view);
   $("competition-picker").hidden = $("league-strip").hidden;
   if (requestedStory) renderArticle();
   document.body.dataset.view = view;
@@ -617,10 +639,12 @@ function setRoute() {
         : section !== view;
   }
   document.querySelectorAll(".main-nav a,.mobile-nav a").forEach((link) => {
-    if (link.hash === "#" + (requestedStory ? "news" : view)) link.setAttribute("aria-current", "page");
+    const destination = view === "matchday" && link.closest(".mobile-nav") ? "matches" : view;
+    if (link.hash === "#" + (requestedStory ? "news" : destination)) link.setAttribute("aria-current", "page");
     else link.removeAttribute("aria-current");
   });
   if (league) {
+    matchday.setActive(view === "matchday");
     renderMatches();
     renderNews();
     renderSaved();
@@ -756,8 +780,8 @@ $("search-form").addEventListener("submit", (event) => {
   $("clear-search").hidden = !query;
   $("search-status").hidden = !query;
   $("search-status").textContent =
-    "Results for “" + query + "” · Teams, matches, and stories";
-  if (query && view !== "home" && !searchSections.includes(view)) {
+    "Results for “" + query + "” · " + (view === "matchday" ? "Matchday fixtures" : "Teams, matches, and stories");
+  if (query && view !== "home" && view !== "matchday" && !searchSections.includes(view)) {
     history.pushState(null, "", "#clubs");
     window.scrollTo({ top: 0, behavior: "instant" });
   }
@@ -848,6 +872,7 @@ $("detail-dialog").addEventListener("close", () =>
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) return;
   if (league) checkNews();
+  void matchday.refresh();
   void accountSync.refresh();
 });
 window.addEventListener("online", () => void accountSync.refresh());
@@ -1019,8 +1044,8 @@ async function readPortraits(path) {
 
 function portraitIndex() {
   portraits ??= Promise.all([
-    readPortraits("player-portraits.json?v=6feaefbe941b"),
-    readPortraits("club-player-portraits.json?v=6feaefbe941b"),
+    readPortraits("player-portraits.json?v=2d7f47e273b8"),
+    readPortraits("club-player-portraits.json?v=2d7f47e273b8"),
   ]).then(([league, clubs]) => ({ league, clubs }));
   return portraits;
 }
@@ -1120,6 +1145,10 @@ function addClubSections(content, team) {
   }));
 }
 
+const matchday = createMatchday({
+  getCatalogue: () => catalog, matchRow, followsTeam: follows,
+  matchesTeam: team => !query || aliases(team).some(name => contains(name, query)),
+});
 const { renderTables, loadForms } = createStandings({
   state: () => ({ league, events, groups, query, view, errors }), matchVisible, matchRow, openClub, cachedMatchData,
 });
@@ -1159,7 +1188,7 @@ window.addEventListener("soccer-theme-change", syncThemeOptions);
 syncThemeOptions();
 setRoute();
 try {
-  const response = await fetch("football-catalog.json?v=6feaefbe941b");
+  const response = await fetch("football-catalog.json?v=2d7f47e273b8");
   if (!response.ok) throw new Error("Club catalogue unavailable");
   catalog = await response.json();
   const teams = new Map();
@@ -1184,9 +1213,13 @@ try {
   renderSaved();
   renderInterests();
   renderAlerts();
+  matchday.setActive(view === "matchday");
   await loadData();
   checkNews();
-  setInterval(refreshMatches, 60000);
+  setInterval(() => {
+    if (view === "matchday") void matchday.refresh();
+    else void refreshMatches();
+  }, 60000);
   setInterval(() => { if (!document.hidden) void accountSync.refresh(); }, 60000);
   setInterval(checkNews, 180000);
 } catch {
@@ -1195,6 +1228,7 @@ try {
   $("news-status").textContent =
     "Club and competition data could not be loaded.";
   $("refresh").disabled = true;
+  $("matchday-status").textContent = "The competition catalogue could not load. Reload to try again.";
 }
 
 function showAccountLink(signedIn) {
@@ -1205,7 +1239,7 @@ function showAccountLink(signedIn) {
 
 async function startAccount() {
   try {
-    const { createAuthClient } = await import("./auth-client.js?v=6feaefbe941b");
+    const { createAuthClient } = await import("./auth-client.js?v=2d7f47e273b8");
     const client = await createAuthClient();
     let authRevision = 0;
     const verify = async () => {

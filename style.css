@@ -43,7 +43,9 @@ button { cursor:pointer; }
     .account-feature h2 { font-size:38px; max-width:none; }
     .account-feature p { margin:8px 0 10px; }
     .account-header { padding:10px 14px; }
-    .account-header .brand-logo { width:130px; height:49px; }
+    .account-header .brand-logo { min-height:44px; gap:6px; }
+    .account-header .brand-logo img { width:36px; height:36px; }
+    .account-header .brand-wordmark { font-size:21px; }
     .navigation { gap:11px; font-size:12px; }
     .btnlogin-popup { padding:6px 8px; }
 }

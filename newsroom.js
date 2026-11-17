@@ -54,7 +54,55 @@ const awards = {
   credit: "Results and ceremony details confirmed by Ballon d’Or and UEFA."
 };
 
-export const editorialStories = [awards, ...guides];
+const novemberMatchday = [
+  {
+    id: "nations-league-final-matchday-2026-11-17",
+    title: "The Nations League group phase reaches its final night",
+    category: "UEFA Nations League · Preview",
+    leagueId: "uefa.nations",
+    published: "2026-11-17T00:00:00Z",
+    summary: "Denmark face Norway and Wales meet Portugal as the final League A fixtures set up Friday’s draw.",
+    teams: [], matchday: true,
+    paragraphs: [
+      "The last night of the 2026/27 UEFA Nations League group phase is on Tuesday, 17 November. Denmark host Norway and Wales host Portugal in Group A4. League B also concludes with fixtures including Poland against Sweden and the Republic of Ireland against Kosovo.",
+      "Those results will settle the final group positions. Follow the score changes in Matchday and switch to the group tables to see where each team finishes.",
+      "The knockout stage and play-off draw is scheduled for Friday, 20 November, at noon Central European Time."
+    ],
+    credit: "Schedule and draw timing confirmed by UEFA."
+  },
+  {
+    id: "afcon-qualifying-november-2026",
+    title: "What November’s AFCON qualifiers mean for the 2027 race",
+    category: "AFCON Qualifying · Qualification guide",
+    leagueId: "caf.nations_qual",
+    published: "2026-11-17T00:00:00Z",
+    summary: "The November matches take the qualifying groups past halfway ahead of the final rounds in March.",
+    teams: [], matchday: true,
+    paragraphs: [
+      "The November international window covers rounds three and four of qualification for the 2027 Africa Cup of Nations. The final two rounds are scheduled for March 2027.",
+      "Co-hosts Kenya, Tanzania and Uganda have automatic places at the finals. In each group containing a host, the best-placed remaining team also qualifies. In the other groups, the top two qualify.",
+      "The tournament is scheduled to run from 19 June to 17 July 2027. Check the AFCON Qualifying tables for the latest group positions."
+    ],
+    credit: "Qualification format and dates confirmed by CAF."
+  },
+  {
+    id: "concacaf-quarterfinals-november-2026",
+    title: "Concacaf quarter-finals close with two Gold Cup places in play",
+    category: "Concacaf Nations League · Preview",
+    leagueId: "concacaf.nations.league",
+    published: "2026-11-17T00:00:00Z",
+    summary: "The United States host Haiti and Mexico host Jamaica on the final day of November’s League A quarter-finals.",
+    teams: [], matchday: true,
+    paragraphs: [
+      "The remaining two quarter-final second legs are scheduled for Tuesday, 17 November in the host time zones. The United States play Haiti in Cincinnati, and Mexico face Jamaica in Monterrey.",
+      "The aggregate winners advance to the Nations League Finals in March 2027 and qualify for the 2027 Gold Cup. The losing sides move into Gold Cup preliminary qualifying.",
+      "Matchday shows kickoff times in your local time zone. The later fixtures can appear on Wednesday for viewers outside North America."
+    ],
+    credit: "Fixtures and qualification rules confirmed by Concacaf."
+  }
+];
+
+export const editorialStories = [...novemberMatchday, awards, ...guides];
 
 export function buildReports(events, league) {
   const reports = new Map();

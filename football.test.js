@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { filterMatchday, fixtureCalendar, matchesForLocalDay, providerMatchDates } from "./matchday-data.js";
 import { aliases, dateLabel, localDate, normalize, teamMatches } from "./football-format.js";
 import { matchesFollow, updateFollowing } from "./follows.js";
 import { recentResults, upcomingFixtures } from "./match-data.js";
@@ -51,6 +52,28 @@ test("upcoming fixtures exclude past or finished events and deduplicate event ID
   const next = fixture(2, 9, "0", "0", false);
   assert.deepEqual(upcomingFixtures([next, next, fixture(3, 5, "0", "0", false), fixture(4, 10, "2", "0")],
     Date.parse("2026-11-08")), [next]);
+});
+
+test("matchday merges adjacent provider dates and filters by local date and fixture status", () => {
+  assert.deepEqual(providerMatchDates(Date.parse("2026-11-16T23:00Z"), Date.parse("2026-11-17T22:59Z")), ["20261116", "20261117"]);
+  const scheduled = fixture(2, 17, "0", "0", false);
+  const finished = fixture(3, 17, "2", "0");
+  const local = localDate(new Date(scheduled.date));
+  assert.deepEqual(matchesForLocalDay([scheduled, scheduled, fixture(4, 16, "0", "0")], local), [scheduled]);
+  assert.deepEqual(filterMatchday([finished, scheduled], "upcoming", () => true, () => false), [scheduled]);
+  assert.deepEqual(filterMatchday([finished, scheduled], "following", () => true, () => false), []);
+  assert.deepEqual(filterMatchday([finished, scheduled], "final", () => true, () => false), [finished]);
+});
+
+test("calendar exports UTC kickoff and escapes and folds fixture text", () => {
+  const scheduled = fixture(2, 17, "0", "0", false);
+  scheduled.competitions[0].venue = { fullName: "Á".repeat(80) + ", South Stand; Gate B\nEntrance" };
+  const calendar = fixtureCalendar(scheduled, "uefa.nations", Date.parse("2026-11-17T10:00Z"));
+  assert.match(calendar, /DTSTART:20261117T180000Z/);
+  assert.ok(calendar.replace(/\r\n /g, "").includes("\\, South Stand\\; Gate B\\nEntrance"));
+  assert.ok(calendar.split("\r\n").every(line => new TextEncoder().encode(line).length <= 75));
+  assert.equal(fixtureCalendar(scheduled, "uefa.nations", Date.parse("2026-11-17T19:00Z")), "");
+  assert.equal(fixtureCalendar(fixture(3, 18, "2", "0"), "uefa.nations", Date.parse("2026-11-17T10:00Z")), "");
 });
 
 test("reports use verified final scores and deduplicate while skipping incomplete provider events", () => {

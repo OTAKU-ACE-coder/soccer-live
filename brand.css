@@ -1,21 +1,22 @@
 .brand-logo {
-    display: block;
-    position: relative;
-    overflow: hidden;
-    width: 174px;
-    height: 65px;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    width: fit-content;
+    min-height: 54px;
     flex-shrink: 0;
+    color: #f7faf8;
+    text-decoration: none;
 }
 .brand-logo img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 137%;
-    max-width: none;
-    height: auto;
-    transform: translate(-50%, -50%);
+    display: block;
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
 }
-/* The navy background is brighter than the artwork's dark canvas in each channel. */
-.sidebar .brand-logo, .account-header .brand-logo {
-    mix-blend-mode: lighten;
+.brand-wordmark {
+    font: 800 26px / 1 "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+    letter-spacing: .035em;
+    white-space: nowrap;
 }
+.brand-wordmark > span { color: #b9f575; }

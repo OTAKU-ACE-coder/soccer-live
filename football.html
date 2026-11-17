@@ -9,19 +9,21 @@
       content="Your football match centre. Scores, news, club follows and standings across Europe's major leagues."
     />
     <title>Soccer Live | Your football, all in one place</title>
+    <link rel="icon" href="assets/world-cup-ball.png" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,check,close,home,login,manage_search,monitoring,newspaper,notifications,person,refresh,search,settings,sports_soccer,trophy&amp;display=block" />
-    <link rel="stylesheet" href="brand.css?v=6feaefbe941b" />
-    <link rel="stylesheet" href="football.css?v=6feaefbe941b" />
-    <script src="config.js?v=6feaefbe941b"></script>
-    <script type="module" src="football.js?v=6feaefbe941b"></script>
+    <link rel="stylesheet" href="brand.css?v=2d7f47e273b8" />
+    <link rel="stylesheet" href="football.css?v=2d7f47e273b8" />
+    <script src="config.js?v=2d7f47e273b8"></script>
+    <script type="module" src="football.js?v=2d7f47e273b8"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
-      <a class="brand-logo" href="#home"><img src="assets/soccer-live-logo.png" width="1760" height="880" alt="Soccer Live home"></a>
+      <a class="brand-logo" aria-label="Soccer Live home" href="#home"><img src="assets/world-cup-ball.png" width="320" height="320" alt=""><span class="brand-wordmark" aria-hidden="true">SOCCER <span>LIVE</span></span></a>
       <p class="nav-label">YOUR FOOTBALL</p>
       <nav class="main-nav" aria-label="Main navigation">
         <a href="#home"><span class="material-symbols-outlined" aria-hidden="true">home</span>Overview</a>
         <a href="#matches"><span class="material-symbols-outlined" aria-hidden="true">sports_soccer</span>Match centre</a>
+        <a href="#matchday"><span class="material-symbols-outlined" aria-hidden="true">sports_soccer</span>All competitions</a>
         <a href="#news"><span class="material-symbols-outlined" aria-hidden="true">newspaper</span>Newsroom</a>
         <a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span>League tables</a>
         <a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span>Discover clubs</a>
@@ -51,7 +53,7 @@
     </aside>
     <div class="app-shell">
       <header class="app-header">
-        <a class="brand-logo mobile-brand" href="#home"><img src="assets/soccer-live-logo.png" width="1760" height="880" alt="Soccer Live home"></a>
+        <a class="brand-logo mobile-brand" aria-label="Soccer Live home" href="#home"><img src="assets/world-cup-ball.png" width="320" height="320" alt=""><span class="brand-wordmark" aria-hidden="true">SOCCER <span>LIVE</span></span></a>
         <div>
           <span class="header-kicker">THE WORLD'S GAME</span>
           <h1 id="page-title">Your football, all in one place.</h1>
@@ -125,6 +127,7 @@
                 aria-label="Refresh football data"
               ><span class="material-symbols-outlined" aria-hidden="true">refresh</span></button>
             </div>
+            <a class="section-link matchday-link" href="#matchday">All competitions today <span aria-hidden="true">→</span></a>
             <div class="match-toolbar">
               <div class="segmented" aria-label="Match status">
                 <button type="button" data-filter="all" aria-pressed="true">
@@ -161,6 +164,30 @@
             <a class="section-link" href="#matches" id="all-matches-link"
               >Explore match centre <span aria-hidden="true">→</span></a
             >
+          </section>
+          <section class="panel matchday-panel" id="matchday" aria-labelledby="matchday-title" hidden>
+            <div class="section-heading">
+              <h2 id="matchday-title">Matchday across competitions</h2>
+              <button type="button" id="matchday-refresh" class="icon-button" aria-label="Refresh all competitions"><span class="material-symbols-outlined" aria-hidden="true">refresh</span></button>
+            </div>
+            <div class="match-toolbar">
+              <div class="segmented matchday-filters" role="group" aria-label="Filter matchday">
+                <button type="button" data-matchday-filter="all" aria-pressed="true">All</button>
+                <button type="button" data-matchday-filter="live" aria-pressed="false">Live</button>
+                <button type="button" data-matchday-filter="upcoming" aria-pressed="false">Upcoming</button>
+                <button type="button" data-matchday-filter="final" aria-pressed="false">Final</button>
+                <button type="button" data-matchday-filter="following" aria-pressed="false">Following</button>
+              </div>
+              <label class="date-label">Date<input id="matchday-date" type="date" aria-label="All competitions match date"></label>
+            </div>
+            <div class="date-shortcuts" role="group" aria-label="Choose matchday">
+              <button type="button" data-matchday-offset="-1" aria-pressed="false">Yesterday</button>
+              <button type="button" data-matchday-offset="0" aria-pressed="true">Today</button>
+              <button type="button" data-matchday-offset="1" aria-pressed="false">Tomorrow</button>
+            </div>
+            <p id="matchday-status" class="data-status" role="status">Loading matchday…</p>
+            <div id="matchday-results"></div>
+            <a href="#matches" class="section-link">Browse by competition <span aria-hidden="true">→</span></a>
           </section>
           <aside class="right-rail" id="right-rail">
             <section class="panel your-clubs" aria-labelledby="following-title">
@@ -307,7 +334,7 @@
         </div>
         <p>
           Scores refresh every minute while this tab is active. Provider updates
-          may be delayed. Club follows and saved stories stay in this browser.
+          may be delayed. Sign in to sync followed teams and saved stories across devices.
         </p>
       </footer>
     </div>
