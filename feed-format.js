@@ -10,6 +10,7 @@ export function validateFeed(feed, value) {
     (Array.isArray(table.standings?.entries) && table.standings.entries.every(entry => entry?.team?.id != null)) ||
     (Array.isArray(table.children) && table.children.every(validTable))
   );
+  if (feed === "search" && value && typeof value === "object" && !Array.isArray(value) && !Object.keys(value).length) return { results: [] };
   const events = value?.events;
   const valid = {
     scoreboard: () => Array.isArray(events) && events.every(event =>

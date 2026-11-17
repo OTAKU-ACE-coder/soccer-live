@@ -3,7 +3,7 @@ import { FeedFormatError, validateFeed } from "../feed-format.js";
 
 const leagues = new Set(catalogue.map(league => league.id));
 const athleteID = /^\d{1,12}$/;
-const lookupHost = "https://site.web.api.espn.com";
+const lookupHost = "https://site.api.espn.com";
 const route = /^\/(scores|tables)\/([a-z0-9][a-z0-9_.]{0,47})\/(scoreboard|standings|summary|teams\/\d{1,12}\/(?:schedule|roster))$/;
 const date = /^\d{8}$/;
 

@@ -49,11 +49,11 @@ test("proxy limits the upstream, caches valid feeds, and reports schema changes"
 test("football lookup accepts only bounded searches and player identifiers", async () => {
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async (url) => {
-    assert.equal(url.hostname, "site.web.api.espn.com");
+    assert.equal(url.hostname, "site.api.espn.com");
     if (url.pathname === "/apis/search/v2") {
       assert.equal(url.searchParams.get("query"), "Al Nassr");
       assert.equal(url.searchParams.get("type"), "player,team");
-      return Response.json({ results: [] });
+      return Response.json({});
     }
     assert.equal(url.pathname, "/apis/common/v3/sports/soccer/all/athletes/45843");
     return Response.json({ athlete: { displayName: "Lionel Messi" }, unrelated: {} });
