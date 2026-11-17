@@ -1,6 +1,9 @@
 :root {
     color-scheme: light;
     --nav: #102b2d;
+    --sidebar-start: #1b4238;
+    --sidebar-hover: #24483f;
+    --mobile-nav: #111b2cf5;
     --page: #f4efe5;
     --panel: #fffdf7;
     --text: #17292d;
@@ -32,6 +35,16 @@
     --surface-raised: #213437;
     --surface-accent: #244037;
     --focus-ring: var(--gold);
+}
+:root[style*="--custom-accent"] {
+    --gold: color-mix(in srgb, var(--custom-accent) 60%, white);
+    --gold-hover: color-mix(in srgb, var(--custom-accent) 42%, white);
+}
+:root[style*="--custom-sidebar"] {
+    --nav: color-mix(in srgb, var(--custom-sidebar) 32%, #08141d);
+    --sidebar-start: color-mix(in srgb, var(--custom-sidebar) 42%, #12232b);
+    --sidebar-hover: color-mix(in srgb, var(--custom-sidebar) 46%, #142832);
+    --mobile-nav: var(--nav);
 }
 .brand-logo {
     display: inline-flex;

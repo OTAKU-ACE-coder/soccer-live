@@ -11,10 +11,10 @@
     <title>Soccer Live | Your football, all in one place</title>
     <link rel="icon" href="assets/trionda-mark.png" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,calendar_month,check,close,home,login,manage_search,monitoring,newspaper,notifications,person,refresh,search,settings,sports_soccer,trophy&amp;display=block" />
-    <link rel="stylesheet" href="brand.css?v=deffb300c842" />
-    <link rel="stylesheet" href="football.css?v=deffb300c842" />
-    <script src="config.js?v=deffb300c842"></script>
-    <script type="module" src="football.js?v=deffb300c842"></script>
+    <link rel="stylesheet" href="brand.css?v=549d282c82b4" />
+    <link rel="stylesheet" href="football.css?v=549d282c82b4" />
+    <script src="config.js?v=549d282c82b4"></script>
+    <script type="module" src="football.js?v=549d282c82b4"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
@@ -83,19 +83,18 @@
       <main id="content">
         <p id="search-status" class="search-status" role="status" hidden></p>
         <section class="welcome" id="welcome" aria-labelledby="welcome-title">
-          <img src="assets/trionda-hero.png" alt="" class="welcome-ball" width="640" height="640" fetchpriority="high">
           <div class="welcome-copy">
-            <span class="hero-tag">WELCOME TO YOUR MATCHDAY</span>
-            <h2 id="welcome-title">The game never<br />stands still.</h2>
-            <p>Your clubs. Your scores. Your next big story.</p>
-            <div class="welcome-actions">
-              <a href="#clubs" class="primary-button">Build your football feed <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
-              <button class="highlight-button" id="watch-highlight" type="button" aria-haspopup="dialog">Watch Messi’s goal</button>
-            </div>
+            <span class="hero-tag">LEAGUES CUP HIGHLIGHT</span>
+            <h2 id="welcome-title">Messi from distance.</h2>
+            <p>A low strike from outside the box doubles Inter Miami’s lead against Philadelphia Union.</p>
+            <a href="#clubs" class="primary-button">Build your football feed <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
           </div>
-          <div class="welcome-bottom">
-            <span>CLUB & INTERNATIONAL FOOTBALL</span>
-          </div>
+          <figure class="welcome-media">
+            <video id="messi-highlight" controls playsinline preload="none" aria-label="Animated replay of Lionel Messi’s goal against Philadelphia Union" poster="assets/messi-goal.webp">
+              <source src="assets/messi-goal.webm" type="video/webm">
+            </video>
+            <figcaption>Animated replay · 7 sec · <a href="https://www.mlssoccer.com/competitions/leagues-cup/video/goal-lionel-messi-inter-miami-cf-20th-minute" target="_blank" rel="noopener">Watch the original on MLS</a></figcaption>
+          </figure>
         </section>
         <label class="competition-picker" id="competition-picker"><span>Competition</span> <span id="competition-picker-mark"></span><select id="competition-select" aria-label="Competition"></select></label>
         <div
@@ -296,6 +295,12 @@
               <label><input type="radio" name="theme" value="light"> <span><strong>Light</strong><small>Bright surfaces and dark text</small></span></label>
               <label><input type="radio" name="theme" value="dark"> <span><strong>Dark</strong><small>Deep green surfaces and ivory text</small></span></label>
               <label><input type="radio" name="theme" value="system"> <span><strong>System</strong><small>Use your device’s appearance</small></span></label>
+            </fieldset>
+            <fieldset class="theme-colors">
+              <legend>Custom colors</legend>
+              <label><input id="theme-accent" type="color" value="#f0cd81"> Accent color</label>
+              <label><input id="theme-sidebar" type="color" value="#102b2d"> Sidebar color</label>
+              <button id="reset-theme-colors" class="load-more" type="button">Reset colors</button>
             </fieldset>
             <p class="data-status" id="theme-status" role="status"></p>
             <p class="data-status" id="sync-status" role="status">Sign in to sync follows and saved stories.</p>

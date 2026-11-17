@@ -1,19 +1,19 @@
-import { competitionMark } from "./competition-marks.js?v=deffb300c842";
-import { buildReports, editorialStories } from "./newsroom.js?v=deffb300c842";
-import { collectAlerts, followsInterest } from "./news-alerts.js?v=deffb300c842";
-import { upcomingFixtures } from "./match-data.js?v=deffb300c842";
-import { getTheme, setTheme } from "./theme.js?v=deffb300c842";
-import { directoryResults, profileFacts } from "./football-directory.js?v=deffb300c842";
-import { API, TABLE_API, fetchJson, getPlayerProfile, searchFootball } from "./api.js?v=deffb300c842";
-import { FeedFormatError } from "./feed-format.js?v=deffb300c842";
-import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=deffb300c842";
-import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=deffb300c842";
-import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=deffb300c842";
-import { createStandings, entriesOf, hasStandings } from "./standings.js?v=deffb300c842";
-import { createAlerts } from "./alerts.js?v=deffb300c842";
-import { createMatchday } from "./matchday.js?v=deffb300c842";
-import { fixtureCalendar } from "./matchday-data.js?v=deffb300c842";
-import { createPreferenceSync } from "./preference-sync.js?v=deffb300c842";
+import { competitionMark } from "./competition-marks.js?v=549d282c82b4";
+import { buildReports, editorialStories } from "./newsroom.js?v=549d282c82b4";
+import { collectAlerts, followsInterest } from "./news-alerts.js?v=549d282c82b4";
+import { upcomingFixtures } from "./match-data.js?v=549d282c82b4";
+import { getTheme, getThemeColors, setTheme, setThemeColors } from "./theme.js?v=549d282c82b4";
+import { directoryResults, profileFacts } from "./football-directory.js?v=549d282c82b4";
+import { API, TABLE_API, fetchJson, getPlayerProfile, searchFootball } from "./api.js?v=549d282c82b4";
+import { FeedFormatError } from "./feed-format.js?v=549d282c82b4";
+import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=549d282c82b4";
+import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=549d282c82b4";
+import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=549d282c82b4";
+import { createStandings, entriesOf, hasStandings } from "./standings.js?v=549d282c82b4";
+import { createAlerts } from "./alerts.js?v=549d282c82b4";
+import { createMatchday } from "./matchday.js?v=549d282c82b4";
+import { fixtureCalendar } from "./matchday-data.js?v=549d282c82b4";
+import { createPreferenceSync } from "./preference-sync.js?v=549d282c82b4";
 
 const $ = (id) => document.getElementById(id);
 const routes = ["home", "matches", "matchday", "news", "standings", "clubs", "saved", "alerts", "settings"];
@@ -560,26 +560,6 @@ function showDialog(content, focus = true) {
   if (!$("detail-dialog").open) $("detail-dialog").showModal();
   if (focus) $("close-dialog").focus();
 }
-$("watch-highlight").addEventListener("click", () => {
-  // Use FIFA's original highlight and load the external player on demand.
-  const videoId = "xhDzgSY9oCE";
-  const content = node("div");
-  const title = node("h2", "Messi scores against Mexico");
-  title.id = "detail-title";
-  const player = node("iframe", undefined, "highlight-frame");
-  player.title = "FIFA video: Lionel Messi scores against Mexico";
-  player.src = "https://www.youtube-nocookie.com/embed/" + videoId + "?autoplay=1&rel=0";
-  player.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
-  player.allowFullscreen = true;
-  player.referrerPolicy = "strict-origin-when-cross-origin";
-  const source = node("a", "Open the clip on FIFA", "highlight-source");
-  source.href = "https://www.fifa.com/es/watch/d2uYt6yr7UWTLzjc3Xp17g";
-  source.target = "_blank";
-  source.rel = "noopener";
-  content.append(title, node("p", "Argentina vs Mexico · 2022 FIFA World Cup", "dialog-meta"), player, source);
-  showDialog(content);
-});
-
 function openMatch(event, competitionId = league.id) {
   const data = competition(event),
     status = data.status || event.status,
@@ -705,6 +685,7 @@ function setRoute() {
   document.body.dataset.view = view;
   $("page-title").textContent = titles[view] || "Soccer Live newsroom";
   $("welcome").hidden = view !== "home" || Boolean(query);
+  if ($("welcome").hidden) $("messi-highlight").pause();
   $("right-rail").hidden = view !== "home" || Boolean(query);
   for (const section of routes.filter(route => route !== "home")) {
     $(section).hidden = requestedStory ? true : query && (view === "home" || searchSections.includes(view))
@@ -939,7 +920,6 @@ $("more-news").addEventListener("click", () => {
 });
 $("close-dialog").addEventListener("click", () => $("detail-dialog").close());
 $("detail-dialog").addEventListener("close", () => {
-  $("detail-content").querySelector(".highlight-frame")?.remove();
   dialogOpener?.focus({ preventScroll: true });
 });
 document.addEventListener("visibilitychange", () => {
@@ -1117,8 +1097,8 @@ async function readPortraits(path) {
 
 function portraitIndex() {
   portraits ??= Promise.all([
-    readPortraits("player-portraits.json?v=deffb300c842"),
-    readPortraits("club-player-portraits.json?v=deffb300c842"),
+    readPortraits("player-portraits.json?v=549d282c82b4"),
+    readPortraits("club-player-portraits.json?v=549d282c82b4"),
   ]).then(([league, clubs]) => ({ league, clubs }));
   return portraits;
 }
@@ -1315,6 +1295,9 @@ const accountSync = createPreferenceSync({
 const themeOptions = document.querySelectorAll('input[name="theme"]');
 function syncThemeOptions() {
   for (const option of themeOptions) option.checked = option.value === getTheme();
+  const { accent, sidebar } = getThemeColors();
+  $("theme-accent").value = accent;
+  $("theme-sidebar").value = sidebar;
 }
 for (const option of themeOptions) {
   option.addEventListener("change", () => {
@@ -1322,11 +1305,22 @@ for (const option of themeOptions) {
       ? "Appearance saved." : "Appearance applied for this visit.";
   });
 }
+function saveCustomColors(reset = false) {
+  const saved = setThemeColors(reset ? undefined : {
+    accent: $("theme-accent").value,
+    sidebar: $("theme-sidebar").value,
+  });
+  syncThemeOptions();
+  $("theme-status").textContent = saved ? "Theme colors saved." : "Theme colors applied for this visit.";
+}
+$("theme-accent").addEventListener("change", () => saveCustomColors());
+$("theme-sidebar").addEventListener("change", () => saveCustomColors());
+$("reset-theme-colors").addEventListener("click", () => saveCustomColors(true));
 window.addEventListener("soccer-theme-change", syncThemeOptions);
 syncThemeOptions();
 setRoute();
 try {
-  const response = await fetch("football-catalog.json?v=deffb300c842");
+  const response = await fetch("football-catalog.json?v=549d282c82b4");
   if (!response.ok) throw new Error("Club catalogue unavailable");
   catalog = await response.json();
   const teams = new Map();
@@ -1381,7 +1375,7 @@ function showAccountLink(signedIn) {
 
 async function startAccount() {
   try {
-    const { createAuthClient } = await import("./auth-client.js?v=deffb300c842");
+    const { createAuthClient } = await import("./auth-client.js?v=549d282c82b4");
     const client = await createAuthClient();
     let authRevision = 0;
     const verify = async () => {
