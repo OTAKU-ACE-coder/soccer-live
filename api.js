@@ -1,4 +1,4 @@
-import { validateFeed } from "./feed-format.js?v=4bcf31ad021e";
+import { validateFeed } from "./feed-format.js?v=3b5152491c6b";
 
 const provider = {
   scores: "https://site.api.espn.com/apis/site/v2/sports/soccer/",
@@ -10,17 +10,26 @@ export const API = root("scores");
 export const TABLE_API = root("tables");
 const webProvider = "https://site.web.api.espn.com";
 
+async function lookup(feed, params, fallback, signal) {
+  if (proxy) {
+    try {
+      const proxyTimeout = AbortSignal.timeout(3500);
+      return await fetchJson(proxy + "/lookup/" + feed + "?" + params, signal ? AbortSignal.any([signal, proxyTimeout]) : proxyTimeout);
+    } catch (error) {
+      if (signal?.aborted) throw error;
+    }
+  }
+  return fetchJson(webProvider + fallback, signal, feed);
+}
+
 export function searchFootball(query, signal) {
   const params = new URLSearchParams({ query });
-  if (proxy) return fetchJson(proxy + "/lookup/search?" + params, signal);
-  params.set("type", "player,team");
-  params.set("limit", "24");
-  return fetchJson(webProvider + "/apis/search/v2?" + params, signal, "search");
+  const fallback = new URLSearchParams({ query, type: "player,team", limit: "24" });
+  return lookup("search", params, "/apis/search/v2?" + fallback, signal);
 }
 
 export function getPlayerProfile(id, signal) {
-  if (proxy) return fetchJson(proxy + "/lookup/player?" + new URLSearchParams({ id }), signal);
-  return fetchJson(webProvider + "/apis/common/v3/sports/soccer/all/athletes/" + encodeURIComponent(id), signal, "player");
+  return lookup("player", new URLSearchParams({ id }), "/apis/common/v3/sports/soccer/all/athletes/" + encodeURIComponent(id), signal);
 }
 
 export async function fetchJson(url, signal, feed = new URL(url).pathname.split("/").pop()) {

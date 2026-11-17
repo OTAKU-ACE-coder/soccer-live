@@ -1,19 +1,19 @@
-import { competitionMark } from "./competition-marks.js?v=4bcf31ad021e";
-import { buildReports, editorialStories } from "./newsroom.js?v=4bcf31ad021e";
-import { collectAlerts, followsInterest } from "./news-alerts.js?v=4bcf31ad021e";
-import { upcomingFixtures } from "./match-data.js?v=4bcf31ad021e";
-import { getTheme, setTheme } from "./theme.js?v=4bcf31ad021e";
-import { directoryResults, profileFacts } from "./football-directory.js?v=4bcf31ad021e";
-import { API, TABLE_API, fetchJson, getPlayerProfile, searchFootball } from "./api.js?v=4bcf31ad021e";
-import { FeedFormatError } from "./feed-format.js?v=4bcf31ad021e";
-import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=4bcf31ad021e";
-import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=4bcf31ad021e";
-import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=4bcf31ad021e";
-import { createStandings, entriesOf, hasStandings } from "./standings.js?v=4bcf31ad021e";
-import { createAlerts } from "./alerts.js?v=4bcf31ad021e";
-import { createMatchday } from "./matchday.js?v=4bcf31ad021e";
-import { fixtureCalendar } from "./matchday-data.js?v=4bcf31ad021e";
-import { createPreferenceSync } from "./preference-sync.js?v=4bcf31ad021e";
+import { competitionMark } from "./competition-marks.js?v=3b5152491c6b";
+import { buildReports, editorialStories } from "./newsroom.js?v=3b5152491c6b";
+import { collectAlerts, followsInterest } from "./news-alerts.js?v=3b5152491c6b";
+import { upcomingFixtures } from "./match-data.js?v=3b5152491c6b";
+import { getTheme, setTheme } from "./theme.js?v=3b5152491c6b";
+import { directoryResults, profileFacts } from "./football-directory.js?v=3b5152491c6b";
+import { API, TABLE_API, fetchJson, getPlayerProfile, searchFootball } from "./api.js?v=3b5152491c6b";
+import { FeedFormatError } from "./feed-format.js?v=3b5152491c6b";
+import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=3b5152491c6b";
+import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=3b5152491c6b";
+import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=3b5152491c6b";
+import { createStandings, entriesOf, hasStandings } from "./standings.js?v=3b5152491c6b";
+import { createAlerts } from "./alerts.js?v=3b5152491c6b";
+import { createMatchday } from "./matchday.js?v=3b5152491c6b";
+import { fixtureCalendar } from "./matchday-data.js?v=3b5152491c6b";
+import { createPreferenceSync } from "./preference-sync.js?v=3b5152491c6b";
 
 const $ = (id) => document.getElementById(id);
 const routes = ["home", "matches", "matchday", "news", "standings", "clubs", "saved", "alerts", "settings"];
@@ -1089,8 +1089,8 @@ async function readPortraits(path) {
 
 function portraitIndex() {
   portraits ??= Promise.all([
-    readPortraits("player-portraits.json?v=4bcf31ad021e"),
-    readPortraits("club-player-portraits.json?v=4bcf31ad021e"),
+    readPortraits("player-portraits.json?v=3b5152491c6b"),
+    readPortraits("club-player-portraits.json?v=3b5152491c6b"),
   ]).then(([league, clubs]) => ({ league, clubs }));
   return portraits;
 }
@@ -1279,7 +1279,7 @@ window.addEventListener("soccer-theme-change", syncThemeOptions);
 syncThemeOptions();
 setRoute();
 try {
-  const response = await fetch("football-catalog.json?v=4bcf31ad021e");
+  const response = await fetch("football-catalog.json?v=3b5152491c6b");
   if (!response.ok) throw new Error("Club catalogue unavailable");
   catalog = await response.json();
   const teams = new Map();
@@ -1334,7 +1334,7 @@ function showAccountLink(signedIn) {
 
 async function startAccount() {
   try {
-    const { createAuthClient } = await import("./auth-client.js?v=4bcf31ad021e");
+    const { createAuthClient } = await import("./auth-client.js?v=3b5152491c6b");
     const client = await createAuthClient();
     let authRevision = 0;
     const verify = async () => {
