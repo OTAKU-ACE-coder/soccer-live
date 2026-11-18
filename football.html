@@ -11,10 +11,10 @@
     <title>Soccer Live | Your football, all in one place</title>
     <link rel="icon" href="assets/trionda-mark.png" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,calendar_month,check,close,home,login,manage_search,menu,monitoring,newspaper,notifications,person,refresh,search,settings,sports_soccer,trophy&amp;display=block" />
-    <link rel="stylesheet" href="brand.css?v=3e2704d76671" />
-    <link rel="stylesheet" href="football.css?v=3e2704d76671" />
-    <script src="config.js?v=3e2704d76671"></script>
-    <script type="module" src="football.js?v=3e2704d76671"></script>
+    <link rel="stylesheet" href="brand.css?v=0619efed7db1" />
+    <link rel="stylesheet" href="football.css?v=0619efed7db1" />
+    <script src="config.js?v=0619efed7db1"></script>
+    <script type="module" src="football.js?v=0619efed7db1"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
@@ -82,11 +82,17 @@
         <p id="search-status" class="search-status" role="status" hidden></p>
         <section class="welcome" id="welcome" aria-labelledby="welcome-title">
           <h2 class="sr-only" id="welcome-title">Featured football highlight</h2>
-          <video id="messi-highlight" controls playsinline autoplay muted loop preload="metadata" aria-labelledby="welcome-title" poster="assets/home-highlight.webp">
-            <source src="assets/home-highlight.mp4" type="video/mp4">
+          <video id="messi-highlight" controls playsinline autoplay muted loop preload="metadata" aria-labelledby="welcome-title" poster="assets/home-highlight-landscape.webp">
+            <source src="assets/home-highlight-landscape.mp4" type="video/mp4">
             <a href="assets/home-highlight.mp4">Open the featured football video</a>
           </video>
         </section>
+        <nav class="home-shortcuts" id="home-shortcuts" aria-label="Explore football">
+          <a href="#matchday"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span><span>All matches</span><span aria-hidden="true">↗</span></a>
+          <a href="#news"><span class="material-symbols-outlined" aria-hidden="true">newspaper</span><span>News</span><span aria-hidden="true">↗</span></a>
+          <a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span><span>League tables</span><span aria-hidden="true">↗</span></a>
+          <a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span><span>Clubs & teams</span><span aria-hidden="true">↗</span></a>
+        </nav>
         <label class="competition-picker" id="competition-picker"><span>Competition</span> <span id="competition-picker-mark"></span><select id="competition-select" aria-label="Competition"></select></label>
         <div
           class="league-strip"
@@ -157,7 +163,7 @@
           </section>
           <section class="panel matchday-panel" id="matchday" aria-labelledby="matchday-title" hidden>
             <div class="section-heading">
-              <h2 id="matchday-title">Matchday across competitions</h2>
+              <h2 id="matchday-title">Matches across competitions</h2>
               <button type="button" id="matchday-refresh" class="icon-button" aria-label="Refresh all competitions"><span class="material-symbols-outlined" aria-hidden="true">refresh</span></button>
             </div>
             <div class="match-toolbar">
@@ -194,7 +200,7 @@
               </div>
               <div id="mini-table"></div>
             </section>
-            <div class="editorial-note">
+            <div class="editorial-note" hidden>
               <span class="eyebrow">MADE FOR MATCHDAY</span
               ><strong>Follow the badge.<br />Find your people.</strong>
               <p>
@@ -212,7 +218,7 @@
             <div class="section-heading">
               <div>
                 <span class="eyebrow">BEYOND THE SCORELINE</span>
-                <h2 id="news-title">The newsroom</h2>
+                <h2 id="news-title">Latest football news</h2>
               </div>
               <div class="segmented">
                 <button type="button" data-sort="personal" aria-pressed="true">
