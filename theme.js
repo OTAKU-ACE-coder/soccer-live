@@ -1,6 +1,6 @@
 const THEME_KEY = "soccer-live-theme";
 const COLORS_KEY = "soccer-live-theme-colors";
-const defaultColors = { accent: "#f0cd81", sidebar: "#102b2d" };
+const defaultColors = { accent: "#8b5cf6", sidebar: "#102b2d" };
 const modes = ["light", "dark", "custom", "system"];
 const systemTheme = matchMedia("(prefers-color-scheme: dark)");
 let preference = "light";

@@ -1,4 +1,4 @@
-import { createAuthClient, pageUrl, showMessage } from './auth-client.js?v=3b9ff4909e27';
+import { createAuthClient, pageUrl, showMessage } from './auth-client.js?v=869159b2a340';
 
 const account = document.getElementById('account');
 const logout = document.getElementById('logout');

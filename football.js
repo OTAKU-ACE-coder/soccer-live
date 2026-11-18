@@ -1,20 +1,20 @@
-import { cataloguePortraits } from "./player-photos.js?v=3b9ff4909e27";
-import { competitionMark } from "./competition-marks.js?v=3b9ff4909e27";
-import { buildReports, editorialStories } from "./newsroom.js?v=3b9ff4909e27";
-import { collectAlerts, followsInterest } from "./news-alerts.js?v=3b9ff4909e27";
-import { upcomingFixtures } from "./match-data.js?v=3b9ff4909e27";
-import { getTheme, getThemeColors, setTheme, setThemeColors } from "./theme.js?v=3b9ff4909e27";
-import { directoryResults, profileFacts } from "./football-directory.js?v=3b9ff4909e27";
-import { API, TABLE_API, fetchJson, getPlayerProfile, searchFootball } from "./api.js?v=3b9ff4909e27";
-import { FeedFormatError } from "./feed-format.js?v=3b9ff4909e27";
-import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=3b9ff4909e27";
-import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=3b9ff4909e27";
-import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=3b9ff4909e27";
-import { createStandings, entriesOf, hasStandings } from "./standings.js?v=3b9ff4909e27";
-import { createAlerts } from "./alerts.js?v=3b9ff4909e27";
-import { createMatchday } from "./matchday.js?v=3b9ff4909e27";
-import { fixtureCalendar } from "./matchday-data.js?v=3b9ff4909e27";
-import { createPreferenceSync } from "./preference-sync.js?v=3b9ff4909e27";
+import { cataloguePortraits } from "./player-photos.js?v=869159b2a340";
+import { competitionMark } from "./competition-marks.js?v=869159b2a340";
+import { buildReports, editorialStories } from "./newsroom.js?v=869159b2a340";
+import { collectAlerts, followsInterest } from "./news-alerts.js?v=869159b2a340";
+import { upcomingFixtures } from "./match-data.js?v=869159b2a340";
+import { getTheme, getThemeColors, setTheme, setThemeColors } from "./theme.js?v=869159b2a340";
+import { directoryResults, profileFacts } from "./football-directory.js?v=869159b2a340";
+import { API, TABLE_API, fetchJson, getPlayerProfile, searchFootball } from "./api.js?v=869159b2a340";
+import { FeedFormatError } from "./feed-format.js?v=869159b2a340";
+import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=869159b2a340";
+import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=869159b2a340";
+import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=869159b2a340";
+import { createStandings, entriesOf, hasStandings } from "./standings.js?v=869159b2a340";
+import { createAlerts } from "./alerts.js?v=869159b2a340";
+import { createMatchday } from "./matchday.js?v=869159b2a340";
+import { fixtureCalendar } from "./matchday-data.js?v=869159b2a340";
+import { createPreferenceSync } from "./preference-sync.js?v=869159b2a340";
 
 const $ = (id) => document.getElementById(id);
 const routes = ["home", "matches", "matchday", "news", "standings", "clubs", "saved", "alerts", "settings"];
@@ -1114,8 +1114,8 @@ async function readPortraits(path) {
 
 function portraitIndex() {
   portraits ??= Promise.all([
-    readPortraits("player-portraits.json?v=3b9ff4909e27"),
-    readPortraits("club-player-portraits.json?v=3b9ff4909e27"),
+    readPortraits("player-portraits.json?v=869159b2a340"),
+    readPortraits("club-player-portraits.json?v=869159b2a340"),
   ]).then(([league, clubs]) => ({ league, clubs }));
   return portraits;
 }
@@ -1321,6 +1321,9 @@ function syncThemeOptions() {
   const { accent, sidebar } = getThemeColors();
   $("theme-accent").value = accent;
   $("theme-sidebar").value = sidebar;
+  for (const swatch of document.querySelectorAll("[data-theme-color]")) {
+    swatch.setAttribute("aria-pressed", String(swatch.dataset.themeColor.toLowerCase() === accent.toLowerCase()));
+  }
   $("custom-theme-colors").hidden = getTheme() !== "custom";
 }
 for (const option of themeOptions) {
@@ -1338,6 +1341,12 @@ function saveCustomColors(reset = false) {
   syncThemeOptions();
   $("theme-status").textContent = saved ? "Theme colors saved." : "Theme colors applied for this visit.";
 }
+for (const swatch of document.querySelectorAll("[data-theme-color]")) {
+  swatch.addEventListener("click", () => {
+    $("theme-accent").value = swatch.dataset.themeColor;
+    saveCustomColors();
+  });
+}
 $("theme-accent").addEventListener("change", () => saveCustomColors());
 $("theme-sidebar").addEventListener("change", () => saveCustomColors());
 $("reset-theme-colors").addEventListener("click", () => saveCustomColors(true));
@@ -1345,7 +1354,7 @@ window.addEventListener("soccer-theme-change", syncThemeOptions);
 syncThemeOptions();
 setRoute();
 try {
-  const response = await fetch("football-catalog.json?v=3b9ff4909e27");
+  const response = await fetch("football-catalog.json?v=869159b2a340");
   if (!response.ok) throw new Error("Club catalogue unavailable");
   catalog = await response.json();
   const teams = new Map();
@@ -1400,7 +1409,7 @@ function showAccountLink(signedIn) {
 
 async function startAccount() {
   try {
-    const { createAuthClient } = await import("./auth-client.js?v=3b9ff4909e27");
+    const { createAuthClient } = await import("./auth-client.js?v=869159b2a340");
     const client = await createAuthClient();
     let authRevision = 0;
     const verify = async () => {

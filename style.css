@@ -16,17 +16,17 @@ button { cursor:pointer; }
 .signup-layout { width:min(1000px,calc(100% - 32px)); grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
 .account-feature { display:grid; justify-items:start; align-content:center; gap:20px; background:var(--hero-art); color:#fff9ed; padding:clamp(24px,4vw,50px); }
 .account-ball { display:block; width:min(68%,260px); height:auto; justify-self:end; filter:drop-shadow(0 12px 18px #0007); }
-.account-feature :focus-visible { outline-color:var(--gold); }
+.account-feature :focus-visible { outline-color:#fff; }
 .account-feature h2 { margin:0; max-width:8ch; font:800 clamp(48px,7vw,80px)/.95 'Barlow Condensed',sans-serif; }
 .account-feature p { color:#dce9e3; max-width:32ch; margin:16px 0 18px; }
-.account-feature a { color:var(--gold); font-weight:700; text-underline-offset:4px; }
+.account-feature a { color:#fff; font-weight:700; text-underline-offset:4px; }
 .form-box { padding:clamp(22px,4vw,48px); }
 .form-box h1 { margin:0 0 20px; font:800 clamp(33px,5vw,45px)/1.04 'Barlow Condensed',sans-serif; }
 .input-box { display:flex; flex-direction:column-reverse; gap:5px; margin:15px 0; }
 .input-box label { font-weight:600; }
 .input-box input { width:100%; min-height:45px; border:1px solid var(--line); border-radius:9px; background:var(--surface-raised); padding:10px 12px; color:var(--text); font-size:16px; }
 .input-box input:focus { border-color:var(--green); }
-.btn { display:block; width:100%; margin-top:16px; padding:12px 15px; border:1px solid #b98e41; border-radius:9px; background:var(--gold); color:#142c1d; font-weight:700; text-decoration:none; text-align:center; }
+.btn { display:block; width:100%; margin-top:16px; padding:12px 15px; border:1px solid var(--gold); border-radius:9px; background:var(--gold); color:var(--accent-text); font-weight:700; text-decoration:none; text-align:center; }
 .btn:not(:disabled):hover { background:var(--gold-hover); }
 .btn:disabled { opacity:.55; cursor:wait; }
 .login-register { text-align:center; margin-top:14px; }

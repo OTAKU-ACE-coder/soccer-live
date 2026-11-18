@@ -11,10 +11,10 @@
     <title>Soccer Live | Your football, all in one place</title>
     <link rel="icon" href="assets/trionda-mark.png" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,calendar_month,check,close,home,login,manage_search,monitoring,newspaper,notifications,person,refresh,search,settings,sports_soccer,trophy&amp;display=block" />
-    <link rel="stylesheet" href="brand.css?v=3b9ff4909e27" />
-    <link rel="stylesheet" href="football.css?v=3b9ff4909e27" />
-    <script src="config.js?v=3b9ff4909e27"></script>
-    <script type="module" src="football.js?v=3b9ff4909e27"></script>
+    <link rel="stylesheet" href="brand.css?v=869159b2a340" />
+    <link rel="stylesheet" href="football.css?v=869159b2a340" />
+    <script src="config.js?v=869159b2a340"></script>
+    <script type="module" src="football.js?v=869159b2a340"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
@@ -299,8 +299,25 @@
             </fieldset>
             <fieldset class="theme-colors" id="custom-theme-colors" hidden>
               <legend>Custom colors</legend>
-              <label><input id="theme-accent" type="color" value="#f0cd81"> Accent color</label>
+              <label><input id="theme-accent" type="color" value="#8b5cf6"> Accent color</label>
               <label><input id="theme-sidebar" type="color" value="#102b2d"> Sidebar color</label>
+              <div class="theme-swatches" role="group" aria-label="Accent color presets">
+                <button type="button" class="theme-swatch" data-theme-color="#8b5cf6" aria-label="Violet accent" aria-pressed="false" title="Violet" style="--swatch-color: #8b5cf6"></button>
+                <button type="button" class="theme-swatch" data-theme-color="#3b82f6" aria-label="Blue accent" aria-pressed="false" title="Blue" style="--swatch-color: #3b82f6"></button>
+                <button type="button" class="theme-swatch" data-theme-color="#0ea5e9" aria-label="Sky accent" aria-pressed="false" title="Sky" style="--swatch-color: #0ea5e9"></button>
+                <button type="button" class="theme-swatch" data-theme-color="#06b6d4" aria-label="Cyan accent" aria-pressed="false" title="Cyan" style="--swatch-color: #06b6d4"></button>
+                <button type="button" class="theme-swatch" data-theme-color="#14b8a6" aria-label="Teal accent" aria-pressed="false" title="Teal" style="--swatch-color: #14b8a6"></button>
+                <button type="button" class="theme-swatch" data-theme-color="#22c55e" aria-label="Green accent" aria-pressed="false" title="Green" style="--swatch-color: #22c55e"></button>
+                <button type="button" class="theme-swatch" data-theme-color="#84cc16" aria-label="Lime accent" aria-pressed="false" title="Lime" style="--swatch-color: #84cc16"></button>
+                <button type="button" class="theme-swatch" data-theme-color="#f43f5e" aria-label="Rose accent" aria-pressed="false" title="Rose" style="--swatch-color: #f43f5e"></button>
+                <button type="button" class="theme-swatch" data-theme-color="#ec4899" aria-label="Pink accent" aria-pressed="false" title="Pink" style="--swatch-color: #ec4899"></button>
+                <button type="button" class="theme-swatch" data-theme-color="#ef4444" aria-label="Red accent" aria-pressed="false" title="Red" style="--swatch-color: #ef4444"></button>
+                <button type="button" class="theme-swatch" data-theme-color="#f97316" aria-label="Orange accent" aria-pressed="false" title="Orange" style="--swatch-color: #f97316"></button>
+                <button type="button" class="theme-swatch" data-theme-color="#f59e0b" aria-label="Amber accent" aria-pressed="false" title="Amber" style="--swatch-color: #f59e0b"></button>
+                <button type="button" class="theme-swatch" data-theme-color="#ffffff" aria-label="White accent" aria-pressed="false" title="White" style="--swatch-color: #ffffff"></button>
+                <button type="button" class="theme-swatch" data-theme-color="#64748b" aria-label="Slate accent" aria-pressed="false" title="Slate" style="--swatch-color: #64748b"></button>
+                <button type="button" class="theme-swatch" data-theme-color="#111111" aria-label="Black accent" aria-pressed="false" title="Black" style="--swatch-color: #111111"></button>
+              </div>
               <button id="reset-theme-colors" class="load-more" type="button">Reset colors</button>
             </fieldset>
             <p class="data-status" id="theme-status" role="status"></p>
