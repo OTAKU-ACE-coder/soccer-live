@@ -1,4 +1,4 @@
-import { createAuthClient, pageUrl, showMessage } from './auth-client.js?v=869159b2a340';
+import { createAuthClient, pageUrl, showMessage } from './auth-client.js?v=3e2704d76671';
 
 const form = document.getElementById('auth-form');
 const fullName = document.getElementById('full-name');

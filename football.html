@@ -10,29 +10,31 @@
     />
     <title>Soccer Live | Your football, all in one place</title>
     <link rel="icon" href="assets/trionda-mark.png" type="image/png">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,calendar_month,check,close,home,login,manage_search,monitoring,newspaper,notifications,person,refresh,search,settings,sports_soccer,trophy&amp;display=block" />
-    <link rel="stylesheet" href="brand.css?v=869159b2a340" />
-    <link rel="stylesheet" href="football.css?v=869159b2a340" />
-    <script src="config.js?v=869159b2a340"></script>
-    <script type="module" src="football.js?v=869159b2a340"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,calendar_month,check,close,home,login,manage_search,menu,monitoring,newspaper,notifications,person,refresh,search,settings,sports_soccer,trophy&amp;display=block" />
+    <link rel="stylesheet" href="brand.css?v=3e2704d76671" />
+    <link rel="stylesheet" href="football.css?v=3e2704d76671" />
+    <script src="config.js?v=3e2704d76671"></script>
+    <script type="module" src="football.js?v=3e2704d76671"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
       <a class="brand-logo" aria-label="Soccer Live home" href="#home"><img src="assets/trionda-mark.png" width="128" height="128" alt=""><span class="brand-wordmark" aria-hidden="true">SOCCER <span>LIVE</span></span></a>
-      <p class="nav-label">YOUR FOOTBALL</p>
       <nav class="main-nav" aria-label="Main navigation">
-        <a href="#home"><span class="material-symbols-outlined" aria-hidden="true">home</span>Overview</a>
-        <a href="#matches"><span class="material-symbols-outlined" aria-hidden="true">sports_soccer</span>Match centre</a>
-        <a href="#matchday"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>All competitions</a>
-        <a href="#news"><span class="material-symbols-outlined" aria-hidden="true">newspaper</span>Newsroom</a>
-        <a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span>League tables</a>
-        <a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span>Discover clubs</a>
-        <a href="#alerts"><span class="material-symbols-outlined" aria-hidden="true">notifications</span>Alerts <small id="nav-unread" hidden>0</small></a>
-        <a href="#settings"><span class="material-symbols-outlined" aria-hidden="true">settings</span>Settings</a>
-        <a href="#saved"
-          ><span class="material-symbols-outlined" aria-hidden="true">bookmark</span>Saved stories
-          <small id="saved-count">0</small></a
-        >
+        <div class="nav-group">
+          <p class="nav-label">FOOTBALL</p>
+          <a href="#home"><span class="material-symbols-outlined" aria-hidden="true">home</span>Home</a>
+          <a href="#matchday"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>All matches</a>
+          <a href="#matches"><span class="material-symbols-outlined" aria-hidden="true">sports_soccer</span>Competition scores</a>
+          <a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span>League tables</a>
+          <a href="#news"><span class="material-symbols-outlined" aria-hidden="true">newspaper</span>News</a>
+          <a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span>Clubs & teams</a>
+        </div>
+        <div class="nav-group">
+          <p class="nav-label">MY FOOTBALL</p>
+          <a href="#saved"><span class="material-symbols-outlined" aria-hidden="true">bookmark</span>Saved stories <small id="saved-count">0</small></a>
+          <a href="#alerts"><span class="material-symbols-outlined" aria-hidden="true">notifications</span>Notifications <small id="nav-unread" hidden>0</small></a>
+          <a href="#settings"><span class="material-symbols-outlined" aria-hidden="true">settings</span>Settings</a>
+        </div>
       </nav>
       <div class="sidebar-following">
         <div class="sidebar-heading">
@@ -41,10 +43,6 @@
         </div>
         <div id="sidebar-clubs"></div>
       </div>
-      <a class="sidebar-promo" href="#matches"
-        ><span>MATCHDAY CENTRAL</span><strong>Closer to<br />the game.</strong
-        ><span>Explore fixtures ↗</span></a
-      >
       <a class="sidebar-account" href="protected.html"
         ><span class="avatar"><span class="material-symbols-outlined" aria-hidden="true">person</span></span
         ><span>Your account<small>Manage your sign-in</small></span
@@ -84,7 +82,7 @@
         <p id="search-status" class="search-status" role="status" hidden></p>
         <section class="welcome" id="welcome" aria-labelledby="welcome-title">
           <h2 class="sr-only" id="welcome-title">Featured football highlight</h2>
-          <video id="messi-highlight" controls playsinline preload="none" aria-labelledby="welcome-title" poster="assets/home-highlight.webp">
+          <video id="messi-highlight" controls playsinline autoplay muted loop preload="metadata" aria-labelledby="welcome-title" poster="assets/home-highlight.webp">
             <source src="assets/home-highlight.mp4" type="video/mp4">
             <a href="assets/home-highlight.mp4">Open the featured football video</a>
           </video>
@@ -362,13 +360,23 @@
       </footer>
     </div>
     <nav class="mobile-nav" aria-label="Mobile navigation">
-      <a href="#home"><span class="material-symbols-outlined" aria-hidden="true">home</span><span>Home</span></a
-      ><a href="#matches"><span class="material-symbols-outlined" aria-hidden="true">sports_soccer</span><span>Matches</span></a
-      ><a href="#news"><span class="material-symbols-outlined" aria-hidden="true">newspaper</span><span>News</span></a
-      ><a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span><span>Tables</span></a
-      ><a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span><span>Clubs</span></a
-      ><a href="#settings"><span class="material-symbols-outlined" aria-hidden="true">settings</span><span>Settings</span></a>
+      <a href="#home"><span class="material-symbols-outlined" aria-hidden="true">home</span><span>Home</span></a>
+      <a href="#matchday"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span><span>Matches</span></a>
+      <a href="#news"><span class="material-symbols-outlined" aria-hidden="true">newspaper</span><span>News</span></a>
+      <a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span><span>Clubs</span></a>
+      <button type="button" id="open-menu" aria-haspopup="dialog" aria-controls="app-menu"><span class="material-symbols-outlined" aria-hidden="true">menu</span><span>More</span></button>
     </nav>
+    <dialog id="app-menu" aria-labelledby="app-menu-title">
+      <div class="menu-heading"><h2 id="app-menu-title">Soccer Live</h2><button type="button" id="close-menu" class="icon-button" aria-label="Close menu"><span class="material-symbols-outlined" aria-hidden="true">close</span></button></div>
+      <nav class="menu-links" aria-label="More pages">
+        <a href="#matches"><span class="material-symbols-outlined" aria-hidden="true">sports_soccer</span>Competition scores</a>
+        <a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span>League tables</a>
+        <a href="#saved"><span class="material-symbols-outlined" aria-hidden="true">bookmark</span>Saved stories</a>
+        <a href="#alerts"><span class="material-symbols-outlined" aria-hidden="true">notifications</span>Notifications</a>
+        <a href="#settings"><span class="material-symbols-outlined" aria-hidden="true">settings</span>Settings</a>
+        <a href="protected.html"><span class="material-symbols-outlined" aria-hidden="true">person</span>My account</a>
+      </nav>
+    </dialog>
     <dialog id="detail-dialog" aria-labelledby="detail-title">
       <div class="dialog-top">
         <span class="eyebrow">SOCCER LIVE</span
