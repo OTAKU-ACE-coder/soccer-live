@@ -1,7 +1,7 @@
 const THEME_KEY = "soccer-live-theme";
 const COLORS_KEY = "soccer-live-theme-colors";
 const defaultColors = { accent: "#f0cd81", sidebar: "#102b2d" };
-const modes = ["light", "dark", "system"];
+const modes = ["light", "dark", "custom", "system"];
 const systemTheme = matchMedia("(prefers-color-scheme: dark)");
 let preference = "light";
 let colors = { ...defaultColors };
@@ -51,10 +51,11 @@ export function getTheme() {
 
 function applyTheme() {
   document.documentElement.dataset.theme =
-    preference === "system" ? (systemTheme.matches ? "dark" : "light") : preference;
+    preference === "system" ? (systemTheme.matches ? "dark" : "light") : preference === "custom" ? "dark" : preference;
+  document.documentElement.dataset.appearance = preference;
   const root = document.documentElement;
   for (const key of Object.keys(defaultColors)) {
-    if (colors[key] === defaultColors[key]) root.style.removeProperty("--custom-" + key);
+    if (preference !== "custom") root.style.removeProperty("--custom-" + key);
     else root.style.setProperty("--custom-" + key, colors[key]);
   }
 }

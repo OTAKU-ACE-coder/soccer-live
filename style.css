@@ -7,7 +7,7 @@ a { color:inherit; }
 button,input { font:inherit; }
 button { cursor:pointer; }
 :focus-visible { outline:3px solid var(--focus-ring); outline-offset:3px; }
-.account-header { display:flex; justify-content:space-between; align-items:center; gap:14px; padding:12px max(20px,calc((100% - 1100px)/2)); background:linear-gradient(110deg,#1b4238,var(--nav) 60%); color:#fff; border-top:3px solid var(--gold); }
+.account-header { display:flex; justify-content:space-between; align-items:center; gap:14px; padding:12px max(20px,calc((100% - 1100px)/2)); background:linear-gradient(110deg,var(--sidebar-start),var(--nav) 60%); color:var(--nav-text); border-top:3px solid var(--gold); }
 .navigation { display:flex; align-items:center; gap:clamp(12px,3vw,28px); }
 .navigation a { text-decoration:none; }
 .navigation a:hover,.text-button:hover { text-decoration:underline; }

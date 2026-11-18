@@ -1,21 +1,25 @@
 :root {
     color-scheme: light;
-    --nav: #102b2d;
-    --sidebar-start: #1b4238;
-    --sidebar-hover: #24483f;
-    --mobile-nav: #111b2cf5;
-    --page: #f4efe5;
-    --panel: #fffdf7;
-    --text: #17292d;
-    --muted: #516264;
-    --line: #dcd4c4;
+    --nav: #fff;
+    --sidebar-start: #fff;
+    --sidebar-hover: #edf0f5;
+    --mobile-nav: #ffffffed;
+    --page: #f5f6f8;
+    --panel: #fff;
+    --text: #17212f;
+    --nav-text: #263343;
+    --nav-muted: #596879;
+    --nav-border: #dfe4eb;
+    --nav-active-text: #17212f;
+    --muted: #536174;
+    --line: #dfe4eb;
     --green: #12634b;
     --blue: #254a9b;
     --red: #a32030;
     --gold: #f0cd81;
     --gold-hover: #f7db9e;
-    --surface-raised: #f4eee2;
-    --surface-accent: #e4efe6;
+    --surface-raised: #f0f3f7;
+    --surface-accent: #eaf1ed;
     --focus-ring: #2b58b5;
     --hero-art:
         linear-gradient(128deg, #102b2d 19%, transparent 70%),
@@ -24,23 +28,34 @@
 }
 :root[data-theme="dark"] {
     color-scheme: dark;
-    --page: #0e1b1e;
-    --panel: #17282c;
-    --text: #f8f1e4;
-    --muted: #afbfbd;
-    --line: #3d5151;
+    --page: #111317;
+    --nav: #181b20;
+    --sidebar-start: #181b20;
+    --sidebar-hover: #2a3039;
+    --mobile-nav: #181b20f5;
+    --nav-text: #e6ebf2;
+    --nav-muted: #b4becb;
+    --nav-border: #353b45;
+    --panel: #1c2027;
+    --text: #f2f5f9;
+    --muted: #b4becb;
+    --line: #353b45;
     --green: #8ddfbb;
     --blue: #a9c2ff;
     --red: #ff929c;
-    --surface-raised: #213437;
-    --surface-accent: #244037;
+    --surface-raised: #282e37;
+    --surface-accent: #25392f;
     --focus-ring: var(--gold);
 }
-:root[style*="--custom-accent"] {
+:root[data-appearance="custom"] {
+    --page: color-mix(in srgb, var(--custom-accent) 7%, #111317);
+    --panel: color-mix(in srgb, var(--custom-accent) 9%, #1c2027);
+    --surface-raised: color-mix(in srgb, var(--custom-accent) 12%, #282e37);
+    --surface-accent: color-mix(in srgb, var(--custom-accent) 17%, #25313a);
     --gold: color-mix(in srgb, var(--custom-accent) 60%, white);
     --gold-hover: color-mix(in srgb, var(--custom-accent) 42%, white);
 }
-:root[style*="--custom-sidebar"] {
+:root[data-appearance="custom"] {
     --nav: color-mix(in srgb, var(--custom-sidebar) 32%, #08141d);
     --sidebar-start: color-mix(in srgb, var(--custom-sidebar) 42%, #12232b);
     --sidebar-hover: color-mix(in srgb, var(--custom-sidebar) 46%, #142832);
@@ -53,7 +68,7 @@
     width: fit-content;
     min-height: 54px;
     flex-shrink: 0;
-    color: #fff9ed;
+    color: var(--nav-text);
     text-decoration: none;
 }
 .brand-logo img {

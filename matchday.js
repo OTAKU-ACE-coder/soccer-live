@@ -1,8 +1,8 @@
-import { competitionMark } from "./competition-marks.js?v=d0b99a1d540a";
-import { API, fetchJson } from "./api.js?v=d0b99a1d540a";
-import { asTeam, dateLabel, localDate } from "./football-format.js?v=d0b99a1d540a";
-import { empty, node } from "./render.js?v=d0b99a1d540a";
-import { filterMatchday, fixtureState, matchesForLocalDay, providerMatchDates } from "./matchday-data.js?v=d0b99a1d540a";
+import { competitionMark } from "./competition-marks.js?v=3b9ff4909e27";
+import { API, fetchJson } from "./api.js?v=3b9ff4909e27";
+import { asTeam, dateLabel, localDate } from "./football-format.js?v=3b9ff4909e27";
+import { empty, node } from "./render.js?v=3b9ff4909e27";
+import { filterMatchday, fixtureState, matchesForLocalDay, providerMatchDates } from "./matchday-data.js?v=3b9ff4909e27";
 
 export function createMatchday({ getCatalogue, matchRow, matchesTeam, followsTeam }) {
   const picker = document.getElementById("matchday-date");

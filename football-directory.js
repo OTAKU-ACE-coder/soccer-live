@@ -1,4 +1,4 @@
-import { normalize } from "./football-format.js?v=d0b99a1d540a";
+import { normalize } from "./football-format.js?v=3b9ff4909e27";
 
 const identifiers = { team: /(?:^|~)t:(\d{1,12})$/, player: /(?:^|~)a:(\d{1,12})$/ };
 const leagueSlug = /^[a-z0-9_.]{1,48}$/;

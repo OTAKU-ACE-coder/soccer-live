@@ -11,10 +11,10 @@
     <title>Soccer Live | Your football, all in one place</title>
     <link rel="icon" href="assets/trionda-mark.png" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,calendar_month,check,close,home,login,manage_search,monitoring,newspaper,notifications,person,refresh,search,settings,sports_soccer,trophy&amp;display=block" />
-    <link rel="stylesheet" href="brand.css?v=d0b99a1d540a" />
-    <link rel="stylesheet" href="football.css?v=d0b99a1d540a" />
-    <script src="config.js?v=d0b99a1d540a"></script>
-    <script type="module" src="football.js?v=d0b99a1d540a"></script>
+    <link rel="stylesheet" href="brand.css?v=3b9ff4909e27" />
+    <link rel="stylesheet" href="football.css?v=3b9ff4909e27" />
+    <script src="config.js?v=3b9ff4909e27"></script>
+    <script type="module" src="football.js?v=3b9ff4909e27"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
@@ -293,11 +293,11 @@
             <div class="section-heading"><div><span class="eyebrow">PREFERENCES</span><h2 id="settings-title">Settings</h2></div></div>
             <fieldset class="theme-options">
               <legend>Appearance</legend>
-              <label><input type="radio" name="theme" value="light"> <span><strong>Light</strong><small>Bright surfaces and dark text</small></span></label>
-              <label><input type="radio" name="theme" value="dark"> <span><strong>Dark</strong><small>Deep green surfaces and ivory text</small></span></label>
-              <label><input type="radio" name="theme" value="system"> <span><strong>System</strong><small>Use your device’s appearance</small></span></label>
+              <label><input type="radio" name="theme" value="light"> <span><strong>White</strong><small>Clean white surfaces and dark text</small></span></label>
+              <label><input type="radio" name="theme" value="dark"> <span><strong>Dark</strong><small>Charcoal surfaces and light text</small></span></label>
+              <label><input type="radio" name="theme" value="custom"> <span><strong>Custom</strong><small>Your own accent and sidebar colors</small></span></label>
             </fieldset>
-            <fieldset class="theme-colors">
+            <fieldset class="theme-colors" id="custom-theme-colors" hidden>
               <legend>Custom colors</legend>
               <label><input id="theme-accent" type="color" value="#f0cd81"> Accent color</label>
               <label><input id="theme-sidebar" type="color" value="#102b2d"> Sidebar color</label>

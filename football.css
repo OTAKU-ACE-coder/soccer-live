@@ -57,7 +57,7 @@ h2 {
   width: 244px;
   background: linear-gradient(155deg, var(--sidebar-start), var(--nav) 50%);
   border-top: 3px solid var(--gold);
-  color: #c0cbdc;
+  color: var(--nav-text);
   padding: 30px 19px 18px;
   display: flex;
   flex-direction: column;
@@ -93,7 +93,7 @@ h2 {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1.5px;
-  color: #7f91a9;
+  color: var(--nav-muted);
   margin: 32px 12px 11px;
 }
 .main-nav {
@@ -113,11 +113,11 @@ h2 {
   width: 24px;
   text-align: center;
   line-height: 1;
-  color: #9faec2;
+  color: var(--nav-muted);
 }
 .main-nav a:hover {
   background: var(--sidebar-hover);
-  color: white;
+  color: var(--nav-text);
 }
 .main-nav a[aria-current="page"] {
   background: var(--gold);
@@ -150,7 +150,7 @@ h2 {
   width: 100%;
   background: none;
   border: 0;
-  color: #cbd5e4;
+  color: var(--nav-text);
   padding: 9px 12px;
   text-align: left;
   font-size: 12px;
@@ -163,7 +163,7 @@ h2 {
 .sidebar-empty {
   padding: 4px 12px;
   font-size: 12px;
-  color: #899bb2;
+  color: var(--nav-muted);
 }
 .sidebar-promo {
   background:
@@ -192,14 +192,14 @@ h2 {
   align-items: center;
   gap: 10px;
   padding: 15px 4px 0;
-  border-top: 1px solid #ffffff14;
+  border-top: 1px solid var(--nav-border);
   margin-top: auto;
   font-size: 12px;
-  color: #edf3fa;
+  color: var(--nav-text);
 }
 .sidebar-account small {
   display: block;
-  color: #7e92ad;
+  color: var(--nav-muted);
   font-size: 10px;
 }
 .sidebar-account > span:last-child {
@@ -1175,14 +1175,16 @@ body[data-view="saved"] .story-grid {
     align-items: center;
     gap: 1px;
     font-size: 20px;
-    color: #95a6bd;
+    color: var(--nav-muted);
     min-width: 46px;
   }
   .mobile-nav a span {
     font-size: 9px;
   }
   .mobile-nav a[aria-current="page"] {
-    color: var(--gold);
+    color: var(--nav-active-text);
+    background: var(--gold);
+    border-radius: 8px;
   }
   .toast {
     bottom: 85px;
