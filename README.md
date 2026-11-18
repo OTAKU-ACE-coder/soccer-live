@@ -2,11 +2,15 @@
 
 Soccer Live is a football hub with scores, fixtures, club follows, and a personalized news feed. The existing account pages use Supabase Auth.
 
+## Developer
+
+Developed by **coderX**.
+
 ## Football app
 
 [Open Soccer Live](https://otaku-ace-coder.github.io/soccer-live/football.html)
 
-The app has dedicated overview, match centre, newsroom, standings, club discovery, and saved-story views.
+The app has a home dashboard, matches across competitions, news, league tables, club discovery, dedicated search results, saved stories, notifications, and settings.
 
 - Premier League, La Liga, Bundesliga, Serie A, Ligue 1, Champions League, FA Cup, and Carabao Cup feeds. The domestic cups display fixtures and results in place of a league table.
 - International coverage includes UEFA Nations League, AFCON Qualifying, Concacaf Nations League, men’s and women’s friendlies, both FIFA World Cups, and the Africa Cup of Nations. Open the International competition group to see scores, fixtures and group tables where supplied, and discover and follow national teams.
@@ -16,7 +20,9 @@ The app has dedicated overview, match centre, newsroom, standings, club discover
 - Current league tables and club profiles with related matches and stories.
 - A newsroom with original data-driven match reports, football explainers, personalised ranking, and a saved reading list. Articles open inside Soccer Live.
 - Club follows, searches, and saved stories persist in browser storage. Existing Touchline follows migrate automatically. A signed-in account can also sync follows and saved stories after the preferences migration is deployed. Searches, alerts, and appearance stay on the device.
-- Desktop sidebar with club badges, competition badges, stadium photography, and mobile navigation.
+- Desktop navigation groups football pages and personal pages. Mobile navigation includes a More menu for tables, saved stories, notifications, settings, and account access.
+- The home dashboard plays the complete supplied video in a 16:9 landscape frame. Playback begins muted, and the original portrait picture remains visible with black space at the sides.
+- Search opens its own address for clubs and players, with profile details and photo fallbacks.
 - Supabase sign-up, login, recovery, and account pages remain connected to the app.
 
 Soccer Live uses ESPN’s unofficial website feeds. It validates score, fixture, standings, roster, and match detail responses and shows an error if a feed changes format. A Cloudflare Worker can cache supported queries. Set the Worker URL as described below to route feed requests through it. Scores refresh every minute in an active tab. Refresh reloads match reports and standings. Match reports are generated from recorded results and available statistics. No match scores or statistics are invented.
@@ -25,9 +31,15 @@ Club and league badge sources are recorded in `football-catalog.json`. The bundl
 
 ## Screenshot previews
 
-### Overview
+Captured from the live website on 18 November 2026.
 
-![Soccer Live overview and match centre](assets/previews/overview.jpg)
+### Desktop home
+
+![Soccer Live desktop dashboard with the complete video and navigation shortcuts](assets/previews/overview.jpg)
+
+### Mobile home
+
+![Soccer Live mobile home with the video, navigation shortcuts, and matches](assets/previews/mobile.jpg)
 
 ### Newsroom
 
@@ -36,6 +48,10 @@ Club and league badge sources are recorded in `football-catalog.json`. The bundl
 ### League standings
 
 ![Soccer Live league table with recent form](assets/previews/standings.jpg)
+
+### Appearance
+
+![Soccer Live custom theme settings and accent color presets](assets/previews/appearance.jpg)
 
 ## Fixtures, squads, and recent form
 
@@ -50,7 +66,7 @@ Open the bell to follow competitions or Ballon d’Or and choose which updates a
 
 ## Appearance
 
-Open Settings to select light, dark, or your device’s theme. The preference is saved in the current browser and shared with the account pages.
+Open Settings to choose White, Dark, or Custom. White and Dark use monochrome accents. Custom provides 15 accent presets, a color picker, and a sidebar color picker. Theme and color preferences are saved in the current browser and shared with the account pages.
 
 ## Local checks
 
