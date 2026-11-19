@@ -5,7 +5,7 @@ const teams = [...new Map([...catalog.flatMap(league => league.teams), { id: "26
 await mkdir(new URL("assets/clubs/", root), { recursive: true });
 let previous = {};
 try { previous = JSON.parse(await readFile(new URL("club-badges.json", root), "utf8")); } catch {}
-const manifest = {};
+const manifest = { ...previous };
 const missing = [];
 let index = 0;
 async function download() {

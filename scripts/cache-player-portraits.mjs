@@ -40,7 +40,8 @@ const queries = {
  alexanderisak:"Alexander Isak",florianwirtz:"Florian Wirtz"
 };
 const key = name => name.normalize("NFKD").replace(/\p{Diacritic}/gu,"").toLowerCase().replace(/[^a-z0-9]/g,"");
-const byID = {};
+let byID = {};
+try { byID = JSON.parse(await readFile(new URL("player-local-portraits.json",root),"utf8")); } catch {}
 for (let offset=0;offset<Object.keys(manifest).length;offset+=5) {
  await Promise.all(Object.entries(manifest).slice(offset,offset+5).map(async ([name,file]) => {
   if (!queries[name]) return;
@@ -50,7 +51,7 @@ for (let offset=0;offset<Object.keys(manifest).length;offset+=5) {
    const matches = data.results?.flatMap(group=>group.contents || []).filter(player=>player.sport==="soccer" && key(player.displayName)===key(queries[name]));
    // A short name can belong to different people. Only an exact, unique ID is safe.
    const id = name.startsWith("neymar") ? "132948" : matches?.length===1 ? /~a:(\d+)$/.exec(matches[0].uid)?.[1] : "";
-   if (id) byID[id]=file;
+   if (id) byID[id] ??= file;
   } catch {}
  }));
 }

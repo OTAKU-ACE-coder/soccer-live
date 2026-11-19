@@ -1,5 +1,5 @@
-import { playerStatus } from "./player-status.js?v=a67d32935853";
-import { normalize } from "./football-format.js?v=a67d32935853";
+import { playerStatus } from "./player-status.js?v=90664fa6d793";
+import { normalize } from "./football-format.js?v=90664fa6d793";
 
 const identifiers = { team: /(?:^|~)t:(\d{1,12})$/, player: /(?:^|~)a:(\d{1,12})$/ };
 const leagueSlug = /^[a-z0-9_.]{1,48}$/;
@@ -23,8 +23,9 @@ export function directoryResults(data, query) {
       });
     }
   }
+  const fullNameQuery = query.trim().split(/\s+/).length > 1;
   const ordered = (items) => [...items.values()].sort((a, b) =>
-    Number(normalize(b.name) === normalize(query)) - Number(normalize(a.name) === normalize(query))).slice(0, 100);
+    fullNameQuery ? Number(normalize(b.name) === normalize(query)) - Number(normalize(a.name) === normalize(query)) : 0).slice(0, 100);
   return { clubs: ordered(result.team), players: ordered(result.player) };
 }
 

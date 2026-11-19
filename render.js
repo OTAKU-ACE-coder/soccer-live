@@ -1,3 +1,5 @@
+import { additionalClubBadges } from "./football-media.js?v=90664fa6d793";
+
 export function node(tag, text, className) {
   const result = document.createElement(tag);
   if (text !== undefined) result.textContent = text;
@@ -40,11 +42,24 @@ export function crest(team) {
   );
   fallback.setAttribute("aria-hidden", "true");
   const candidates = crestCandidates(team);
-  if (!candidates.length) return fallback;
+  if (!candidates.length) {
+    void additionalClubBadges(team).then(sources => {
+      if (sources.length && fallback.isConnected) {
+        const badge = crest({ ...team, logo: sources[0] });
+        fallback.replaceWith(badge);
+      }
+    });
+    return fallback;
+  }
   const image = node("img");
   image.alt = "";
   image.loading = "lazy";
-  image.addEventListener("error", () => {
+  let triedAdditional = false;
+  image.addEventListener("error", async () => {
+    if (!candidates.length && !triedAdditional) {
+      triedAdditional = true;
+      candidates.push(...await additionalClubBadges(team));
+    }
     const next = candidates.shift();
     if (next) image.src = next;
     else image.replaceWith(fallback);
