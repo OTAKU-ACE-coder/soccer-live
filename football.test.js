@@ -1,4 +1,6 @@
 import test from "node:test";
+import { playerStatus } from "./player-status.js";
+import { profileFacts } from "./football-directory.js";
 import assert from "node:assert/strict";
 import { filterMatchday, fixtureCalendar, matchesForLocalDay, providerMatchDates } from "./matchday-data.js";
 import { aliases, dateLabel, localDate, normalize, teamMatches } from "./football-format.js";
@@ -143,4 +145,31 @@ test("account sync retries concurrent updates and stores a separate snapshot per
   await settle();
   assert.deepEqual(view.following, ["Guest"]);
   assert.deepEqual(rows.get("a").follows, ["Chelsea", "Liverpool"]);
+});
+
+test("confirmed retirement overrides stale provider status without guessing for an inactive player", () => {
+  const retired = { id: "103173", active: true, status: { name: "Active" }, team: { displayName: "Real Madrid" } };
+  assert.equal(playerStatus(retired).label, "Retired");
+  const facts = Object.fromEntries(profileFacts(retired));
+  assert.equal(facts["Last listed club"], "Real Madrid");
+  assert.equal(facts.Status, "Retired");
+  assert.equal(facts.Retired, 2024);
+  assert.equal(playerStatus({ id: "unknown", active: false }).kind, "unconfirmed");
+  assert.equal(playerStatus({ id: "unknown", active: true }).label, "Playing");
+  assert.equal(playerStatus({ id: "210397", displayName: "Nicolas Pépé" }).kind, "unconfirmed");
+  assert.equal(playerStatus({ id: "unknown", status: { type: "retired" } }).label, "Retired");
+});
+
+test("injury reports include the diagnosis and expire their current availability label", () => {
+  const player = { id: "236721", active: true };
+  const current = playerStatus(player, Date.parse("2026-11-19T12:00:00Z"));
+  assert.equal(current.label, "Injured");
+  assert.match(current.injury, /left hamstring/);
+  assert.equal(current.reported, "2026-11-16");
+  assert.match(current.url, /fcbayern\.com/);
+  const old = playerStatus(player, Date.parse("2026-12-10T12:00:00Z"));
+  assert.equal(old.label, "Injury update needed");
+  assert.ok(old.historical);
+  assert.equal(playerStatus({ active: true, injuries: [{ status: "Out", description: "Ankle injury" }] }).label, "Injured");
+  assert.equal(playerStatus({ active: true, injuries: [{ status: "Recovered", description: "Ankle injury" }] }).label, "Playing");
 });

@@ -22,7 +22,7 @@ The app has a home dashboard, matches across competitions, news, league tables, 
 - Club follows, searches, and saved stories persist in browser storage. Existing Touchline follows migrate automatically. A signed-in account can also sync follows and saved stories after the preferences migration is deployed. Searches, alerts, and appearance stay on the device.
 - Desktop navigation groups football pages and personal pages. Mobile navigation includes a More menu for tables, saved stories, notifications, settings, and account access.
 - The home dashboard plays the complete supplied video in a 16:9 landscape frame. Playback begins muted, and the original portrait picture remains visible with black space at the sides.
-- Search opens its own address for clubs and players, with profile details and photo fallbacks.
+- Search opens its own address for clubs and players, with profile details and photo fallbacks. Confirmed retired players display Retired in results and profiles. Dated injury reports include the diagnosis, availability, and original source. The provider’s inactive flag alone does not establish retirement.
 - Supabase sign-up, login, recovery, and account pages remain connected to the app.
 
 Soccer Live uses ESPN’s unofficial website feeds. It validates score, fixture, standings, roster, and match detail responses and shows an error if a feed changes format. A Cloudflare Worker can cache supported queries. Set the Worker URL as described below to route feed requests through it. Scores refresh every minute in an active tab. Refresh reloads match reports and standings. Match reports are generated from recorded results and available statistics. No match scores or statistics are invented.

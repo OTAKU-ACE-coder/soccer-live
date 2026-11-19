@@ -1,4 +1,5 @@
-import { normalize } from "./football-format.js?v=5dbd47581b12";
+import { playerStatus } from "./player-status.js?v=6183cb01fb29";
+import { normalize } from "./football-format.js?v=6183cb01fb29";
 
 const identifiers = { team: /(?:^|~)t:(\d{1,12})$/, player: /(?:^|~)a:(\d{1,12})$/ };
 const leagueSlug = /^[a-z0-9_.]{1,48}$/;
@@ -28,14 +29,19 @@ export function directoryResults(data, query) {
 }
 
 export function profileFacts(player) {
+  const status = playerStatus(player);
   return [
-    ["Club", player.team?.displayName],
+    [status.kind === "retired" ? "Last listed club" : "Club", player.team?.displayName],
     ["Nationality", player.citizenship],
     ["Age", player.age],
     ["Position", player.position?.displayName || player.position?.name],
     ["Shirt number", player.jersey],
     ["Birthplace", player.displayBirthPlace],
     ["Height", player.displayHeight],
-    ["Status", player.status?.name],
+    ["Status", status.label],
+    ["Retired", status.year],
+    [status.historical ? "Last reported injury" : "Injury", status.injury],
+    ["Availability", status.historical ? "Current availability unconfirmed" : status.availability],
+    ["Injury reported", status.reported],
   ].filter(([, value]) => (typeof value === "string" && value.trim()) || (typeof value === "number" && Number.isFinite(value)));
 }

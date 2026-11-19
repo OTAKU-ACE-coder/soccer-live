@@ -1625,3 +1625,19 @@ body[data-view="home"] .news-more .story-deck { display: none; }
   body[data-view="home"] .news-desk { grid-template-columns: 1fr; }
   body[data-view="home"] .news-more { grid-column: 1; grid-row: auto; }
 }
+
+.player-status-badge {
+  display: inline-block;
+  width: fit-content;
+  margin-block: 3px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--surface-accent);
+  color: var(--text);
+}
+.player-status-badge.injured { border-color: currentColor; color: var(--red); }
+.player-status-reference { margin-top: 14px; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+.player-status-reference a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
