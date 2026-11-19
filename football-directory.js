@@ -1,5 +1,5 @@
-import { playerStatus } from "./player-status.js?v=ad96e81265b6";
-import { normalize } from "./football-format.js?v=ad96e81265b6";
+import { playerStatus } from "./player-status.js?v=614f695d2d7e";
+import { normalize } from "./football-format.js?v=614f695d2d7e";
 
 const identifiers = { team: /(?:^|~)t:(\d{1,12})$/, player: /(?:^|~)a:(\d{1,12})$/ };
 const leagueSlug = /^[a-z0-9_.]{1,48}$/;

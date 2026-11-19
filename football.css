@@ -1668,3 +1668,5 @@ body[data-view="home"] .news-more .story-deck { display: none; }
   .player-results .player-card .player-portrait { width: 56px; height: 56px; flex-basis: 56px; }
   .player-facts { grid-template-columns: minmax(0, 1fr); }
 }
+
+.player-portrait img[data-full-body="true"] { transform: scale(3); transform-origin: 50% 0; }

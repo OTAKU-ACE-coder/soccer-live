@@ -28,3 +28,31 @@ async function download() {
 await Promise.all(Array.from({ length: 5 }, download));
 await writeFile(new URL("player-local-portraits.json", root), JSON.stringify(manifest, null, 2) + "\n");
 console.log(JSON.stringify({ portraits: Object.keys(manifest).length, missing }));
+
+const queries = {
+ neymar:"Neymar", neymarjr:"Neymar", kylianmbappe:"Kylian Mbappe", erlinghaaland:"Erling Haaland",
+ viniciusjr:"Vinicius Junior",viniciusjunior:"Vinicius Junior",lamineyamal:"Lamine Yamal",bukayosaka:"Bukayo Saka",
+ mohamedsalah:"Mohamed Salah",judebellingham:"Jude Bellingham",colepalmer:"Cole Palmer",pedri:"Pedri",
+ raphinha:"Raphinha",robertlewandowski:"Robert Lewandowski",harrykane:"Harry Kane",kevindebruyne:"Kevin De Bruyne",
+ sonheungmin:"Son Heung-Min",lukamodric:"Luka Modric",alphonsodavies:"Alphonso Davies",ousmanedembele:"Ousmane Dembele",
+ brunofernandes:"Bruno Fernandes",bernardosilva:"Bernardo Silva",declanrice:"Declan Rice",virgilvandijk:"Virgil van Dijk",
+ thibautcourtois:"Thibaut Courtois",achrafhakimi:"Achraf Hakimi",victorosimhen:"Victor Osimhen",luisdiaz:"Luis Diaz",
+ alexanderisak:"Alexander Isak",florianwirtz:"Florian Wirtz"
+};
+const key = name => name.normalize("NFKD").replace(/\p{Diacritic}/gu,"").toLowerCase().replace(/[^a-z0-9]/g,"");
+const byID = {};
+for (let offset=0;offset<Object.keys(manifest).length;offset+=5) {
+ await Promise.all(Object.entries(manifest).slice(offset,offset+5).map(async ([name,file]) => {
+  if (!queries[name]) return;
+  try {
+   const url = "https://site.web.api.espn.com/apis/search/v2?" + new URLSearchParams({query:queries[name],type:"player",limit:"100"});
+   const data = await (await fetch(url,{signal:AbortSignal.timeout(10000)})).json();
+   const matches = data.results?.flatMap(group=>group.contents || []).filter(player=>player.sport==="soccer" && key(player.displayName)===key(queries[name]));
+   // A short name can belong to different people. Only an exact, unique ID is safe.
+   const id = name.startsWith("neymar") ? "132948" : matches?.length===1 ? /~a:(\d+)$/.exec(matches[0].uid)?.[1] : "";
+   if (id) byID[id]=file;
+  } catch {}
+ }));
+}
+await writeFile(new URL("player-local-portraits.json",root),JSON.stringify(byID,null,2)+"\n");
+console.log("ID-verified local portraits:",Object.keys(byID).length);
