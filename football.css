@@ -1670,3 +1670,6 @@ body[data-view="home"] .news-more .story-deck { display: none; }
 }
 
 .player-portrait img[data-full-body="true"] { object-fit: contain; object-position: 50% 0; transform: scale(3); transform-origin: 50% 0; }
+
+/* Frame the identified subject from the original Umbro campaign photograph. */
+.player-portrait img[src*="186309-portrait."] { width: 1201.82%; height: 381.82%; max-width: none; left: -277.27%; top: -31.82%; right: auto; bottom: auto; object-fit: fill; }

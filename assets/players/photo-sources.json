@@ -38,5 +38,51 @@
     "id": "84775",
     "name": "Mesut Özil",
     "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Mesut_%C3%96zil_at_Baku_before_2019_UEFA_Europe_League_Final.jpg/330px-Mesut_%C3%96zil_at_Baku_before_2019_UEFA_Europe_League_Final.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+  },
+  {
+    "id": "329033",
+    "name": "Ronaldo Royero",
+    "source": "https://img.sofascore.com/api/v1/player/1146875/image",
+    "profile": "https://www.sofascore.com/es/football/player/royero-ronaldo/1146875",
+    "birthday": "2004-10-11",
+    "file": "assets/players/329033-portrait.jpg",
+    "verified": "2026-11-19"
+  },
+  {
+    "id": "256627",
+    "name": "Ronaldo Wilkins",
+    "source": "https://national-football-teams.com/media/cache/players_page/uploads/person_photos/Ronaldo_Wilkins_69551-676ef8aac355b.jpeg",
+    "profile": "https://national-football-teams.com/player/69551/Ronaldo_Wilkins.html",
+    "birthday": "1999-12-30",
+    "credit": "Jorge Mendoza / National Football Teams",
+    "file": "assets/players/256627-portrait.jpg",
+    "verified": "2026-11-19"
+  },
+  {
+    "id": "292141",
+    "name": "Ronaldo Maarman",
+    "source": "https://img.a.transfermarkt.technology/portrait/header/696035-1740122825.png?lm=4711",
+    "profile": "https://www.transfermarkt.com/ronaldo-maarman/profil/spieler/696035",
+    "birthday": "1999-11-29",
+    "file": "assets/players/292141-portrait.png",
+    "verified": "2026-11-19"
+  },
+  {
+    "id": "186309",
+    "name": "Ronaldo Tipián",
+    "source": "https://cdn-umbroglobal-media.azureedge.net/mipnlu3s/ronaldo-tipian-still-banner.png",
+    "profile": "https://www.umbro.com/en/football/campaigns/return-to-the-pitch-ronaldo-tipian/",
+    "credit": "Umbro Diamond FC campaign",
+    "file": "assets/players/186309-portrait.png",
+    "verified": "2026-11-19"
+  },
+  {
+    "id": "288640",
+    "name": "Ronaldo Huari",
+    "birthday": "1997-08-22",
+    "file": "assets/players/288640-portrait.jpg",
+    "source": "https://cdn.resfu.com/img_data/players/medium/324811.jpg?size=240x&lossy=1",
+    "profile": "https://www.besoccer.com/player/ronaldohuari-rojas-324811",
+    "verified": "2026-11-19"
   }
 ]

@@ -57,11 +57,11 @@ function lookup(kind, name) {
   }
   return requests.get(cacheKey);
 }
-export async function additionalPortraits(player) {
+export async function additionalPortraits(player, skipWikipedia = false) {
   if (!birthday(player.displayDOB || player.dateOfBirth) && !player.team?.displayName) return [];
   const name = player.displayName || player.fullName;
   if (!name) return [];
-  const wiki = await wikipediaPortrait(player);
+  const wiki = skipWikipedia ? "" : await wikipediaPortrait(player);
   if (wiki) return [wiki];
   const data = await lookup("players", name);
   return matchedPortraits(player, data.player);

@@ -31,3 +31,26 @@ test("Wikipedia portrait recovery requires the player's name, football biography
   assert.equal(matchedWikiPortrait(retired, [{ ...page, title: "Another Player" }]), "");
   assert.equal(matchedWikiPortrait(retired, [page, page]), "");
 });
+
+test("a failed Wikipedia image can continue to an independent portrait source", async t => {
+  const { additionalPortraits } = await import("./football-media.js");
+  const original = globalThis.fetch;
+  const calls = [];
+  t.after(() => { globalThis.fetch = original; });
+  const player = { displayName: "Regression Example", displayDOB: "1/6/1990" };
+  globalThis.fetch = async url => {
+    calls.push(String(url));
+    if (String(url).includes("wikipedia.org")) return Response.json({query:{pages:{1:{
+      title:"Regression Example",
+      extract:"Regression Example (born 1 June 1990) is a footballer.",
+      thumbnail:{source:"https://images.example/broken-wiki.jpg"}
+    }}}});
+    return Response.json({player:[{
+      strPlayer:"Regression Example",strSport:"Soccer",dateBorn:"1990-06-01",
+      strCutout:"https://images.example/working-portrait.png"
+    }]});
+  };
+  assert.deepEqual(await additionalPortraits(player), ["https://images.example/broken-wiki.jpg"]);
+  assert.deepEqual(await additionalPortraits(player, true), ["https://images.example/working-portrait.png"]);
+  assert.equal(calls.length, 2);
+});
