@@ -1,15 +1,19 @@
 # Football image sources
 
-The club badge manifest covers all 516 teams in football-catalog.json. Most images are cached ESPN team badges. Newport County uses its official club website SVG. Catalunya Women uses the regional flag where the provider supplies no federation badge.
+## Current player portraits
 
-- ESPN club images: https://a.espncdn.com/i/teamlogos/soccer/150/{team-id}.png
+The app prioritizes real photographs currently published by official club and league sites. More than 1,100 official photos are cached under assets/players/current/. Source URLs, publishers and check dates are recorded in assets/players/current/sources.json. Some roster photographs are framed as head-and-shoulders thumbnails without changing faces.
+
+The old FootyLogos full-body pipeline, legacy body thumbnails and CSS enlargement effects have been removed. Refresh source images with node scripts/cache-current-portraits.mjs; retain the source credits and verified player-ID mapping when refreshing.
+
+Additional identity-checked photographic sources are listed in assets/players/photo-sources.json. Wikipedia archive photographs remain available for retired players where appropriate. No generated or illustrated player faces are used.
+
+## Club badges
+
+The badge manifest covers every team in football-catalog.json and additional discovered clubs. Most images are cached ESPN badges. Newport County uses its official SVG, and Catalunya Women uses the regional flag where a federation badge is unavailable.
+
+- ESPN: https://a.espncdn.com/i/teamlogos/soccer/150/{team-id}.png
 - Newport County: https://www.newport-county.co.uk/themes/custom/newport/files/newport-county-crest.svg
 - Catalunya flag: https://commons.wikimedia.org/wiki/File:Flag_of_Catalonia.svg
-- Player portrait catalog: https://www.footylogos.com/ (existing verified name-to-image index)
 
-Run node scripts/cache-club-badges.mjs to refresh missing club images, and node scripts/cache-player-portraits.mjs to refresh the selected local player portraits. Existing local badge overrides are retained. Recovered portrait files ending in -portrait are from TheSportsDB or Wikipedia/Wikimedia Commons. Wikipedia source URLs are recorded in assets/players/photo-sources.json. Photo recovery matches the player name and birth date; club matching is used when a birth date is unavailable. TheSportsDB requests are queued and spaced to reduce repeated requests.
-
-- Additional player and club media: https://www.thesportsdb.com/
-- Free Wikimedia photo metadata: https://www.mediawiki.org/wiki/API:Pageimages
-
-Unavailable player photos display initials rather than another person's face.
+Run node scripts/cache-club-badges.mjs to refresh missing badges. Existing overrides are retained. Unavailable photos remain unavailable; they are not replaced with a different person's face.

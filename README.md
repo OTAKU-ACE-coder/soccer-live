@@ -59,7 +59,7 @@ Captured from the live website on 18 November 2026.
 - Match centre lists scheduled matches for the next 14 days in the selected competition.
 - Club profiles show the current squad and upcoming club fixtures. Match details show reported starters, formations and substitutes when available.
 - The league table shows the last five completed matches in the selected competition, oldest to newest. Each mark includes the opponent, score and date.
-- Player photos use the match feed, official club and league portraits, and the [FootyLogos photo catalog](https://www.footylogos.com/player-pngs). The supplemental index skips names shared by multiple players. Initials appear when the available sources lack a photo.
+- Player portraits prioritize the currently published official club, UEFA, Premier League, Saudi Pro League and MLS photographs. The verified local cache contains more than 1,100 photographic portraits, with source URLs and check dates in assets/players/current/sources.json. Old full-body cutouts and enlargement effects have been removed. Identity-checked fallbacks remain available where the official feeds lack a portrait.
 
 ## News alerts
 
