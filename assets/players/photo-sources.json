@@ -84,5 +84,15 @@
     "source": "https://cdn.resfu.com/img_data/players/medium/324811.jpg?size=240x&lossy=1",
     "profile": "https://www.besoccer.com/player/ronaldohuari-rojas-324811",
     "verified": "2026-11-19"
+  },
+  {
+    "id": "272248",
+    "name": "Ronaldo Vásquez",
+    "birthday": "1999-06-30",
+    "file": "assets/players/272248-portrait.png",
+    "source": "https://img.a.transfermarkt.technology/portrait/header/441271-1759765336.png?lm=4711",
+    "profile": "https://www.transfermarkt.co.uk/ronaldo-vasquez/profil/spieler/441271",
+    "credit": "sfc.az / Sumgayit PFC",
+    "verified": "2026-11-19"
   }
 ]
