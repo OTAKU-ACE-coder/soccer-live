@@ -1,21 +1,21 @@
-import { cataloguePortraits } from "./player-photos.js?v=00000b0add5f";
-import { playerStatus } from "./player-status.js?v=00000b0add5f";
-import { competitionMark } from "./competition-marks.js?v=00000b0add5f";
-import { buildReports, editorialStories } from "./newsroom.js?v=00000b0add5f";
-import { collectAlerts, followsInterest } from "./news-alerts.js?v=00000b0add5f";
-import { upcomingFixtures } from "./match-data.js?v=00000b0add5f";
-import { getTheme, getThemeColors, setTheme, setThemeColors } from "./theme.js?v=00000b0add5f";
-import { directoryResults, profileFacts } from "./football-directory.js?v=00000b0add5f";
-import { API, TABLE_API, fetchJson, getPlayerProfile, searchFootball } from "./api.js?v=00000b0add5f";
-import { FeedFormatError } from "./feed-format.js?v=00000b0add5f";
-import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=00000b0add5f";
-import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=00000b0add5f";
-import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=00000b0add5f";
-import { createStandings, entriesOf, hasStandings } from "./standings.js?v=00000b0add5f";
-import { createAlerts } from "./alerts.js?v=00000b0add5f";
-import { createMatchday } from "./matchday.js?v=00000b0add5f";
-import { fixtureCalendar } from "./matchday-data.js?v=00000b0add5f";
-import { createPreferenceSync } from "./preference-sync.js?v=00000b0add5f";
+import { cataloguePortraits } from "./player-photos.js?v=bff78ce86e1c";
+import { playerStatus } from "./player-status.js?v=bff78ce86e1c";
+import { competitionMark } from "./competition-marks.js?v=bff78ce86e1c";
+import { buildReports, editorialStories } from "./newsroom.js?v=bff78ce86e1c";
+import { collectAlerts, followsInterest } from "./news-alerts.js?v=bff78ce86e1c";
+import { upcomingFixtures } from "./match-data.js?v=bff78ce86e1c";
+import { getTheme, getThemeColors, setTheme, setThemeColors } from "./theme.js?v=bff78ce86e1c";
+import { directoryResults, profileFacts } from "./football-directory.js?v=bff78ce86e1c";
+import { API, TABLE_API, fetchJson, getPlayerProfile, searchFootball } from "./api.js?v=bff78ce86e1c";
+import { FeedFormatError } from "./feed-format.js?v=bff78ce86e1c";
+import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=bff78ce86e1c";
+import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=bff78ce86e1c";
+import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=bff78ce86e1c";
+import { createStandings, entriesOf, hasStandings } from "./standings.js?v=bff78ce86e1c";
+import { createAlerts } from "./alerts.js?v=bff78ce86e1c";
+import { createMatchday } from "./matchday.js?v=bff78ce86e1c";
+import { fixtureCalendar } from "./matchday-data.js?v=bff78ce86e1c";
+import { createPreferenceSync } from "./preference-sync.js?v=bff78ce86e1c";
 
 const $ = (id) => document.getElementById(id);
 const routes = ["home", "matches", "matchday", "news", "standings", "clubs", "saved", "alerts", "settings"];
@@ -240,6 +240,21 @@ function renderClubs() {
   if (!teams.length && directoryState !== "Searching wider directory…")
     list.append(empty("No teams found", onlyFollowed ? "Turn off Following only to see more clubs." : "Try the full club name or a common abbreviation."));
 }
+function renderPlayerClub(row, player) {
+  const team = player.team;
+  if (!team?.displayName && !team?.name) return;
+  const retired = playerStatus(player).kind === "retired";
+  const name = team.displayName || team.name;
+  const emblem = crest({
+    id: team.id, name, abbreviation: team.abbreviation,
+    logo: team.logos?.[0]?.href || team.logo || (/^\\d{1,12}$/.test(team.id) ? "https://a.espncdn.com/i/teamlogos/soccer/500/" + team.id + ".png" : ""),
+  });
+  row.className = "player-club";
+  row.replaceChildren(emblem, node("span", name));
+  row.title = retired ? "Last listed club" : "Club";
+  if (retired) row.append(node("span", "Last club", "player-club-caption"));
+}
+
 function renderPlayerStatus(row, update) {
   const badge = node("strong", update.label, "player-status-badge " + update.kind);
   badge.title = update.injury || (update.year ? "Retired in " + update.year : update.label);
@@ -293,15 +308,18 @@ async function lookupFootball(term) {
       renderPlayerStatus(row, update);
       if (update.kind !== "retired" && update.kind !== "injured") {
         renderPlayerStatus(row, { kind: "unconfirmed", label: "Checking…" });
-        statusJobs.push(async () => {
-          try {
-            const { athlete } = await getPlayerProfile(player.id, request.signal);
-            if (!request.signal.aborted && row.isConnected) renderPlayerStatus(row, playerStatus(athlete));
-          } catch {
-            if (!request.signal.aborted && row.isConnected) renderPlayerStatus(row, update);
-          }
-        });
       }
+      statusJobs.push(async () => {
+        try {
+          const { athlete } = await getPlayerProfile(player.id, request.signal);
+          if (!request.signal.aborted && row.isConnected) {
+            renderPlayerStatus(row, playerStatus(athlete));
+            renderPlayerClub(card.querySelector("small"), athlete);
+          }
+        } catch {
+          if (!request.signal.aborted && row.isConnected) renderPlayerStatus(row, update);
+        }
+      });
       $("player-search-grid").append(card);
     }
     void loadSearchStatuses(statusJobs, request.signal);
@@ -1153,8 +1171,8 @@ async function readPortraits(path) {
 
 function portraitIndex() {
   portraits ??= Promise.all([
-    readPortraits("player-portraits.json?v=00000b0add5f"),
-    readPortraits("club-player-portraits.json?v=00000b0add5f"),
+    readPortraits("player-portraits.json?v=bff78ce86e1c"),
+    readPortraits("club-player-portraits.json?v=bff78ce86e1c"),
   ]).then(([league, clubs]) => ({ league, clubs }));
   return portraits;
 }
@@ -1215,7 +1233,7 @@ function playerCard(player, index, shirt = player.jersey, position = player.posi
     card.addEventListener("click", () => void openPlayerProfile(player, index));
   }
   card.append(playerPortrait(player, index, player.prioritizePhoto));
-  const label = node("span");
+  const label = node("span", undefined, "player-card-details");
   label.append(node("strong", name), node("small", [shirt && "#" + shirt, position?.displayName || position?.name].filter(Boolean).join(" · ")));
   card.append(label);
   return card;
@@ -1249,7 +1267,9 @@ async function openPlayerProfile(player, index) {
     const list = node("dl", undefined, "player-facts");
     for (const [label, value] of facts) {
       const row = node("div");
-      row.append(node("dt", label), node("dd", String(value)));
+      const detail = node("dd", String(value));
+      if (label === "Club" || label === "Last listed club") renderPlayerClub(detail, athlete);
+      row.append(node("dt", label), detail);
       list.append(row);
     }
     status.textContent = "Player profile loaded";
@@ -1404,7 +1424,7 @@ window.addEventListener("soccer-theme-change", syncThemeOptions);
 syncThemeOptions();
 setRoute();
 try {
-  const response = await fetch("football-catalog.json?v=00000b0add5f");
+  const response = await fetch("football-catalog.json?v=bff78ce86e1c");
   if (!response.ok) throw new Error("Club catalogue unavailable");
   catalog = await response.json();
   const teams = new Map();
@@ -1459,7 +1479,7 @@ function showAccountLink(signedIn) {
 
 async function startAccount() {
   try {
-    const { createAuthClient } = await import("./auth-client.js?v=00000b0add5f");
+    const { createAuthClient } = await import("./auth-client.js?v=bff78ce86e1c");
     const client = await createAuthClient();
     let authRevision = 0;
     const verify = async () => {
