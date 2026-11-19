@@ -1,6 +1,7 @@
 import test from "node:test";
+import { clubCrests, crestCandidates } from "./render.js";
 import { playerStatus } from "./player-status.js";
-import { profileFacts } from "./football-directory.js";
+import { directoryResults, profileFacts } from "./football-directory.js";
 import assert from "node:assert/strict";
 import { filterMatchday, fixtureCalendar, matchesForLocalDay, providerMatchDates } from "./matchday-data.js";
 import { aliases, dateLabel, localDate, normalize, teamMatches } from "./football-format.js";
@@ -172,4 +173,23 @@ test("injury reports include the diagnosis and expire their current availability
   assert.ok(old.historical);
   assert.equal(playerStatus({ active: true, injuries: [{ status: "Out", description: "Ankle injury" }] }).label, "Injured");
   assert.equal(playerStatus({ active: true, injuries: [{ status: "Recovered", description: "Ankle injury" }] }).label, "Playing");
+});
+
+test("football directory retains more than twelve players, including soccer UIDs without sport metadata", () => {
+  const players = Array.from({ length: 40 }, (_, id) => ({ uid: "s:600~a:" + (id + 1), displayName: id ? "Ronaldo " + id : "Ronaldo" }));
+  const results = directoryResults({ results: [{ type: "player", contents: [...players, { uid: "s:20~a:999", displayName: "Ronaldo", sport: "football" }] }] }, "Ronaldo");
+  assert.equal(results.players.length, 40);
+  assert.equal(results.players[0].name, "Ronaldo");
+  assert.ok(!results.players.some(player => player.id === "999"));
+});
+test("club badge candidates prefer local images and recover from absent or broken supplied logos", () => {
+  clubCrests.set("132", "assets/clubs/132.png");
+  const urls = crestCandidates({ id: "132", logo: "javascript:bad()", logos: [{ href: "https://images.example/bayern.png" }] });
+  assert.equal(urls[0], "assets/clubs/132.png");
+  assert.ok(urls.includes("https://a.espncdn.com/i/teamlogos/soccer/500/132.png"));
+  assert.ok(urls.includes("https://a.espncdn.com/i/teamlogos/soccer/150/132.png"));
+  assert.equal(new Set(urls).size, urls.length);
+  assert.ok(urls.every(url => url.startsWith("https://") || url.startsWith("assets/clubs/")));
+  assert.deepEqual(crestCandidates({ id: "../invalid" }), []);
+  clubCrests.delete("132");
 });

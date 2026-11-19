@@ -21,6 +21,17 @@ export function crestSource(value) {
     : safeUrl(value);
 }
 
+export function crestCandidates(team) {
+  const id = String(team.id ?? "");
+  return [...new Set([
+    crestSource(clubCrests.get(id)),
+    crestSource(team.logo),
+    ...(team.logos || []).map(logo => crestSource(logo?.href)),
+    /^\d{1,12}$/.test(id) ? "https://a.espncdn.com/i/teamlogos/soccer/500/" + id + ".png" : "",
+    /^\d{1,12}$/.test(id) ? "https://a.espncdn.com/i/teamlogos/soccer/150/" + id + ".png" : "",
+  ].filter(Boolean))];
+}
+
 export function crest(team) {
   const fallback = node(
     "span",
@@ -28,10 +39,7 @@ export function crest(team) {
     "crest-fallback",
   );
   fallback.setAttribute("aria-hidden", "true");
-  const candidates = [...new Set([
-    clubCrests.get(String(team.id)),
-    crestSource(team.logo),
-  ].filter(Boolean))];
+  const candidates = crestCandidates(team);
   if (!candidates.length) return fallback;
   const image = node("img");
   image.alt = "";

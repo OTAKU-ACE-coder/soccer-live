@@ -1,4 +1,4 @@
-import { validateFeed } from "./feed-format.js?v=a5579f21e051";
+import { validateFeed } from "./feed-format.js?v=ad96e81265b6";
 
 const provider = {
   scores: "https://site.api.espn.com/apis/site/v2/sports/soccer/",
@@ -22,10 +22,19 @@ async function lookup(feed, params, fallback, signal) {
   return fetchJson(webProvider + fallback, signal, feed);
 }
 
-export function searchFootball(query, signal) {
+export async function searchFootball(query, signal) {
   const params = new URLSearchParams({ query });
-  const fallback = new URLSearchParams({ query, type: "player,team", limit: "24" });
-  return lookup("search", params, "/apis/search/v2?" + fallback, signal);
+  const fallback = new URLSearchParams({ query, type: "player,team", limit: "100" });
+  const initial = await lookup("search", params, "/apis/search/v2?" + fallback, signal);
+  // Older cached search responses stop at 23 entries, including other sports.
+  if (!initial.results.some(group => group.contents.length >= 23 && group.contents.length < 99)) return initial;
+  try {
+    const expanded = await fetchJson(webProvider + "/apis/search/v2?" + fallback, signal, "search");
+    return { results: [...initial.results, ...expanded.results] };
+  } catch (error) {
+    if (signal?.aborted) throw error;
+    return initial;
+  }
 }
 
 export function getPlayerProfile(id, signal) {
