@@ -1669,4 +1669,4 @@ body[data-view="home"] .news-more .story-deck { display: none; }
   .player-facts { grid-template-columns: minmax(0, 1fr); }
 }
 
-.player-portrait img[data-full-body="true"] { transform: scale(3); transform-origin: 50% 0; }
+.player-portrait img[data-full-body="true"] { object-fit: contain; object-position: 50% 0; transform: scale(3); transform-origin: 50% 0; }

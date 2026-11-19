@@ -1,4 +1,4 @@
-import { validateFeed } from "./feed-format.js?v=614f695d2d7e";
+import { validateFeed } from "./feed-format.js?v=a67d32935853";
 
 const provider = {
   scores: "https://site.api.espn.com/apis/site/v2/sports/soccer/",
