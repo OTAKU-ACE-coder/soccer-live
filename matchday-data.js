@@ -1,4 +1,4 @@
-import { competition, dateLabel, localDate, opponents } from "./football-format.js?v=6b40c83ddbbe";
+import { competition, dateLabel, localDate, opponents } from "./football-format.js?v=d160db47e2f3";
 
 const providerCalendar = new Intl.DateTimeFormat("en-US", {
   timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit",

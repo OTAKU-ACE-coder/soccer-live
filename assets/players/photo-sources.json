@@ -89,10 +89,19 @@
     "id": "272248",
     "name": "Ronaldo Vásquez",
     "birthday": "1999-06-30",
-    "file": "assets/players/272248-portrait.png",
-    "source": "https://img.a.transfermarkt.technology/portrait/header/441271-1759765336.png?lm=4711",
-    "profile": "https://www.transfermarkt.co.uk/ronaldo-vasquez/profil/spieler/441271",
-    "credit": "sfc.az / Sumgayit PFC",
+    "source": "https://sfc.az/disk/footballers/Ronaldo%20Jr.png",
+    "profile": "https://sfc.az/footballers?team=a",
+    "credit": "Sumgayit PFC",
+    "file": "assets/players/272248-club-roster.png",
+    "verified": "2026-11-19"
+  },
+  {
+    "id": "22774",
+    "name": "Cristiano Ronaldo",
+    "birthday": "1985-02-05",
+    "source": "https://r2.thesportsdb.com/images/media/player/cutout/a19jje1761592498.png",
+    "credit": "TheSportsDB",
+    "file": "assets/players/22774-portrait.png",
     "verified": "2026-11-19"
   }
 ]

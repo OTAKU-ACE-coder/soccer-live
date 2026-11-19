@@ -1,4 +1,4 @@
-import { node } from "./render.js?v=6b40c83ddbbe";
+import { node } from "./render.js?v=d160db47e2f3";
 
 const sharedEmblems = {
   "caf.nations_qual": "caf.nations",
