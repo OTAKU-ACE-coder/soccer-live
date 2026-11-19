@@ -1,5 +1,5 @@
-import { playerStatus } from "./player-status.js?v=6183cb01fb29";
-import { normalize } from "./football-format.js?v=6183cb01fb29";
+import { playerStatus } from "./player-status.js?v=00000b0add5f";
+import { normalize } from "./football-format.js?v=00000b0add5f";
 
 const identifiers = { team: /(?:^|~)t:(\d{1,12})$/, player: /(?:^|~)a:(\d{1,12})$/ };
 const leagueSlug = /^[a-z0-9_.]{1,48}$/;
@@ -31,6 +31,7 @@ export function directoryResults(data, query) {
 export function profileFacts(player) {
   const status = playerStatus(player);
   return [
+    ["Status", status.label],
     [status.kind === "retired" ? "Last listed club" : "Club", player.team?.displayName],
     ["Nationality", player.citizenship],
     ["Age", player.age],
@@ -38,7 +39,6 @@ export function profileFacts(player) {
     ["Shirt number", player.jersey],
     ["Birthplace", player.displayBirthPlace],
     ["Height", player.displayHeight],
-    ["Status", status.label],
     ["Retired", status.year],
     [status.historical ? "Last reported injury" : "Injury", status.injury],
     ["Availability", status.historical ? "Current availability unconfirmed" : status.availability],

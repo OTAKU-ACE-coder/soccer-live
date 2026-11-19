@@ -1641,3 +1641,7 @@ body[data-view="home"] .news-more .story-deck { display: none; }
 .player-status-badge.injured { border-color: currentColor; color: var(--red); }
 .player-status-reference { margin-top: 14px; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
 .player-status-reference a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+
+.player-status-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+.player-status-label { color: var(--muted); font-size: 11px; }
+.player-card .player-status-badge { display: inline-block; font-size: 11px; margin: 0; }

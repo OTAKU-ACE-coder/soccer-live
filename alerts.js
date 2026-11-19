@@ -1,7 +1,7 @@
-import { competitionMark } from "./competition-marks.js?v=6183cb01fb29";
-import { followsInterest } from "./news-alerts.js?v=6183cb01fb29";
-import { dateLabel } from "./football-format.js?v=6183cb01fb29";
-import { empty, materialIcon, node } from "./render.js?v=6183cb01fb29";
+import { competitionMark } from "./competition-marks.js?v=00000b0add5f";
+import { followsInterest } from "./news-alerts.js?v=00000b0add5f";
+import { dateLabel } from "./football-format.js?v=00000b0add5f";
+import { empty, materialIcon, node } from "./render.js?v=00000b0add5f";
 const $ = (id) => document.getElementById(id);
 
 export function createAlerts({ preferences, getStories, getCatalogue, storyLink, savePreferences, renderNews }) {
