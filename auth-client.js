@@ -32,7 +32,7 @@ export async function createAuthClient() {
         throw new Error('Remove the secret key from config.js and rotate it in Supabase. Use a public publishable key.');
     }
 
-    const { createClient } = await import('./vendor/supabase.js?v=3811e7467495');
+    const { createClient } = await import('./vendor/supabase.js?v=8d1f1bfe1aa0');
     return createClient(url, publishableKey, {
         auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'implicit' }
     });

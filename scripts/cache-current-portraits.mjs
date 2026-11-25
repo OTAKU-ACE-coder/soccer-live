@@ -11,8 +11,8 @@ const identities = Object.entries(previous).filter(([id]) => /^\d+$/.test(id)).m
   [id, Object.keys(previous).find(name => /[^0-9]/.test(name) && previous[name] === file)]);
 const names = [...new Set([...Object.keys(clubs), ...Object.keys(league)])];
 await mkdir(new URL("assets/players/current/", root), { recursive: true });
-const manifest = {};
-const sources = {};
+const manifest = { ...previous };
+const sources = JSON.parse(await readFile(new URL("assets/players/current/sources.json", root), "utf8"));
 const downloads = new Map();
 let cursor = 0, checked = 0;
 async function download(url) {
@@ -36,6 +36,8 @@ async function download(url) {
 async function run() {
   while (cursor < names.length) {
     const name = names[cursor++];
+    // Keep individually sourced or framed portraits during bulk refreshes.
+    if (sources[previous[name]]?.player || /\/(?:vasquez-sumgayit|messi-mls)-/.test(previous[name] || "")) continue;
     const urls = [clubs[name], /^\d+$/.test(league[name] || "") ? "https://resources.premierleague.com/premierleague/photos/players/250x250/p" + league[name] + ".png" : ""].filter(Boolean);
     for (const url of urls) {
       const file = await download(url);

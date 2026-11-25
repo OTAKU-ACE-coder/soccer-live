@@ -65,7 +65,7 @@ export function asTeam(competitor) {
     name: team.displayName,
     shortName: team.shortDisplayName,
     abbreviation: team.abbreviation,
-    logo: team.logo,
+    logo: team.logo || team.logos?.[0]?.href,
     url: team.links?.find((link) => link.rel?.includes("clubhouse"))?.href,
   };
 }

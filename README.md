@@ -32,6 +32,10 @@ Club and league badge sources are recorded in `football-catalog.json`. The bundl
 
 ## Screenshot previews
 
+[Open the Denmark–Norway lineup](https://otaku-ace-coder.github.io/soccer-live/football.html?competition=uefa.nations&match=401861194#matches). Select a player on the pitch to open their profile.
+
+![Denmark’s starting eleven with player portraits on the mobile match screen](assets/previews/denmark-norway-lineup.png)
+
 Captured from the live website on 18 November 2026.
 
 ### Desktop home

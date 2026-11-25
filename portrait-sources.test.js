@@ -23,3 +23,8 @@ test("portrait sources accept only safe local image paths and HTTPS URLs", () =>
   assert.equal(portraitSource("javascript:alert(1)"),"");
   assert.equal(portraitSource("http://images.example/player.png"),"");
 });
+
+test("accented squad names resolve to the stored portrait", () => {
+  const photo = "assets/players/current/head.jpg";
+  assert.equal(portraitCandidates({displayName:"Joakim Mæhle"}, {current:{joakimmaehle:photo}})[0], photo);
+});

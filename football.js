@@ -1,22 +1,23 @@
-import { additionalPortraits } from "./football-media.js?v=3811e7467495";
-import { portraitCandidates } from "./portrait-sources.js?v=3811e7467495";
-import { playerStatus } from "./player-status.js?v=3811e7467495";
-import { competitionMark } from "./competition-marks.js?v=3811e7467495";
-import { buildReports, editorialStories } from "./newsroom.js?v=3811e7467495";
-import { collectAlerts, followsInterest } from "./news-alerts.js?v=3811e7467495";
-import { upcomingFixtures } from "./match-data.js?v=3811e7467495";
-import { getTheme, getThemeColors, setTheme, setThemeColors } from "./theme.js?v=3811e7467495";
-import { directoryResults, profileFacts } from "./football-directory.js?v=3811e7467495";
-import { API, TABLE_API, fetchJson, getPlayerProfile, searchFootball } from "./api.js?v=3811e7467495";
-import { FeedFormatError } from "./feed-format.js?v=3811e7467495";
-import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=3811e7467495";
-import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=3811e7467495";
-import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=3811e7467495";
-import { createStandings, entriesOf, hasStandings } from "./standings.js?v=3811e7467495";
-import { createAlerts } from "./alerts.js?v=3811e7467495";
-import { createMatchday } from "./matchday.js?v=3811e7467495";
-import { fixtureCalendar } from "./matchday-data.js?v=3811e7467495";
-import { createPreferenceSync } from "./preference-sync.js?v=3811e7467495";
+import { lineupRows } from "./lineup-layout.js?v=8d1f1bfe1aa0";
+import { additionalPortraits } from "./football-media.js?v=8d1f1bfe1aa0";
+import { portraitCandidates } from "./portrait-sources.js?v=8d1f1bfe1aa0";
+import { playerStatus } from "./player-status.js?v=8d1f1bfe1aa0";
+import { competitionMark } from "./competition-marks.js?v=8d1f1bfe1aa0";
+import { buildReports, editorialStories } from "./newsroom.js?v=8d1f1bfe1aa0";
+import { collectAlerts, followsInterest } from "./news-alerts.js?v=8d1f1bfe1aa0";
+import { upcomingFixtures } from "./match-data.js?v=8d1f1bfe1aa0";
+import { getTheme, getThemeColors, setTheme, setThemeColors } from "./theme.js?v=8d1f1bfe1aa0";
+import { directoryResults, profileFacts } from "./football-directory.js?v=8d1f1bfe1aa0";
+import { API, TABLE_API, fetchJson, getPlayerProfile, searchFootball } from "./api.js?v=8d1f1bfe1aa0";
+import { FeedFormatError } from "./feed-format.js?v=8d1f1bfe1aa0";
+import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=8d1f1bfe1aa0";
+import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=8d1f1bfe1aa0";
+import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=8d1f1bfe1aa0";
+import { createStandings, entriesOf, hasStandings } from "./standings.js?v=8d1f1bfe1aa0";
+import { createAlerts } from "./alerts.js?v=8d1f1bfe1aa0";
+import { createMatchday } from "./matchday.js?v=8d1f1bfe1aa0";
+import { fixtureCalendar } from "./matchday-data.js?v=8d1f1bfe1aa0";
+import { createPreferenceSync } from "./preference-sync.js?v=8d1f1bfe1aa0";
 
 const $ = (id) => document.getElementById(id);
 const routes = ["home", "matches", "matchday", "news", "standings", "clubs", "saved", "alerts", "settings"];
@@ -1175,10 +1176,10 @@ async function readPortraits(path) {
 
 function portraitIndex() {
   portraits ??= Promise.all([
-    readPortraits("player-portraits.json?v=3811e7467495"),
-    readPortraits("club-player-portraits.json?v=3811e7467495"),
-    readPortraits("player-local-portraits.json?v=3811e7467495"),
-    readPortraits("current-player-portraits.json?v=3811e7467495"),
+    readPortraits("player-portraits.json?v=8d1f1bfe1aa0"),
+    readPortraits("club-player-portraits.json?v=8d1f1bfe1aa0"),
+    readPortraits("player-local-portraits.json?v=8d1f1bfe1aa0"),
+    readPortraits("current-player-portraits.json?v=8d1f1bfe1aa0"),
   ]).then(([league, clubs, local, current]) => ({ league, clubs, local, current }));
   return portraits;
 }
@@ -1195,23 +1196,39 @@ function playerPortrait(player, index, eager = false) {
   image.alt = "";
   image.loading = eager ? "eager" : "lazy";
   image.decoding = "async";
+  let identity = player;
+  const attempted = new Set();
+  let triedProfile = false;
   let triedAdditional = false;
   let triedSecondary = false;
   async function nextPhoto() {
+    if (!candidates.length && !triedProfile && player.resolveLineupPhoto && !player.dateOfBirth && !player.displayDOB && /^\d+$/.test(player.id)) {
+      triedProfile = true;
+      try {
+        const { athlete } = await getPlayerProfile(player.id);
+        identity = athlete;
+        candidates.push(...portraitCandidates(athlete, index).filter(url => !attempted.has(url)));
+      } catch { /* The lineup can still supply a club for matching. */ }
+    }
     if (!candidates.length && !triedAdditional) {
       triedAdditional = true;
-      candidates.push(...await additionalPortraits(player));
+      candidates.push(...await additionalPortraits(identity));
     }
     if (!candidates.length && triedAdditional && !triedSecondary) {
       triedSecondary = true;
-      candidates.push(...await additionalPortraits(player, true));
+      candidates.push(...await additionalPortraits(identity, true));
     }
+    while (candidates.length && attempted.has(candidates[0])) candidates.shift();
     const next = candidates.shift();
     if (next) {
-      image.title = next.includes("players/current/") ? "Official club or league portrait · checked 19 November 2026" : "Player photograph";
+      attempted.add(next);
+      image.title = name;
       image.src = next;
     }
-    else image.remove();
+    else {
+      image.remove();
+      portrait.title = "Photo unavailable for " + name;
+    }
   }
   image.addEventListener("load", () => {
     image.classList.add("is-ready");
@@ -1302,31 +1319,50 @@ function playerGrid(players, createCard) {
 }
 
 function addLineupSection(content, event, competitionId) {
-  content.append(expandableData("Match lineups", async () => {
-    const [data, index] = await Promise.all([
-      cachedMatchData(competitionId + "/summary?event=" + encodeURIComponent(event.id)), portraitIndex()
-    ]);
-    return { data, index };
-  }, (panel, { data, index }) => {
-    let hasLineup = false;
-    for (const team of data.rosters || []) {
-      const players = (team.roster || []).filter(item => item.athlete?.displayName || item.athlete?.fullName);
-      const starters = players.filter(item => item.starter === true);
-      if (!starters.length) continue;
-      hasLineup = true;
-      const name = team.team?.displayName || "Team";
-      const formation = team.formation ? " · " + team.formation : "";
-      const create = player => playerCard(player.athlete, index, player.jersey, player.position);
-      panel.append(node("h4", name + formation), node("p", starters.length === 11 ? "Starting XI" : "Reported starters", "subtle"), playerGrid(starters, create));
-      const bench = players.filter(item => item.starter === false);
-      if (bench.length) {
-        const substitutes = node("details", undefined, "bench-list");
-        substitutes.append(node("summary", "Substitutes (" + bench.length + ")"), playerGrid(bench, create));
-        panel.append(substitutes);
+  const section=expandableData("Lineups · player headshots",async()=>{
+    const [data,index]=await Promise.all([cachedMatchData(competitionId+"/summary?event="+encodeURIComponent(event.id)),portraitIndex()]);
+    return {data,index};
+  },(panel,{data,index})=>{
+    const pitch=node("div",undefined,"lineup-pitches");
+    let count=0;
+    for(const team of data.rosters||[]){
+      const starters=(team.roster||[]).filter(p=>p.starter===true&&p.athlete?.displayName);
+      if(!team.team || !starters.length)continue;
+      count++;
+      const side=node("section",undefined,"lineup-team");
+      const heading=node("h4",undefined,"lineup-team-heading");
+      heading.append(crest(asTeam(team)),node("span",(team.team?.displayName||"Team")+" · "+(team.formation||"Starting XI")));
+      side.append(heading);
+      const field=node("div",undefined,"lineup-field");
+      field.setAttribute("aria-label",(team.team?.displayName||"Team")+" starting lineup");
+      for(const row of lineupRows(starters,team.formation).reverse()){
+        const line=node("div",undefined,"lineup-row");
+        for(const p of row){
+          const card=playerCard({...p.athlete,team:team.team,resolveLineupPhoto:true,prioritizePhoto:true},index,p.jersey,p.position);
+          card.classList.add("lineup-player");
+          card.title=p.athlete.displayName+" · #"+(p.jersey||"")+" · "+(p.position?.displayName||"");
+          card.setAttribute("aria-label", card.title);
+          card.querySelector("strong").textContent=p.athlete.shortName||p.athlete.displayName;
+          card.querySelector("small").textContent=p.jersey?"#"+p.jersey:"";
+          line.append(card);
+        }
+        if (row.length > 5) line.classList.add("lineup-unpositioned");
+        field.append(line);
       }
+      side.append(field);
+      const bench=(team.roster||[]).filter(p=>p.starter===false&&p.athlete?.displayName);
+      if(bench.length){
+        const list=node("details",undefined,"bench-list");
+        list.append(node("summary","Substitutes ("+bench.length+")"),playerGrid(bench,p=>playerCard({...p.athlete,team:team.team,resolveLineupPhoto:true},index,p.jersey,p.position)));
+        side.append(list);
+      }
+      pitch.append(side);
     }
-    if (!hasLineup) panel.append(node("p", "Confirmed starters have not been published in the match feed.", "subtle"));
-  }));
+    if(!count)panel.append(node("p","Confirmed lineups have not been published for this match yet.","subtle"));
+    else panel.append(pitch);
+  });
+  section.open=true;
+  content.append(section);
 }
 
 function addClubSections(content, team) {
@@ -1342,7 +1378,7 @@ function addClubSections(content, team) {
     if (!players.length) panel.append(node("p", "No squad list is available for this club.", "subtle"));
     else {
       panel.append(node("p", "Current squad · Match lineups are shown in individual matches.", "subtle"));
-      panel.append(playerGrid(players, player => playerCard(player, index)));
+      panel.append(playerGrid(players, player => playerCard({...player, resolveLineupPhoto:true}, index)));
     }
   }));
   content.append(expandableData("Upcoming club matches", () => cachedMatchData(path + "/schedule?fixture=true"), (panel, data) => {
@@ -1424,8 +1460,8 @@ syncThemeOptions();
 setRoute();
 try {
   const [response, badges] = await Promise.all([
-    fetch("football-catalog.json?v=3811e7467495"),
-    readPortraits("club-badges.json?v=3811e7467495"),
+    fetch("football-catalog.json?v=8d1f1bfe1aa0"),
+    readPortraits("club-badges.json?v=8d1f1bfe1aa0"),
   ]);
   for (const [id, path] of Object.entries(badges)) {
     const source = crestSource(path);
@@ -1460,6 +1496,16 @@ try {
   renderInterests();
   renderAlerts();
   matchday.setActive(view === "matchday" || view === "home");
+  const matchId = new URLSearchParams(location.search).get("match");
+  if (view === "matches" && requestedCompetition === league.id && /^\d{1,12}$/.test(matchId || "")) {
+    const requestedLeague = league.id;
+    void cachedMatchData(requestedLeague + "/summary?event=" + matchId).then(({ header }) => {
+      const match = competition(header);
+      if (match && league.id === requestedLeague && view === "matches" && !$("detail-dialog").open) {
+        openMatch({ ...header, date: match.date }, requestedLeague);
+      }
+    }).catch(() => { toast("This match could not be loaded."); });
+  }
   await loadData();
   checkNews();
   setInterval(() => {
@@ -1485,7 +1531,7 @@ function showAccountLink(signedIn) {
 
 async function startAccount() {
   try {
-    const { createAuthClient } = await import("./auth-client.js?v=3811e7467495");
+    const { createAuthClient } = await import("./auth-client.js?v=8d1f1bfe1aa0");
     const client = await createAuthClient();
     let authRevision = 0;
     const verify = async () => {

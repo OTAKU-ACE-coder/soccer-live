@@ -1,4 +1,4 @@
-import { normalize } from "./football-format.js?v=3811e7467495";
+import { normalize } from "./football-format.js?v=8d1f1bfe1aa0";
 
 export function portraitSource(value) {
   if (typeof value !== "string") return "";
@@ -9,7 +9,11 @@ export function portraitCandidates(player, index = {}) {
   const names = [player.fullName, player.displayName, [player.firstName, player.lastName].filter(Boolean).join(" ")].filter(Boolean);
   // Name-based images require a full name. Short names use the identity-checked ID cache.
   const keys = [...new Set(names.filter(name => name.trim().split(/\s+/).length > 1)
-    .map(name => normalize(name).replace(/[^a-z0-9]/g, "")))];
+    .flatMap(name => {
+      const normalized = normalize(name);
+      const folded = normalized.replaceAll("ø", "o").replaceAll("æ", "ae").replaceAll("œ", "oe").replaceAll("ł", "l").replaceAll("ß", "ss");
+      return [folded, normalized].map(value => value.replace(/[^a-z0-9]/g, ""));
+    }))];
   const local = portraitSource(index.local?.[String(player.id)]);
   const code = keys.map(key => index.league?.[key]).find(value => /^\d+$/.test(value || ""));
   return [...new Set([
