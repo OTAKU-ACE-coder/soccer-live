@@ -1,4 +1,4 @@
-import { normalize } from "./football-format.js?v=a598a1038fbb";
+import { normalize } from "./football-format.js?v=41cba32a9f28";
 
 export function portraitSource(value) {
   if (typeof value !== "string") return "";
@@ -14,15 +14,25 @@ export function portraitCandidates(player, index = {}) {
       const folded = normalized.replaceAll("ø", "o").replaceAll("æ", "ae").replaceAll("œ", "oe").replaceAll("ł", "l").replaceAll("ß", "ss");
       return [folded, normalized].map(value => value.replace(/[^a-z0-9]/g, ""));
     }))];
+  const primary = portraitSource(index.current?.[String(player.id)]) || keys.map(key => portraitSource(index.current?.[key])).find(Boolean);
+  const uefa = index.uefa?.[String(player.id)];
+  const season = new Date();
+  const endYear = season.getUTCFullYear() + Number(season.getUTCMonth() >= 6);
+  const uefaRoot = "https://img.uefa.com/imgml/TP/players/";
+  const uefaSources = /^\d{1,9}$/.test(uefa || "") ? [
+    uefaRoot + "1/" + endYear + "/324x324/" + uefa + ".jpg",
+    uefaRoot + "2014/" + (endYear % 2 ? endYear : endYear + 1) + "/324x324/" + uefa + ".jpg",
+  ] : [];
   const local = portraitSource(index.local?.[String(player.id)]);
   const code = keys.map(key => index.league?.[key]).find(value => /^\d+$/.test(value || ""));
   return [...new Set([
-    portraitSource(index.current?.[String(player.id)]),
-    ...keys.map(key => portraitSource(index.current?.[key])),
+    primary,
+    portraitSource(index.backups?.[primary]),
     ...keys.map(key => portraitSource(index.clubs?.[key])),
     code ? "https://resources.premierleague.com/premierleague/photos/players/250x250/p" + code + ".png" : "",
     local,
     portraitSource(player.headshot?.href || player.headshot?.url),
     /^\d{1,12}$/.test(player.id || "") ? "https://a.espncdn.com/i/headshots/soccer/players/full/" + player.id + ".png" : "",
+    ...uefaSources,
   ].filter(Boolean))];
 }

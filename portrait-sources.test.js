@@ -28,3 +28,17 @@ test("accented squad names resolve to the stored portrait", () => {
   const photo = "assets/players/current/head.jpg";
   assert.equal(portraitCandidates({displayName:"Joakim Mæhle"}, {current:{joakimmaehle:photo}})[0], photo);
 });
+
+test("an official photo has a dedicated backup ahead of generic providers", () => {
+  const official = "https://league.example/player.png";
+  const backup = "assets/players/current/fallback.webp";
+  const index = {current:{"12":official}, backups:{[official]:backup}};
+  assert.deepEqual(portraitCandidates({id:"12",displayName:"Test Player"}, index).slice(0,2), [official, backup]);
+});
+
+test("additional UEFA photos use the exact player ID across club and national teams", () => {
+  const directory = {uefa:{"14":"123459"}};
+  const urls = portraitCandidates({id:"14",displayName:"A Player"}, directory);
+  assert.ok(urls.some(url=>/\/2014\/\d{4}\/324x324\/123459\.jpg$/.test(url)));
+  assert.ok(!portraitCandidates({id:"15",displayName:"A Player"}, directory).some(url=>url.includes("123459")));
+});

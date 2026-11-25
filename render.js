@@ -1,4 +1,4 @@
-import { additionalClubBadges } from "./football-media.js?v=a598a1038fbb";
+import { additionalClubBadges } from "./football-media.js?v=41cba32a9f28";
 
 export function node(tag, text, className) {
   const result = document.createElement(tag);

@@ -1,4 +1,4 @@
-import { createAuthClient, pageUrl, showMessage } from './auth-client.js?v=a598a1038fbb';
+import { createAuthClient, pageUrl, showMessage } from './auth-client.js?v=41cba32a9f28';
 
 const form = document.getElementById('auth-form');
 const fullName = document.getElementById('full-name');
@@ -55,7 +55,12 @@ form.addEventListener('submit', async event => {
     }
     confirm.setCustomValidity(!confirm.disabled && password.value !== confirm.value ? 'Passwords must match.' : '');
     fullName.setCustomValidity(mode === 'register' && !fullName.value.trim() ? 'Enter your full name.' : '');
-    if (!ready || !form.reportValidity()) return;
+    if (!ready) return;
+    if (!form.reportValidity()) {
+        const invalid = [fullName, email, password, confirm].find(field => !field.disabled && field.validity?.valid === false);
+        showMessage(invalid?.validationMessage || 'Check the highlighted field and try again.', true);
+        return;
+    }
     busy = true;
     submit.disabled = true;
     showMessage('Please wait…');

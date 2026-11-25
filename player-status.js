@@ -41,7 +41,8 @@ export function playerStatus(player, now = Date.now()) {
 
   const injuries = Array.isArray(player.injuries) ? player.injuries : [];
   const injury = injuries.find(item => {
-    const status = text(item.status?.name || item.status).toLowerCase();
+    if (!item || typeof item !== "object") return false;
+    const status = text(item.status?.name || item.status?.description || item.status).toLowerCase();
     const date = Date.parse(item.date || item.updated || "");
     return !/resolved|recovered|cleared/.test(status) && (!Number.isFinite(date) || now - date < 30 * 86400000);
   });
