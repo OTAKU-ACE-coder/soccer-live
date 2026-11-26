@@ -1,4 +1,4 @@
-import { validateFeed } from "./feed-format.js?v=b75fb287fb2d";
+import { validateFeed } from "./feed-format.js?v=ee96f917beb9";
 
 const provider = {
   scores: "https://site.api.espn.com/apis/site/v2/sports/soccer/",
@@ -41,9 +41,18 @@ export function getPlayerProfile(id, signal) {
   return lookup("player", new URLSearchParams({ id }), "/apis/common/v3/sports/soccer/all/athletes/" + encodeURIComponent(id), signal);
 }
 
-export async function fetchJson(url, signal, feed = new URL(url).pathname.split("/").pop()) {
+export async function fetchLiveScore(path, signal) {
+  try {
+    return await fetchJson(provider.scores + path, signal, undefined, "no-store");
+  } catch (error) {
+    if (signal?.aborted || API === provider.scores) throw error;
+    return fetchJson(API + path, signal);
+  }
+}
+
+export async function fetchJson(url, signal, feed = new URL(url).pathname.split("/").pop(), cache = "default") {
   const timeout = AbortSignal.timeout(12000);
-  const response = await fetch(url, { signal: signal ? AbortSignal.any([signal, timeout]) : timeout });
+  const response = await fetch(url, { cache, signal: signal ? AbortSignal.any([signal, timeout]) : timeout });
   if (response.status === 502 && response.headers.get("x-soccer-feed-error") === "format") {
     return validateFeed(feed, null);
   }

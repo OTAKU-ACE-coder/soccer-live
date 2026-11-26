@@ -1,23 +1,23 @@
-import { lineupRows } from "./lineup-layout.js?v=b75fb287fb2d";
-import { additionalPortraits } from "./football-media.js?v=b75fb287fb2d";
-import { portraitCandidates } from "./portrait-sources.js?v=b75fb287fb2d";
-import { playerStatus } from "./player-status.js?v=b75fb287fb2d";
-import { competitionMark } from "./competition-marks.js?v=b75fb287fb2d";
-import { buildReports, editorialStories } from "./newsroom.js?v=b75fb287fb2d";
-import { collectAlerts, followsInterest } from "./news-alerts.js?v=b75fb287fb2d";
-import { upcomingFixtures } from "./match-data.js?v=b75fb287fb2d";
-import { getTheme, getThemeColors, setTheme, setThemeColors } from "./theme.js?v=b75fb287fb2d";
-import { directoryResults, profileFacts } from "./football-directory.js?v=b75fb287fb2d";
-import { API, TABLE_API, fetchJson, getPlayerProfile, searchFootball } from "./api.js?v=b75fb287fb2d";
-import { FeedFormatError } from "./feed-format.js?v=b75fb287fb2d";
-import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=b75fb287fb2d";
-import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=b75fb287fb2d";
-import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=b75fb287fb2d";
-import { createStandings, entriesOf, hasStandings } from "./standings.js?v=b75fb287fb2d";
-import { createAlerts } from "./alerts.js?v=b75fb287fb2d";
-import { createMatchday } from "./matchday.js?v=b75fb287fb2d";
-import { fixtureCalendar } from "./matchday-data.js?v=b75fb287fb2d";
-import { createPreferenceSync } from "./preference-sync.js?v=b75fb287fb2d";
+import { lineupRows } from "./lineup-layout.js?v=ee96f917beb9";
+import { additionalPortraits } from "./football-media.js?v=ee96f917beb9";
+import { portraitCandidates } from "./portrait-sources.js?v=ee96f917beb9";
+import { playerStatus } from "./player-status.js?v=ee96f917beb9";
+import { competitionMark } from "./competition-marks.js?v=ee96f917beb9";
+import { buildReports, editorialStories } from "./newsroom.js?v=ee96f917beb9";
+import { collectAlerts, followsInterest } from "./news-alerts.js?v=ee96f917beb9";
+import { upcomingFixtures } from "./match-data.js?v=ee96f917beb9";
+import { getTheme, getThemeColors, setTheme, setThemeColors } from "./theme.js?v=ee96f917beb9";
+import { directoryResults, profileFacts } from "./football-directory.js?v=ee96f917beb9";
+import { API, TABLE_API, fetchJson, fetchLiveScore, getPlayerProfile, searchFootball } from "./api.js?v=ee96f917beb9";
+import { FeedFormatError } from "./feed-format.js?v=ee96f917beb9";
+import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=ee96f917beb9";
+import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=ee96f917beb9";
+import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=ee96f917beb9";
+import { createStandings, entriesOf, hasStandings } from "./standings.js?v=ee96f917beb9";
+import { createAlerts } from "./alerts.js?v=ee96f917beb9";
+import { createMatchday } from "./matchday.js?v=ee96f917beb9";
+import { fixtureCalendar } from "./matchday-data.js?v=ee96f917beb9";
+import { createPreferenceSync } from "./preference-sync.js?v=ee96f917beb9";
 
 const $ = (id) => document.getElementById(id);
 const routes = ["home", "matches", "matchday", "news", "standings", "clubs", "saved", "alerts", "settings"];
@@ -59,6 +59,7 @@ let clubPageTeam;
 let clubPageKey = "";
 let tableRefresh;
 let scoreRefresh;
+let watchedMatch;
 let lookupController;
 let directoryClubs = [];
 let directoryState = "";
@@ -629,6 +630,8 @@ function renderSaved() {
     );
 }
 function showDialog(content, focus = true) {
+  watchedMatch?.request?.abort();
+  watchedMatch = undefined;
   if (!$("detail-dialog").open) dialogOpener = document.activeElement;
   $("detail-content").replaceChildren(content);
   if (!$("detail-dialog").open) $("detail-dialog").showModal();
@@ -655,6 +658,8 @@ function openMatch(event, competitionId = league.id) {
     ),
   );
   const scoreboard = node("div", undefined, "dialog-teams");
+  scoreboard.setAttribute("aria-live", "polite");
+  const matchStatus = node("p", status?.displayClock && status.type?.state === "in" ? status.displayClock + " · " + (status.type?.shortDetail || "Live") : status?.type?.description || "Status unavailable", "dialog-meta");
   teams.forEach((team, index) => {
     if (index === 1)
       scoreboard.append(
@@ -672,7 +677,7 @@ function openMatch(event, competitionId = league.id) {
   });
   content.append(
     scoreboard,
-    node("p", status?.type?.description || "Status unavailable", "dialog-meta"),
+    matchStatus,
   );
   if (data?.venue?.fullName)
     content.append(node("p", data.venue.fullName, "dialog-meta"));
@@ -689,6 +694,28 @@ function openMatch(event, competitionId = league.id) {
     });
     content.append(button);
   }
+  const controls = node("div", undefined, "match-live-controls");
+  const link = node("a", "Share match link", "section-link");
+  const url = new URL("football.html", location.href);
+  url.search = new URLSearchParams({ competition: competitionId, match: event.id });
+  url.hash = "matches";
+  link.href = url.href;
+  link.addEventListener("click", async click => {
+    if (!navigator.clipboard || click.ctrlKey || click.metaKey || click.shiftKey || click.altKey) return;
+    click.preventDefault();
+    try {
+      await navigator.clipboard.writeText(url.href);
+      toast("Match link copied.");
+    } catch { location.href = url.href; }
+  });
+  const updated = node("p", "", "subtle");
+  controls.append(link, updated);
+  content.append(controls);
+  const moments = node("ul", undefined, "match-moments");
+  const highlights = node("details", undefined, "match-extra");
+  highlights.append(node("summary", "Key match events"), moments);
+  highlights.hidden = true;
+  content.append(highlights);
   addLineupSection(content, event, competitionId);
   content.append(node("h3", "Match statistics", "dialog-subheading"));
   let hasStats = false;
@@ -718,6 +745,40 @@ function openMatch(event, competitionId = league.id) {
       node("p", "Statistics are not available for this match yet.", "subtle"),
     );
   showDialog(content);
+  watchedMatch = { path: competitionId + "/summary?event=" + encodeURIComponent(event.id),
+    kickoff: Date.parse(event.date), score: scoreboard.querySelector(".dialog-score"), matchStatus, updated, highlights, moments };
+  void refreshWatchedMatch();
+}
+
+async function refreshWatchedMatch() {
+  const match = watchedMatch;
+  if (!match || match.finished || match.request || document.hidden || !$("detail-dialog").open) return;
+  if (match.checked && match.kickoff > Date.now() + 300000) return;
+  const request = match.request = new AbortController();
+  try {
+    const data = await fetchLiveScore(match.path, request.signal);
+    if (watchedMatch !== match) return;
+    const status = competition(data.header)?.status;
+    const teams = opponents(data.header);
+    const score = status?.type?.state === "pre" ? "VS" : teams.map(team => team.score ?? "–").join(" : ");
+    if (match.score && teams.length === 2 && score && score !== match.score.textContent) match.score.textContent = score;
+    if (status?.type) match.matchStatus.textContent = status.type.shortDetail || status.displayClock || status.type.description || "Status unavailable";
+    const plays = (Array.isArray(data.keyEvents) ? data.keyEvents : [])
+      .filter(play => play?.text || play?.shortText)
+      .map(play => [play.clock?.displayValue, play.text || play.shortText].filter(Boolean).join(" · "));
+    if (JSON.stringify(plays) !== match.lastPlays) {
+      match.lastPlays = JSON.stringify(plays);
+      match.moments.replaceChildren(...plays.map(play => node("li", play)));
+      match.highlights.hidden = !plays.length;
+    }
+    match.updated.textContent = status?.type?.completed ? "Final score" : "Checked " + new Date().toLocaleTimeString();
+    match.checked = true;
+    match.finished = Boolean(status?.type?.completed);
+  } catch {
+    if (watchedMatch === match && !request.signal.aborted) match.updated.textContent = "Update delayed · showing the last received score";
+  } finally {
+    match.request = undefined;
+  }
 }
 function clubCompetition(team) {
   return team.competitionId || catalog.find(item => item.name === team.leagueName)?.id ||
@@ -963,14 +1024,15 @@ async function loadData() {
   renderTables();
   renderNews();
 }
-async function refreshMatches() {
+async function refreshMatches(live = false) {
   if ($("refresh").disabled || !league || document.hidden || scoreRefresh === generation) return;
   const token = generation;
   scoreRefresh = token;
   try {
     const suffix = date ? "?dates=" + date.replaceAll("-", "") : "";
     const data = date === "upcoming" ? await loadUpcoming(league.id, controller.signal) :
-      await fetchJson(API + league.id + "/scoreboard" + suffix, controller.signal);
+      await (live ? fetchLiveScore(league.id + "/scoreboard" + suffix, controller.signal) :
+        fetchJson(API + league.id + "/scoreboard" + suffix, controller.signal));
     if (token !== generation) return;
     events = (data.events || [])
       .filter((event) => opponents(event).length === 2)
@@ -1117,6 +1179,8 @@ $("app-menu").addEventListener("click", event => {
 $("app-menu").addEventListener("close", () => $("open-menu").focus({ preventScroll: true }));
 $("close-dialog").addEventListener("click", () => $("detail-dialog").close());
 $("detail-dialog").addEventListener("close", () => {
+  watchedMatch?.request?.abort();
+  watchedMatch = undefined;
   dialogOpener?.focus({ preventScroll: true });
 });
 document.addEventListener("visibilitychange", () => {
@@ -1124,6 +1188,7 @@ document.addEventListener("visibilitychange", () => {
   void checkNews();
   void refreshMatches();
   void refreshStandings();
+  void refreshWatchedMatch();
   void matchday.refresh();
   void accountSync.refresh();
 });
@@ -1304,12 +1369,12 @@ async function readPortraits(path) {
 
 function portraitIndex() {
   portraits ??= Promise.all([
-    readPortraits("player-portraits.json?v=b75fb287fb2d"),
-    readPortraits("club-player-portraits.json?v=b75fb287fb2d"),
-    readPortraits("player-local-portraits.json?v=b75fb287fb2d"),
-    readPortraits("current-player-portraits.json?v=b75fb287fb2d"),
-    readPortraits("portrait-fallbacks.json?v=b75fb287fb2d"),
-    readPortraits("uefa-player-ids.json?v=b75fb287fb2d"),
+    readPortraits("player-portraits.json?v=ee96f917beb9"),
+    readPortraits("club-player-portraits.json?v=ee96f917beb9"),
+    readPortraits("player-local-portraits.json?v=ee96f917beb9"),
+    readPortraits("current-player-portraits.json?v=ee96f917beb9"),
+    readPortraits("portrait-fallbacks.json?v=ee96f917beb9"),
+    readPortraits("uefa-player-ids.json?v=ee96f917beb9"),
   ]).then(([league, clubs, local, current, backups, uefa]) => ({ league, clubs, local, current, backups, uefa }));
   return portraits;
 }
@@ -1591,8 +1656,8 @@ syncThemeOptions();
 setRoute();
 try {
   const [response, badges] = await Promise.all([
-    fetch("football-catalog.json?v=b75fb287fb2d"),
-    readPortraits("club-badges.json?v=b75fb287fb2d"),
+    fetch("football-catalog.json?v=ee96f917beb9"),
+    readPortraits("club-badges.json?v=ee96f917beb9"),
   ]);
   for (const [id, path] of Object.entries(badges)) {
     const source = crestSource(path);
@@ -1642,8 +1707,14 @@ try {
   checkNews();
   setInterval(() => {
     if (view === "matchday") void matchday.refresh();
-    void refreshMatches();
+    if (view === "home") void matchday.refresh();
+    if (view === "matches" || view === "standings") void refreshMatches();
   }, 60000);
+  setInterval(refreshWatchedMatch, 10000);
+  setInterval(() => {
+    if (view === "matches" && events.some(event => (competition(event)?.status || event.status)?.type?.state === "in")) void refreshMatches(true);
+    void matchday.refreshLive();
+  }, 15000);
   setInterval(() => { if (!document.hidden) void accountSync.refresh(); }, 60000);
   setInterval(refreshStandings, 120000);
   setInterval(checkNews, 180000);
@@ -1664,7 +1735,7 @@ function showAccountLink(signedIn) {
 
 async function startAccount() {
   try {
-    const { createAuthClient } = await import("./auth-client.js?v=b75fb287fb2d");
+    const { createAuthClient } = await import("./auth-client.js?v=ee96f917beb9");
     const client = await createAuthClient();
     let authRevision = 0;
     const verify = async () => {

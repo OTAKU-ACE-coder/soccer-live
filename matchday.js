@@ -1,8 +1,8 @@
-import { competitionMark } from "./competition-marks.js?v=b75fb287fb2d";
-import { API, fetchJson } from "./api.js?v=b75fb287fb2d";
-import { asTeam, dateLabel, localDate } from "./football-format.js?v=b75fb287fb2d";
-import { empty, node } from "./render.js?v=b75fb287fb2d";
-import { filterMatchday, fixtureState, matchesForLocalDay, providerMatchDates } from "./matchday-data.js?v=b75fb287fb2d";
+import { competitionMark } from "./competition-marks.js?v=ee96f917beb9";
+import { API, fetchJson, fetchLiveScore } from "./api.js?v=ee96f917beb9";
+import { asTeam, dateLabel, localDate } from "./football-format.js?v=ee96f917beb9";
+import { empty, node } from "./render.js?v=ee96f917beb9";
+import { filterMatchday, fixtureState, matchesForLocalDay, providerMatchDates } from "./matchday-data.js?v=ee96f917beb9";
 
 export function createMatchday({ getCatalogue, matchRow, matchesTeam, followsTeam }) {
   const picker = document.getElementById("matchday-date");
@@ -68,22 +68,27 @@ export function createMatchday({ getCatalogue, matchRow, matchesTeam, followsTea
     }
   }
 
-  async function refresh() {
+  async function refresh(liveOnly = false) {
     if (!active || document.hidden) return;
     updateDate();
     const catalogue = getCatalogue();
     if (!selected || !catalogue.length || (request && !request.signal.aborted)) return;
+    const dates = providerDates();
+    const competitions = liveOnly === true ? catalogue.filter(item => fixturesFor(item, dates).some(event => fixtureState(event) === "live")) : catalogue;
+    if (!competitions.length) return;
     const signal = (request = new AbortController()).signal;
     refreshButton.disabled = true;
-    status.textContent = feeds.size ? "Refreshing matchday…" : "Loading fixtures across competitions…";
-    render();
+    if (liveOnly !== true) {
+      status.textContent = feeds.size ? "Refreshing matchday…" : "Loading fixtures across competitions…";
+      render();
+    }
     let failed = 0;
-    const dates = providerDates();
-    const queries = catalogue.flatMap(item => dates.map(day => ({ id: item.id, day })));
+    const queries = competitions.flatMap(item => dates.map(day => ({ id: item.id, day })));
     for (let index = 0; index < queries.length; index += 8) {
       const batch = queries.slice(index, index + 8);
       const responses = await Promise.allSettled(batch.map(item =>
-        fetchJson(API + item.id + "/scoreboard?dates=" + item.day, signal)));
+        liveOnly === true ? fetchLiveScore(item.id + "/scoreboard?dates=" + item.day, signal) :
+          fetchJson(API + item.id + "/scoreboard?dates=" + item.day, signal)));
       if (signal.aborted) return;
       responses.forEach((response, index) => {
         if (response.status === "fulfilled") feeds.set(batch[index].id + "/" + batch[index].day, response.value.events);
@@ -118,7 +123,7 @@ export function createMatchday({ getCatalogue, matchRow, matchesTeam, followsTea
   }
   refreshButton.addEventListener("click", refresh);
   return {
-    render, refresh,
+    render, refresh, refreshLive: () => refresh(true),
     setActive(next) {
       if (active === next) { if (active) render(); return; }
       active = next;
