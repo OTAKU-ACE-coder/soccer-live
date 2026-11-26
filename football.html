@@ -11,10 +11,10 @@
     <title>Soccer Live | Your football, all in one place</title>
     <link rel="icon" href="assets/trionda-mark.png" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&amp;icon_names=add,arrow_back,arrow_forward,bookmark,calendar_month,check,close,home,login,manage_search,menu,monitoring,newspaper,notifications,person,refresh,scoreboard,search,settings,sports_soccer,trophy&amp;display=block" />
-    <link rel="stylesheet" href="brand.css?v=f32d6faa25e2" />
-    <link rel="stylesheet" href="football.css?v=f32d6faa25e2" />
-    <script src="config.js?v=f32d6faa25e2"></script>
-    <script type="module" src="football.js?v=f32d6faa25e2"></script>
+    <link rel="stylesheet" href="brand.css?v=b76234c3ac2c" />
+    <link rel="stylesheet" href="football.css?v=b76234c3ac2c" />
+    <script src="config.js?v=b76234c3ac2c"></script>
+    <script type="module" src="football.js?v=b76234c3ac2c"></script>
   </head>
   <body>
     <aside class="sidebar" aria-label="App sidebar">
@@ -23,14 +23,13 @@
         <div class="nav-group">
           <p class="nav-label">FOOTBALL</p>
           <a href="#home"><span class="material-symbols-outlined" aria-hidden="true">home</span>Home</a>
-          <a href="#matchday"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>All matches</a>
-          <a href="#matches"><span class="material-symbols-outlined" aria-hidden="true">scoreboard</span>Competition scores</a>
-          <a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span>League tables</a>
+          <a href="#matchday"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>Matches</a>
+          <a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span>Standings</a>
           <a href="#news"><span class="material-symbols-outlined" aria-hidden="true">newspaper</span>News</a>
           <a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span>Clubs & teams</a>
         </div>
         <div class="nav-group">
-          <p class="nav-label">MY FOOTBALL</p>
+          <p class="nav-label">YOUR LIBRARY</p>
           <a href="#saved"><span class="material-symbols-outlined" aria-hidden="true">bookmark</span>Saved stories <small id="saved-count">0</small></a>
           <a href="#alerts"><span class="material-symbols-outlined" aria-hidden="true">notifications</span>Notifications <small id="nav-unread" hidden>0</small></a>
           <a href="#settings"><span class="material-symbols-outlined" aria-hidden="true">settings</span>Settings</a>
@@ -88,6 +87,10 @@
           <a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span><span>League tables</span><span aria-hidden="true">↗</span></a>
           <a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span><span>Clubs & teams</span><span aria-hidden="true">↗</span></a>
         </nav>
+        <nav id="match-navigation" class="match-navigation" aria-label="Match views" hidden>
+          <a href="#matchday">All matches</a>
+          <a href="#matches">By competition</a>
+        </nav>
         <label class="competition-picker" id="competition-picker"><span>Competition</span> <span id="competition-picker-mark"></span><select id="competition-select" aria-label="Competition"></select></label>
         <div
           class="league-strip"
@@ -118,7 +121,6 @@
                 aria-label="Refresh football data"
               ><span class="material-symbols-outlined" aria-hidden="true">refresh</span></button>
             </div>
-            <a class="section-link matchday-link" href="#matchday">All competitions today <span aria-hidden="true">→</span></a>
             <div class="match-toolbar">
               <div class="segmented" aria-label="Match status">
                 <button type="button" data-filter="all" aria-pressed="true">
@@ -178,7 +180,6 @@
             </div>
             <p id="matchday-status" class="data-status" role="status">Loading matchday…</p>
             <div id="matchday-results"></div>
-            <a href="#matches" class="section-link">Browse by competition <span aria-hidden="true">→</span></a>
           </section>
           <div class="home-rail" id="home-rail" hidden>
           <section class="welcome" id="welcome" aria-labelledby="welcome-title">
@@ -374,14 +375,13 @@
       <a href="#home"><span class="material-symbols-outlined" aria-hidden="true">home</span><span>Home</span></a>
       <a href="#matchday"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span><span>Matches</span></a>
       <a href="#news"><span class="material-symbols-outlined" aria-hidden="true">newspaper</span><span>News</span></a>
-      <a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span><span>Clubs</span></a>
+      <a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span><span>Tables</span></a>
       <button type="button" id="open-menu" aria-haspopup="dialog" aria-controls="app-menu"><span class="material-symbols-outlined" aria-hidden="true">menu</span><span>More</span></button>
     </nav>
     <dialog id="app-menu" aria-labelledby="app-menu-title">
-      <div class="menu-heading"><h2 id="app-menu-title">Soccer Live</h2><button type="button" id="close-menu" class="icon-button" aria-label="Close menu"><span class="material-symbols-outlined" aria-hidden="true">close</span></button></div>
+      <div class="menu-heading"><h2 id="app-menu-title">More</h2><button type="button" id="close-menu" class="icon-button" aria-label="Close menu"><span class="material-symbols-outlined" aria-hidden="true">close</span></button></div>
       <nav class="menu-links" aria-label="More pages">
-        <a href="#matches"><span class="material-symbols-outlined" aria-hidden="true">scoreboard</span>Competition scores</a>
-        <a href="#standings"><span class="material-symbols-outlined" aria-hidden="true">monitoring</span>League tables</a>
+        <a href="#clubs"><span class="material-symbols-outlined" aria-hidden="true">trophy</span>Clubs &amp; teams</a>
         <a href="#saved"><span class="material-symbols-outlined" aria-hidden="true">bookmark</span>Saved stories</a>
         <a href="#alerts"><span class="material-symbols-outlined" aria-hidden="true">notifications</span>Notifications</a>
         <a href="#settings"><span class="material-symbols-outlined" aria-hidden="true">settings</span>Settings</a>
