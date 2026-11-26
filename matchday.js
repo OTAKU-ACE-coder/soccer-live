@@ -1,8 +1,8 @@
-import { competitionMark } from "./competition-marks.js?v=ee96f917beb9";
-import { API, fetchJson, fetchLiveScore } from "./api.js?v=ee96f917beb9";
-import { asTeam, dateLabel, localDate } from "./football-format.js?v=ee96f917beb9";
-import { empty, node } from "./render.js?v=ee96f917beb9";
-import { filterMatchday, fixtureState, matchesForLocalDay, providerMatchDates } from "./matchday-data.js?v=ee96f917beb9";
+import { competitionMark } from "./competition-marks.js?v=4398c474825a";
+import { API, fetchJson, fetchLiveScore } from "./api.js?v=4398c474825a";
+import { asTeam, dateLabel, localDate } from "./football-format.js?v=4398c474825a";
+import { empty, node } from "./render.js?v=4398c474825a";
+import { filterMatchday, fixtureState, matchesForLocalDay, providerMatchDates } from "./matchday-data.js?v=4398c474825a";
 
 export function createMatchday({ getCatalogue, matchRow, matchesTeam, followsTeam }) {
   const picker = document.getElementById("matchday-date");
@@ -52,11 +52,13 @@ export function createMatchday({ getCatalogue, matchRow, matchesTeam, followsTea
       visible += events.length;
       const heading = node("h3", undefined, "match-group-heading");
       heading.append(competitionMark(item), node("span", item.name));
-      results.append(heading);
+      const group = node("section", undefined, "matchday-competition");
+      group.append(heading);
+      results.append(group);
       for (const event of events) {
         const row = matchRow(event, item.id);
         row.dataset.fixture = item.id + ":" + event.id;
-        results.append(row);
+        group.append(row);
       }
     }
     if (!visible && !refreshButton.disabled) {

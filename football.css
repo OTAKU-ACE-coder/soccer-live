@@ -1749,3 +1749,39 @@ body[data-view="home"] .news-more .story-deck { display: none; }
 .match-live-controls p { font-size:12px; }
 .match-moments { padding:0 18px 0 30px; }
 .match-moments li + li { margin-top:8px; }
+
+/* Matchday dashboard */
+.app-header { background: var(--panel); }
+.app-header h1 { font-weight: 800; letter-spacing: -.035em; }
+.main-nav a { border: 1px solid transparent; }
+.main-nav a[aria-current="page"] { box-shadow: 0 3px 8px rgb(0 0 0 / .12); }
+#welcome { border: 1px solid var(--line); box-shadow: 0 12px 32px rgb(0 0 0 / .12); }
+.home-shortcuts a { min-height: 58px; }
+#matchday .section-heading { margin-bottom: 16px; }
+#matchday-title { font-size: clamp(23px, 3vw, 30px); font-weight: 800; }
+#matchday .match-toolbar { gap: 10px; }
+#matchday-status { margin: 14px 0; font-variant-numeric: tabular-nums; }
+#matchday-results { display: grid; gap: 12px; }
+.matchday-competition { min-width: 0; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+.matchday-competition .match-group-heading {
+  display: flex; align-items: center; gap: 10px; margin: 0; padding: 10px 14px;
+  background: var(--surface-raised); color: var(--text); border-radius: 13px 13px 0 0;
+  border-bottom: 1px solid var(--line); font-weight: 800;
+}
+.matchday-competition .competition-mark { width: 25px; height: 25px; object-fit: contain; }
+.matchday-competition .match-row { border-radius: 0; }
+.matchday-competition .match-row:last-child { border-bottom: 0; border-radius: 0 0 13px 13px; }
+.match-row { grid-template-columns: minmax(52px, 64px) minmax(0, 1fr) 20px; padding: 12px; background: var(--panel); }
+.match-row:hover { background: var(--surface-raised); }
+.match-row:focus-visible { outline-offset: -4px; }
+.match-row .match-state { border-right: 1px solid var(--line); padding-right: 6px; font-variant-numeric: tabular-nums; }
+.match-row.is-live .match-state { color: var(--red); }
+.match-team { font-size: 13px; font-weight: 600; }
+.match-team > span:not(.crest-fallback) { min-width: 0; overflow-wrap: anywhere; }
+.match-team strong { min-width: 24px; padding: 0; text-align: center; font-variant-numeric: tabular-nums; }
+@media (max-width: 480px) {
+  .match-row { grid-template-columns: 48px minmax(0, 1fr) 16px; gap: 8px; padding: 10px 8px; }
+  .match-team { gap: 6px; }
+  .match-team img { flex: 0 0 21px; width: 21px; height: 21px; }
+  #matchday .date-label { flex-grow: 0; }
+}

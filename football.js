@@ -1,23 +1,23 @@
-import { lineupRows } from "./lineup-layout.js?v=ee96f917beb9";
-import { additionalPortraits } from "./football-media.js?v=ee96f917beb9";
-import { portraitCandidates } from "./portrait-sources.js?v=ee96f917beb9";
-import { playerStatus } from "./player-status.js?v=ee96f917beb9";
-import { competitionMark } from "./competition-marks.js?v=ee96f917beb9";
-import { buildReports, editorialStories } from "./newsroom.js?v=ee96f917beb9";
-import { collectAlerts, followsInterest } from "./news-alerts.js?v=ee96f917beb9";
-import { upcomingFixtures } from "./match-data.js?v=ee96f917beb9";
-import { getTheme, getThemeColors, setTheme, setThemeColors } from "./theme.js?v=ee96f917beb9";
-import { directoryResults, profileFacts } from "./football-directory.js?v=ee96f917beb9";
-import { API, TABLE_API, fetchJson, fetchLiveScore, getPlayerProfile, searchFootball } from "./api.js?v=ee96f917beb9";
-import { FeedFormatError } from "./feed-format.js?v=ee96f917beb9";
-import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=ee96f917beb9";
-import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=ee96f917beb9";
-import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=ee96f917beb9";
-import { createStandings, entriesOf, hasStandings } from "./standings.js?v=ee96f917beb9";
-import { createAlerts } from "./alerts.js?v=ee96f917beb9";
-import { createMatchday } from "./matchday.js?v=ee96f917beb9";
-import { fixtureCalendar } from "./matchday-data.js?v=ee96f917beb9";
-import { createPreferenceSync } from "./preference-sync.js?v=ee96f917beb9";
+import { lineupRows } from "./lineup-layout.js?v=4398c474825a";
+import { additionalPortraits } from "./football-media.js?v=4398c474825a";
+import { portraitCandidates } from "./portrait-sources.js?v=4398c474825a";
+import { playerStatus } from "./player-status.js?v=4398c474825a";
+import { competitionMark } from "./competition-marks.js?v=4398c474825a";
+import { buildReports, editorialStories } from "./newsroom.js?v=4398c474825a";
+import { collectAlerts, followsInterest } from "./news-alerts.js?v=4398c474825a";
+import { upcomingFixtures } from "./match-data.js?v=4398c474825a";
+import { getTheme, getThemeColors, setTheme, setThemeColors } from "./theme.js?v=4398c474825a";
+import { directoryResults, profileFacts } from "./football-directory.js?v=4398c474825a";
+import { API, TABLE_API, fetchJson, fetchLiveScore, getPlayerProfile, searchFootball } from "./api.js?v=4398c474825a";
+import { FeedFormatError } from "./feed-format.js?v=4398c474825a";
+import { aliases, asTeam, competition, contains, dateLabel, localDate, normalize, opponents, teamMatches } from "./football-format.js?v=4398c474825a";
+import { clubCrests, crest, crestSource, empty, materialIcon, node, safeUrl } from "./render.js?v=4398c474825a";
+import { matchesFollow, preferenceKey, readPreferences, savePreferences as storePreferences, updateFollowing } from "./follows.js?v=4398c474825a";
+import { createStandings, entriesOf, hasStandings } from "./standings.js?v=4398c474825a";
+import { createAlerts } from "./alerts.js?v=4398c474825a";
+import { createMatchday } from "./matchday.js?v=4398c474825a";
+import { fixtureCalendar } from "./matchday-data.js?v=4398c474825a";
+import { createPreferenceSync } from "./preference-sync.js?v=4398c474825a";
 
 const $ = (id) => document.getElementById(id);
 const routes = ["home", "matches", "matchday", "news", "standings", "clubs", "saved", "alerts", "settings"];
@@ -1369,12 +1369,12 @@ async function readPortraits(path) {
 
 function portraitIndex() {
   portraits ??= Promise.all([
-    readPortraits("player-portraits.json?v=ee96f917beb9"),
-    readPortraits("club-player-portraits.json?v=ee96f917beb9"),
-    readPortraits("player-local-portraits.json?v=ee96f917beb9"),
-    readPortraits("current-player-portraits.json?v=ee96f917beb9"),
-    readPortraits("portrait-fallbacks.json?v=ee96f917beb9"),
-    readPortraits("uefa-player-ids.json?v=ee96f917beb9"),
+    readPortraits("player-portraits.json?v=4398c474825a"),
+    readPortraits("club-player-portraits.json?v=4398c474825a"),
+    readPortraits("player-local-portraits.json?v=4398c474825a"),
+    readPortraits("current-player-portraits.json?v=4398c474825a"),
+    readPortraits("portrait-fallbacks.json?v=4398c474825a"),
+    readPortraits("uefa-player-ids.json?v=4398c474825a"),
   ]).then(([league, clubs, local, current, backups, uefa]) => ({ league, clubs, local, current, backups, uefa }));
   return portraits;
 }
@@ -1656,8 +1656,8 @@ syncThemeOptions();
 setRoute();
 try {
   const [response, badges] = await Promise.all([
-    fetch("football-catalog.json?v=ee96f917beb9"),
-    readPortraits("club-badges.json?v=ee96f917beb9"),
+    fetch("football-catalog.json?v=4398c474825a"),
+    readPortraits("club-badges.json?v=4398c474825a"),
   ]);
   for (const [id, path] of Object.entries(badges)) {
     const source = crestSource(path);
@@ -1735,7 +1735,7 @@ function showAccountLink(signedIn) {
 
 async function startAccount() {
   try {
-    const { createAuthClient } = await import("./auth-client.js?v=ee96f917beb9");
+    const { createAuthClient } = await import("./auth-client.js?v=4398c474825a");
     const client = await createAuthClient();
     let authRevision = 0;
     const verify = async () => {

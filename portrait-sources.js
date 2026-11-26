@@ -1,4 +1,4 @@
-import { normalize } from "./football-format.js?v=ee96f917beb9";
+import { normalize } from "./football-format.js?v=4398c474825a";
 
 export function portraitSource(value) {
   if (typeof value !== "string") return "";
