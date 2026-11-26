@@ -1727,3 +1727,20 @@ body[data-view="home"] .news-more .story-deck { display: none; }
   #detail-dialog:has(.lineup-field) { padding: 12px; }
   .lineup-team .bench-list { margin-bottom: 8px; }
 }
+
+#club-page { width: 100%; max-width: 1120px; margin-inline: auto; }
+.club-page-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; padding-block: 22px; }
+.club-page-heading > img, .club-page-heading > .crest-fallback { width: 72px; height: 72px; object-fit: contain; }
+.club-page-heading h2 { font-size: clamp(25px, 4vw, 40px); }
+.club-page-heading .follow-button { margin-inline-start: auto; }
+.club-page-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 145px), 1fr)); gap: 8px; margin: 0; }
+.club-page-facts > div { background: var(--surface-raised); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.club-page-facts dt { color: var(--muted); font-size: 12px; }
+.club-page-facts dd { margin: 4px 0 0; font-weight: 700; }
+.club-page-sections { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.club-page-sections > details:last-child { grid-column: 1 / -1; }
+#club-page .player-card { min-height: 58px; }
+@media (max-width: 720px) {
+  .club-page-sections { grid-template-columns: minmax(0, 1fr); }
+  .club-page-heading .follow-button { margin-inline-start: 0; }
+}
